@@ -1,0 +1,373 @@
+[
+  {
+    "id": "raja-yoga",
+    "title": "Raja Yoga",
+    "author": "Swami Vivekananda",
+    "isbn": "9780911206234",
+    "year": 1896,
+    "tags": ["spiritual", "yoga", "vivekananda"],
+    "free": {
+      "available": true,
+      "note": "Public domain. Read online or download from Project Gutenberg or Wikisource.",
+      "links": [
+        { "label": "Project Gutenberg", "url": "https://www.gutenberg.org/ebooks/13656" },
+        { "label": "Wikisource", "url": "https://en.wikisource.org/wiki/The_Complete_Works_of_Swami_Vivekananda/Volume_1/Raja-Yoga" },
+        { "label": "Open Library", "url": "https://openlibrary.org/works/OL15141254W/Raja_Yoga" }
+      ]
+    },
+    "audiobook": {
+      "librivox": { "label": "LibriVox", "url": "https://librivox.org/search?q=Raja+Yoga+Vivekananda&search_form=advanced" }
+    }
+  },
+  {
+    "id": "karma-yoga",
+    "title": "Karma Yoga",
+    "author": "Swami Vivekananda",
+    "isbn": "9780911206227",
+    "year": 1896,
+    "tags": ["spiritual", "yoga", "vivekananda"],
+    "free": {
+      "available": true,
+      "note": "Public domain. Available from Project Gutenberg and Wikisource.",
+      "links": [
+        { "label": "Project Gutenberg", "url": "https://www.gutenberg.org/ebooks/13657" },
+        { "label": "Wikisource", "url": "https://en.wikisource.org/wiki/The_Complete_Works_of_Swami_Vivekananda/Volume_1/Karma-Yoga" },
+        { "label": "Open Library", "url": "https://openlibrary.org/works/OL15141252W/Karma_Yoga" }
+      ]
+    },
+    "audiobook": {
+      "librivox": { "label": "LibriVox", "url": "https://librivox.org/search?q=Karma+Yoga+Vivekananda&search_form=advanced" }
+    }
+  },
+  {
+    "id": "jnana-yoga",
+    "title": "Jnana Yoga",
+    "author": "Swami Vivekananda",
+    "isbn": "9780911206210",
+    "year": 1899,
+    "tags": ["spiritual", "yoga", "vivekananda"],
+    "free": {
+      "available": true,
+      "note": "Public domain. Read via Wikisource or Open Library.",
+      "links": [
+        { "label": "Wikisource", "url": "https://en.wikisource.org/wiki/The_Complete_Works_of_Swami_Vivekananda/Volume_2/Jnana-Yoga" },
+        { "label": "Open Library", "url": "https://openlibrary.org/works/OL15141251W/Jnana_Yoga" },
+        { "label": "Internet Archive", "url": "https://archive.org/search?query=jnana+yoga+vivekananda" }
+      ]
+    },
+    "audiobook": {
+      "librivox": { "label": "LibriVox", "url": "https://librivox.org/search?q=Jnana+Yoga+Vivekananda&search_form=advanced" }
+    }
+  },
+  {
+    "id": "bhakti-yoga",
+    "title": "Bhakti Yoga",
+    "author": "Swami Vivekananda",
+    "isbn": "9780911206241",
+    "year": 1896,
+    "tags": ["spiritual", "yoga", "vivekananda"],
+    "free": {
+      "available": true,
+      "note": "Public domain. Available on Wikisource and Open Library.",
+      "links": [
+        { "label": "Wikisource", "url": "https://en.wikisource.org/wiki/The_Complete_Works_of_Swami_Vivekananda/Volume_3/Bhakti-Yoga" },
+        { "label": "Open Library", "url": "https://openlibrary.org/works/OL15141249W/Bhakti_Yoga" }
+      ]
+    },
+    "audiobook": {
+      "librivox": { "label": "LibriVox", "url": "https://librivox.org/search?q=Bhakti+Yoga+Vivekananda&search_form=advanced" }
+    }
+  },
+  {
+    "id": "complete-works-vol1",
+    "title": "Complete Works of Swami Vivekananda, Vol. 1",
+    "author": "Swami Vivekananda",
+    "isbn": "9788175053335",
+    "year": 1897,
+    "tags": ["spiritual", "vivekananda"],
+    "free": {
+      "available": true,
+      "note": "Public domain. Full volume on Wikisource and Internet Archive.",
+      "links": [
+        { "label": "Wikisource", "url": "https://en.wikisource.org/wiki/The_Complete_Works_of_Swami_Vivekananda/Volume_1" },
+        { "label": "Internet Archive", "url": "https://archive.org/details/completeworksofs01viveuoft" }
+      ]
+    },
+    "audiobook": {
+      "librivox": { "label": "LibriVox", "url": "https://librivox.org/search?q=Swami+Vivekananda&search_form=advanced" }
+    }
+  },
+  {
+    "id": "inspired-talks",
+    "title": "Inspired Talks",
+    "author": "Swami Vivekananda",
+    "isbn": "9780911206180",
+    "year": 1909,
+    "tags": ["spiritual", "vivekananda"],
+    "free": {
+      "available": true,
+      "note": "Public domain. Available via Wikisource.",
+      "links": [
+        { "label": "Wikisource", "url": "https://en.wikisource.org/wiki/Inspired_Talks" },
+        { "label": "Open Library", "url": "https://openlibrary.org/search?q=Inspired+Talks+Vivekananda" }
+      ]
+    },
+    "audiobook": {
+      "librivox": { "label": "LibriVox", "url": "https://librivox.org/search?q=Inspired+Talks+Vivekananda&search_form=advanced" }
+    }
+  },
+  {
+    "id": "pride-and-prejudice",
+    "title": "Pride and Prejudice",
+    "author": "Jane Austen",
+    "isbn": "9780141439518",
+    "year": 1813,
+    "tags": ["classic", "fiction"],
+    "free": {
+      "available": true,
+      "note": "Public domain classic.",
+      "links": [
+        { "label": "Project Gutenberg", "url": "https://www.gutenberg.org/ebooks/1342" },
+        { "label": "Open Library", "url": "https://openlibrary.org/works/OL66554W/Pride_and_Prejudice" }
+      ]
+    },
+    "audiobook": {
+      "librivox": { "label": "LibriVox", "url": "https://librivox.org/pride-and-prejudice-by-jane-austen/" }
+    }
+  },
+  {
+    "id": "frankenstein",
+    "title": "Frankenstein",
+    "author": "Mary Shelley",
+    "isbn": "9780141439471",
+    "year": 1818,
+    "tags": ["classic", "fiction"],
+    "free": {
+      "available": true,
+      "note": "Public domain.",
+      "links": [
+        { "label": "Project Gutenberg", "url": "https://www.gutenberg.org/ebooks/84" },
+        { "label": "Open Library", "url": "https://openlibrary.org/works/OL450063W/Frankenstein" }
+      ]
+    },
+    "audiobook": {
+      "librivox": { "label": "LibriVox", "url": "https://librivox.org/frankenstein-1818-version-by-mary-wollstonecraft-shelley/" }
+    }
+  },
+  {
+    "id": "sherlock-holmes",
+    "title": "The Adventures of Sherlock Holmes",
+    "author": "Arthur Conan Doyle",
+    "isbn": "9780140439076",
+    "year": 1892,
+    "tags": ["classic", "mystery"],
+    "free": {
+      "available": true,
+      "note": "Public domain.",
+      "links": [
+        { "label": "Project Gutenberg", "url": "https://www.gutenberg.org/ebooks/1661" },
+        { "label": "Open Library", "url": "https://openlibrary.org/works/OL262457W/The_Adventures_of_Sherlock_Holmes" }
+      ]
+    },
+    "audiobook": {
+      "librivox": { "label": "LibriVox", "url": "https://librivox.org/the-adventures-of-sherlock-holmes-by-sir-arthur-conan-doyle/" }
+    }
+  },
+  {
+    "id": "meditations",
+    "title": "Meditations",
+    "author": "Marcus Aurelius",
+    "isbn": "9780140449334",
+    "year": 180,
+    "tags": ["philosophy", "classic"],
+    "free": {
+      "available": true,
+      "note": "Public domain (older translations).",
+      "links": [
+        { "label": "Project Gutenberg", "url": "https://www.gutenberg.org/ebooks/2680" },
+        { "label": "Open Library", "url": "https://openlibrary.org/works/OL15832854W/Meditations" }
+      ]
+    },
+    "audiobook": {
+      "librivox": { "label": "LibriVox", "url": "https://librivox.org/the-meditations-of-marcus-aurelius/" }
+    }
+  },
+  {
+    "id": "bhagavad-gita",
+    "title": "The Bhagavad Gita",
+    "author": "Traditional (tr. Sir Edwin Arnold)",
+    "isbn": "9780486277820",
+    "year": 1885,
+    "tags": ["spiritual", "hinduism"],
+    "free": {
+      "available": true,
+      "note": "Arnold's public-domain translation.",
+      "links": [
+        { "label": "Project Gutenberg", "url": "https://www.gutenberg.org/ebooks/2388" },
+        { "label": "Wikisource", "url": "https://en.wikisource.org/wiki/The_Bhagavad_Gita_(Arnold_translation)" }
+      ]
+    },
+    "audiobook": {
+      "librivox": { "label": "LibriVox", "url": "https://librivox.org/search?q=Bhagavad+Gita+Arnold&search_form=advanced" }
+    }
+  },
+  {
+    "id": "walden",
+    "title": "Walden",
+    "author": "Henry David Thoreau",
+    "isbn": "9780140390445",
+    "year": 1854,
+    "tags": ["classic", "philosophy"],
+    "free": {
+      "available": true,
+      "note": "Public domain.",
+      "links": [
+        { "label": "Project Gutenberg", "url": "https://www.gutenberg.org/ebooks/205" },
+        { "label": "Open Library", "url": "https://openlibrary.org/works/OL15570W/Walden" }
+      ]
+    },
+    "audiobook": {
+      "librivox": { "label": "LibriVox", "url": "https://librivox.org/walden-by-henry-david-thoreau/" }
+    }
+  },
+  {
+    "id": "atomic-habits",
+    "title": "Atomic Habits",
+    "author": "James Clear",
+    "isbn": "9780735211292",
+    "year": 2018,
+    "tags": ["self-help", "modern"],
+    "free": {
+      "available": false,
+      "note": "Still under copyright — not available as a free legal ebook.",
+      "links": []
+    },
+    "audiobook": {}
+  },
+  {
+    "id": "educated",
+    "title": "Educated",
+    "author": "Tara Westover",
+    "isbn": "9780399590504",
+    "year": 2018,
+    "tags": ["memoir", "modern"],
+    "free": {
+      "available": false,
+      "note": "Still under copyright — not available as a free legal ebook.",
+      "links": []
+    },
+    "audiobook": {}
+  },
+  {
+    "id": "sapiens",
+    "title": "Sapiens: A Brief History of Humankind",
+    "author": "Yuval Noah Harari",
+    "isbn": "9780062316097",
+    "year": 2015,
+    "tags": ["history", "modern"],
+    "free": {
+      "available": false,
+      "note": "Still under copyright — not available as a free legal ebook.",
+      "links": []
+    },
+    "audiobook": {}
+  },
+  {
+    "id": "the-midnight-library",
+    "title": "The Midnight Library",
+    "author": "Matt Haig",
+    "isbn": "9780525559474",
+    "year": 2020,
+    "tags": ["fiction", "modern"],
+    "free": {
+      "available": false,
+      "note": "Still under copyright — not available as a free legal ebook.",
+      "links": []
+    },
+    "audiobook": {}
+  },
+  {
+    "id": "where-the-crawdads-sing",
+    "title": "Where the Crawdads Sing",
+    "author": "Delia Owens",
+    "isbn": "9780735219090",
+    "year": 2018,
+    "tags": ["fiction", "modern"],
+    "free": {
+      "available": false,
+      "note": "Still under copyright — not available as a free legal ebook.",
+      "links": []
+    },
+    "audiobook": {}
+  },
+  {
+    "id": "becoming",
+    "title": "Becoming",
+    "author": "Michelle Obama",
+    "isbn": "9781524763138",
+    "year": 2018,
+    "tags": ["memoir", "modern"],
+    "free": {
+      "available": false,
+      "note": "Still under copyright — not available as a free legal ebook.",
+      "links": []
+    },
+    "audiobook": {}
+  },
+  {
+    "id": "the-alchemist",
+    "title": "The Alchemist",
+    "author": "Paulo Coelho",
+    "isbn": "9780062315007",
+    "year": 1988,
+    "tags": ["fiction", "spiritual"],
+    "free": {
+      "available": false,
+      "note": "Still under copyright — not available as a free legal ebook.",
+      "links": []
+    },
+    "audiobook": {}
+  },
+  {
+    "id": "lessons-in-chemistry",
+    "title": "Lessons in Chemistry",
+    "author": "Bonnie Garmus",
+    "isbn": "9780385547345",
+    "year": 2022,
+    "tags": ["fiction", "modern"],
+    "free": {
+      "available": false,
+      "note": "Still under copyright — not available as a free legal ebook.",
+      "links": []
+    },
+    "audiobook": {}
+  },
+  {
+    "id": "project-hail-mary",
+    "title": "Project Hail Mary",
+    "author": "Andy Weir",
+    "isbn": "9780593135204",
+    "year": 2021,
+    "tags": ["sci-fi", "modern"],
+    "free": {
+      "available": false,
+      "note": "Still under copyright — not available as a free legal ebook.",
+      "links": []
+    },
+    "audiobook": {}
+  },
+  {
+    "id": "the-seven-husbands",
+    "title": "The Seven Husbands of Evelyn Hugo",
+    "author": "Taylor Jenkins Reid",
+    "isbn": "9781501161933",
+    "year": 2017,
+    "tags": ["fiction", "modern"],
+    "free": {
+      "available": false,
+      "note": "Still under copyright — not available as a free legal ebook.",
+      "links": []
+    },
+    "audiobook": {}
+  }
+]
