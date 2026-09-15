@@ -43,9 +43,8 @@ export default function App() {
 
       <footer className="site-footer">
         <p>Free · Borrow · Listen · Buy — legal paths only.</p>
-        <p className="muted">
-          We don’t warehouse, sell, or deliver books. Prices and availability are on each
-          retailer’s or library’s site.
+        <p className="muted footer-disclaimer">
+          Hobby project for book lovers · Not a shop · Not affiliated with retailers
         </p>
       </footer>
     </div>

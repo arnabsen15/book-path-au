@@ -4,9 +4,30 @@ export function About() {
       <h1>About Book Path AU</h1>
       <p>
         Book Path AU helps people in Australia find the best <strong>legal</strong> way to get a
-        book: Free, Borrow, Listen, or Buy. We don’t sell books, host files, or track library
-        stock in real time.
+        book: Free, Borrow, Listen, or Buy.
       </p>
+
+      <section className="legal-notice" aria-labelledby="legal-heading">
+        <h2 id="legal-heading">Legal &amp; disclaimer</h2>
+        <p>
+          Book Path AU is a personal hobby project created to help book lovers in Australia find
+          legal ways to read, borrow, listen to, or buy books. It is not a business, not a
+          bookstore, and not a commercial service. We do not sell products, take payments for
+          books, hold stock, or arrange delivery.
+        </p>
+        <p>
+          Links to Amazon, Kindle, Google Play Books, Apple Books, Booktopia, Dymocks, Readings,
+          Audible, libraries, and free public-domain sites are provided only as convenient
+          references for readers. Book Path AU is not affiliated with, endorsed by, or sponsored
+          by those organisations unless we later join an official affiliate programme and disclose
+          that.
+        </p>
+        <p>
+          Information is provided in good faith for personal, non-commercial use by book lovers.
+          We do not guarantee prices, availability, or delivery times — always check the
+          destination site. We do not host or distribute copyrighted books or audiobooks.
+        </p>
+      </section>
 
       <h2>What we stand for</h2>
       <ul>
@@ -22,8 +43,8 @@ export function About() {
         </li>
         <li>
           <strong>Retailers for buying.</strong> Outbound search links to Amazon.au, Kindle,
-          Booktopia, Dymocks, Google Play Books, Apple Books, Audible.au, and Spotify. Prices and
-          delivery live on those sites. We don’t sell or ship books.
+          Booktopia, Dymocks, Readings, Google Play Books, Apple Books, Audible.au, and Spotify.
+          Prices and delivery live on those sites.
         </li>
         <li>
           <strong>Affiliate-ready later.</strong> No affiliate tags in this MVP. If we add them,

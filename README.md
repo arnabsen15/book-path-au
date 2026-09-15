@@ -2,7 +2,7 @@
 
 **Find the best legal way to get a book in Australia — Free, Borrow, Listen, or Buy.**
 
-We don’t warehouse, sell, or deliver books. This MVP points you to legal options:
+Hobby project for book lovers — not a shop or business. We don’t warehouse, sell, or deliver books. This MVP points you to legal options:
 
 - **Free** — Project Gutenberg / Open Library / Wikisource / LibriVox when public domain
 - **Borrow** — Trove + local library tips (e.g. Wyndham / YPRL) and Libby / BorrowBox guidance
