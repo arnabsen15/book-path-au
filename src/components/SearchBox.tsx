@@ -4,9 +4,21 @@ interface SearchBoxProps {
   onSubmit?: () => void
   suggestions: string[]
   loading?: boolean
+  placeholder?: string
+  label?: string
+  inputId?: string
 }
 
-export function SearchBox({ value, onChange, onSubmit, suggestions, loading }: SearchBoxProps) {
+export function SearchBox({
+  value,
+  onChange,
+  onSubmit,
+  suggestions,
+  loading,
+  placeholder = 'Search by title, author, or ISBN…',
+  label = 'Search books',
+  inputId = 'book-search',
+}: SearchBoxProps) {
   return (
     <div className="search-box">
       <form
@@ -16,13 +28,13 @@ export function SearchBox({ value, onChange, onSubmit, suggestions, loading }: S
           onSubmit?.()
         }}
       >
-        <label htmlFor="book-search" className="sr-only">
-          Search books
+        <label htmlFor={inputId} className="sr-only">
+          {label}
         </label>
         <input
-          id="book-search"
+          id={inputId}
           type="search"
-          placeholder="Search by title, author, or ISBN…"
+          placeholder={placeholder}
           value={value}
           onChange={(e) => onChange(e.target.value)}
           autoComplete="off"

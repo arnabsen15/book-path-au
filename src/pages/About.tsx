@@ -1,88 +1,76 @@
+import { useRegion } from '../context/RegionContext'
+
 export function About() {
+  const { region } = useRegion()
+
   return (
     <article className="about">
-      <h1>About Book Path AU</h1>
+      <h1>About Path AU</h1>
       <p>
-        Book Path AU helps people in Australia find the best <strong>legal</strong> way to get a
-        book: Free, Borrow, Listen, or Buy.
+        Path AU helps people find <strong>legal</strong> ways to read or watch — Free, Borrow,
+        Stream/Listen, or Buy. Use the region selector (currently <strong>{region.name}</strong>)
+        to tailor outbound storefront links. We don’t invent live catalogues per region — only
+        search URL patterns.
       </p>
 
       <section className="legal-notice" aria-labelledby="legal-heading">
         <h2 id="legal-heading">Legal &amp; disclaimer</h2>
         <p>
-          Book Path AU is a personal hobby project created to help book lovers in Australia find
-          legal ways to read, borrow, listen to, or buy books. It is not a business, not a
-          bookstore, and not a commercial service. We do not sell products, take payments for
-          books, hold stock, or arrange delivery.
+          Path AU is a personal hobby project for book and movie lovers. It is not a shop, not a
+          cinema, and not a streaming service. We do not sell products, take payments, hold stock,
+          host films, or arrange delivery.
         </p>
         <p>
-          Links to Amazon, Kindle, Google Play Books, Apple Books, Booktopia, Dymocks, Readings,
-          Audible, libraries, and free public-domain sites are provided only as convenient
-          references for readers. Book Path AU is not affiliated with, endorsed by, or sponsored
-          by those organisations unless we later join an official affiliate programme and disclose
-          that.
+          Links to Amazon, Apple, Google, Netflix, Prime Video, JustWatch, FTA catch-up apps
+          (SBS On Demand, ABC iview, 7plus, 9Now, 10 Play), Kanopy, Beamafilm, Booktopia, Dymocks,
+          Readings, Audible, libraries, and free public-domain sites are convenient references
+          only. Path AU is not affiliated with, endorsed by, or sponsored by Netflix, Amazon,
+          Apple, Google, or any other retailer or streamer unless we later join an official
+          affiliate programme and disclose that.
         </p>
         <p>
-          Information is provided in good faith for personal, non-commercial use by book lovers.
-          We do not guarantee prices, availability, or delivery times — always check the
-          destination site. We do not host or distribute copyrighted books or audiobooks.
+          Information is provided in good faith for personal, non-commercial use. We do not
+          guarantee prices, availability, or delivery times — always check the destination site.
+          We do not host or distribute copyrighted books, audiobooks, or films. Links ≠ live
+          availability. Region only changes which search base URLs we build.
         </p>
       </section>
 
-      <h2>Indicative prices</h2>
+      <h2>Region selector</h2>
       <p>
-        Where we show dollar amounts, they are <strong>manual indicative prices in AUD</strong>,
-        not live scrapes from retailers. Someone updated them by hand (last updated date appears
-        on each book result). Editions, discounts, and stock change often — always verify the
-        price on the retailer site before you buy.
+        Choose Australia, United States, United Kingdom, New Zealand, or India. Your choice is
+        saved in localStorage. Australian free-to-air catch-up search links appear when Australia
+        is selected. {region.note}
       </p>
+
+      <h2>Books</h2>
       <p>
-        Free sources (Project Gutenberg, Wikisource, Open Library, LibriVox) and library borrow
-        paths are labelled Free or Library — we never invent a fake dollar price for those.
+        Live search uses the Open Library Search API. Seeded favourites keep indicative AUD
+        prices; live-only hits show “See store”. Free · Borrow · Listen · Buy paths only — no
+        piracy.
       </p>
-      <p className="disclaimer">
-        Indicative prices in AUD — not live. Check the store for today’s price.
+
+      <h2>Movies</h2>
+      <p>
+        Seed catalogue plus keyless Wikipedia OpenSearch (optional{' '}
+        <code>VITE_TMDB_API_KEY</code> for TMDB posters). Paths: Free · Borrow · Stream · Buy.
+        JustWatch is the primary “where to watch” aggregator. FTA catch-up links are search-only —
+        we never claim a title is on that service unless we know.
       </p>
 
       <h2>What we stand for</h2>
       <ul>
         <li>
-          <strong>No piracy.</strong> We only link to legitimate free sources (e.g. Project
-          Gutenberg, Open Library, Wikisource, LibriVox) when a work is public domain or openly
-          licensed — and we say so honestly when it isn’t.
+          <strong>No piracy.</strong> Only legitimate free / public-domain sources when known.
         </li>
         <li>
-          <strong>Libraries first.</strong> Borrowing via Trove, your local library, Libby,
-          BorrowBox, or OverDrive is often the best path. Examples like Wyndham or YPRL are
-          illustrative only.
+          <strong>Libraries &amp; FTA.</strong> Borrow and free-with-ads catch-up are first-class
+          options for Australian users.
         </li>
         <li>
-          <strong>Retailers for buying.</strong> Outbound search links to Amazon.au, Kindle,
-          Booktopia, Dymocks, Readings, Google Play Books, Apple Books, Audible.au, and Spotify.
-          Indicative AUD figures are a starting point only — final price is always on those sites.
-        </li>
-        <li>
-          <strong>Affiliate-ready later.</strong> No affiliate tags in this MVP. If we add them,
-          we’ll disclose clearly.
+          <strong>Honesty.</strong> Outbound search links are not proof of stock or rights.
         </li>
       </ul>
-
-      <h2>Live search &amp; hosting</h2>
-      <p>
-        This site is a static app hosted on GitHub Pages. Book search queries the{' '}
-        <strong>Open Library Search API</strong> from your browser (CORS-friendly). A seeded
-        catalogue of favourites still powers empty-state browsing and indicative AUD prices.
-        Live-only results do not invent prices — they show “See store”.
-      </p>
-      <p>
-        Google Books is not used: a public API key would be required for reliable quota, and we do
-        not ship invented keys.
-      </p>
-
-      <h2>Australia-focused</h2>
-      <p>
-        Links and tips favour Australian readers: Trove, AU retailers, and local library apps.
-      </p>
     </article>
   )
 }

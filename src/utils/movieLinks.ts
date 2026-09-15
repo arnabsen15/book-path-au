@@ -1,0 +1,75 @@
+import type { Movie } from '../types'
+import type { RegionConfig } from '../region'
+
+export function encodeQuery(text: string): string {
+  return encodeURIComponent(text)
+}
+
+function titleQuery(movie: Movie): string {
+  return movie.year ? `${movie.title} ${movie.year}` : movie.title
+}
+
+export function justWatchSearchUrl(movie: Movie, region: RegionConfig): string {
+  return `https://www.justwatch.com/${region.justWatch}/search?q=${encodeQuery(movie.title)}`
+}
+
+export function internetArchiveMoviesSearchUrl(movie: Movie): string {
+  return `https://archive.org/search?query=${encodeQuery(`${movie.title} AND mediatype:movies`)}`
+}
+
+export function kanopySearchUrl(movie: Movie): string {
+  return `https://www.kanopy.com/en/search?query=${encodeQuery(movie.title)}`
+}
+
+export function beamafilmSearchUrl(movie: Movie): string {
+  return `https://www.beamafilm.com/search?q=${encodeQuery(movie.title)}`
+}
+
+/** Free-to-air / free catch-up search links (AU) — do not claim availability. */
+export function sbsOnDemandSearchUrl(movie: Movie): string {
+  return `https://www.sbs.com.au/ondemand/search?q=${encodeQuery(movie.title)}`
+}
+
+export function abcIviewSearchUrl(movie: Movie): string {
+  return `https://iview.abc.net.au/search?q=${encodeQuery(movie.title)}`
+}
+
+export function sevenPlusSearchUrl(movie: Movie): string {
+  return `https://7plus.com.au/search?q=${encodeQuery(movie.title)}`
+}
+
+export function nineNowSearchUrl(movie: Movie): string {
+  return `https://www.9now.com.au/search?q=${encodeQuery(movie.title)}`
+}
+
+export function tenPlaySearchUrl(movie: Movie): string {
+  return `https://10play.com.au/search?q=${encodeQuery(movie.title)}`
+}
+
+export function primeVideoSearchUrl(movie: Movie): string {
+  return `https://www.primevideo.com/search/ref=atv_nb_sr?phrase=${encodeQuery(titleQuery(movie))}`
+}
+
+export function appleTvSearchUrl(movie: Movie, region: RegionConfig): string {
+  return `https://tv.apple.com/${region.appleTvLocale}/search?term=${encodeQuery(titleQuery(movie))}`
+}
+
+export function googlePlayMoviesSearchUrl(movie: Movie): string {
+  return `https://play.google.com/store/search?q=${encodeQuery(titleQuery(movie))}&c=movies`
+}
+
+export function youtubeMoviesSearchUrl(movie: Movie): string {
+  return `https://www.youtube.com/results?search_query=${encodeQuery(`${titleQuery(movie)} movie`)}`
+}
+
+export function netflixSearchUrl(movie: Movie): string {
+  return `https://www.netflix.com/search?q=${encodeQuery(movie.title)}`
+}
+
+export function amazonMovieSearchUrl(movie: Movie, region: RegionConfig): string {
+  return `https://${region.amazonHost}/s?k=${encodeQuery(`${titleQuery(movie)} movie`)}`
+}
+
+export function cinemaShowtimesSearchUrl(movie: Movie, region: RegionConfig): string {
+  return `https://www.google.com/search?q=${encodeQuery(`${movie.title} cinema showtimes ${region.cinemaCity}`)}`
+}

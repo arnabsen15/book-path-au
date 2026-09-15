@@ -1,24 +1,25 @@
 import { useCallback, useEffect, useMemo, useRef, useState } from 'react'
-import { searchOpenLibrary } from '../api/openLibrary'
-import { BookResult } from '../components/BookResult'
+import { hasTmdbKey, searchMoviesLive } from '../api/movieSearch'
+import { MovieResult } from '../components/MovieResult'
 import { SearchBox } from '../components/SearchBox'
-import booksData from '../data/books.json'
+import { useRegion } from '../context/RegionContext'
+import moviesData from '../data/movies.json'
 import { useDebouncedValue } from '../hooks/useDebouncedValue'
-import type { Book } from '../types'
-import { mergeSeedAndLive } from '../utils/seedMatch'
+import type { Movie } from '../types'
+import { mergeMovieSeedAndLive } from '../utils/movieSeedMatch'
 
-const seeds = (booksData as Book[]).map((b) => ({ ...b, source: 'seed' as const }))
+const seeds = (moviesData as Movie[]).map((m) => ({ ...m, source: 'seed' as const }))
 
-const SUGGESTIONS = ['Heartfulness Way', 'Daaji', 'Raja Yoga', 'Pride and Prejudice', 'Atomic Habits']
+const SUGGESTIONS = ['Hanuman Ansh', 'Mad Max', 'The Castle', 'Nosferatu', 'Oppenheimer']
 
-export function Home() {
+export function Movies() {
+  const { region } = useRegion()
   const [query, setQuery] = useState('')
-  /** When set (e.g. form submit), search immediately instead of waiting for debounce. */
   const [flushQuery, setFlushQuery] = useState<string | null>(null)
   const debouncedQuery = useDebouncedValue(query, 300)
   const activeSearch = (flushQuery !== null ? flushQuery : debouncedQuery).trim()
 
-  const [liveResults, setLiveResults] = useState<Book[]>([])
+  const [liveResults, setLiveResults] = useState<Movie[]>([])
   const [loading, setLoading] = useState(false)
   const [error, setError] = useState<string | null>(null)
   const [expandedId, setExpandedId] = useState<string | null>(null)
@@ -26,7 +27,6 @@ export function Home() {
   const abortRef = useRef<AbortController | null>(null)
   const requestIdRef = useRef(0)
 
-  // Once debounce catches up to a flushed query, drop the flush override
   useEffect(() => {
     if (flushQuery !== null && debouncedQuery.trim() === flushQuery.trim()) {
       setFlushQuery(null)
@@ -50,9 +50,9 @@ export function Home() {
     setError(null)
 
     try {
-      const books = await searchOpenLibrary(trimmed, controller.signal)
+      const movies = await searchMoviesLive(trimmed, controller.signal)
       if (reqId !== requestIdRef.current) return
-      setLiveResults(books)
+      setLiveResults(movies)
     } catch (err) {
       if ((err as Error).name === 'AbortError') return
       if (reqId !== requestIdRef.current) return
@@ -60,7 +60,7 @@ export function Home() {
       setError(
         err instanceof Error
           ? err.message
-          : 'Could not reach Open Library. Check your connection and try again.',
+          : 'Could not reach film metadata. Seed list and JustWatch links still work.',
       )
     } finally {
       if (reqId === requestIdRef.current) setLoading(false)
@@ -76,7 +76,7 @@ export function Home() {
 
   const results = useMemo(() => {
     if (!activeSearch) return seeds
-    return mergeSeedAndLive(seeds, liveResults, activeSearch)
+    return mergeMovieSeedAndLive(seeds, liveResults, activeSearch)
   }, [activeSearch, liveResults])
 
   const resultIds = useMemo(() => results.map((r) => r.id).join('|'), [results])
@@ -92,19 +92,22 @@ export function Home() {
 
   const browsingAll = activeSearch === ''
   const noMatches = !loading && activeSearch !== '' && results.length === 0 && !error
+  const metaHint = hasTmdbKey()
+    ? 'TMDB + seeds'
+    : 'Wikipedia OpenSearch + seeds (optional VITE_TMDB_API_KEY)'
 
   return (
     <div className="home">
       <section className="hero">
-        <h1>Books</h1>
+        <h1>Movies</h1>
         <p className="tagline">
-          Find legal ways to read in your region — Free · Borrow · Listen · Buy
+          Find legal ways to watch in {region.name} — Free · Borrow · Stream · Buy
         </p>
         <p className="explainer">
-          We don’t warehouse or deliver books. Search Open Library live, then compare legal Free ·
-          Borrow · Listen · Buy options. Seeded favourites keep indicative AUD prices; live-only
-          hits show “See store”. Use the region selector for local storefront links. Links ≠ live
-          availability.
+          Not a cinema or streaming service. We point you to legal paths: public-domain /
+          Internet Archive when known, library apps (Kanopy / Beamafilm), JustWatch, FTA
+          catch-up search{region.showAuFta ? ' (SBS, iview, 7plus, 9Now, 10 Play)' : ''}, and
+          buy/rent storefronts. Links ≠ live availability. {region.note}
         </p>
       </section>
 
@@ -119,11 +122,14 @@ export function Home() {
         }}
         suggestions={SUGGESTIONS}
         loading={loading}
+        placeholder="Search movies by title…"
+        label="Search movies"
+        inputId="movie-search"
       />
 
       {loading && (
         <div className="status-banner loading" role="status" aria-live="polite">
-          Searching Open Library…
+          Searching film metadata ({metaHint})…
         </div>
       )}
 
@@ -139,17 +145,17 @@ export function Home() {
       {noMatches && (
         <div className="empty-state">
           <p>No matches for “{activeSearch}”.</p>
-          <p className="muted">Try another spelling, ISBN, or a chip above.</p>
+          <p className="muted">Try another spelling or a chip above — JustWatch links still help.</p>
         </div>
       )}
 
       <div className="results">
-        {results.map((book) => (
-          <BookResult
-            key={book.id}
-            book={book}
-            expanded={expandedId === book.id}
-            onToggle={() => setExpandedId((id) => (id === book.id ? null : book.id))}
+        {results.map((movie) => (
+          <MovieResult
+            key={movie.id}
+            movie={movie}
+            expanded={expandedId === movie.id}
+            onToggle={() => setExpandedId((id) => (id === movie.id ? null : movie.id))}
           />
         ))}
       </div>
@@ -157,7 +163,7 @@ export function Home() {
       {results.length > 0 && (
         <p className="result-count">
           {browsingAll
-            ? `${results.length} seeded books — type to search Open Library`
+            ? `${results.length} seeded movies — type to search (${metaHint})`
             : `${results.length} result${results.length === 1 ? '' : 's'}${loading ? ' (updating…)' : ''}`}
         </p>
       )}

@@ -1,0 +1,287 @@
+[
+  {
+    "id": "hanuman-ansh-2026",
+    "title": "Hanuman Ansh",
+    "year": 2026,
+    "director": "",
+    "tags": ["indian", "devotional", "hanuman", "2026"],
+    "free": {
+      "available": false,
+      "note": "Not free legally. Use JustWatch / store search links — do not assume availability.",
+      "links": []
+    },
+    "wikipediaUrl": "https://en.wikipedia.org/wiki/Hanuman_Ansh"
+  },
+  {
+    "id": "nosferatu-1922",
+    "title": "Nosferatu",
+    "year": 1922,
+    "director": "F. W. Murnau",
+    "tags": ["silent", "horror", "public-domain", "classic"],
+    "free": {
+      "available": true,
+      "note": "Public-domain silent classic — legal free copies on Internet Archive.",
+      "links": [
+        {
+          "label": "Internet Archive",
+          "url": "https://archive.org/details/Nosferatu1922"
+        }
+      ]
+    }
+  },
+  {
+    "id": "metropolis-1927",
+    "title": "Metropolis",
+    "year": 1927,
+    "director": "Fritz Lang",
+    "tags": ["silent", "scifi", "public-domain", "classic"],
+    "free": {
+      "available": true,
+      "note": "Public-domain classic — check Internet Archive for legal free copies.",
+      "links": [
+        {
+          "label": "Internet Archive",
+          "url": "https://archive.org/search?query=Metropolis%201927%20AND%20mediatype%3Amovies"
+        }
+      ]
+    }
+  },
+  {
+    "id": "cabinet-caligari-1920",
+    "title": "The Cabinet of Dr. Caligari",
+    "year": 1920,
+    "director": "Robert Wiene",
+    "tags": ["silent", "horror", "public-domain", "classic"],
+    "free": {
+      "available": true,
+      "note": "Public-domain expressionist classic — legal free copies on Internet Archive.",
+      "links": [
+        {
+          "label": "Internet Archive",
+          "url": "https://archive.org/details/TheCabinetOfDrCaligari1920"
+        }
+      ]
+    }
+  },
+  {
+    "id": "night-living-dead-1968",
+    "title": "Night of the Living Dead",
+    "year": 1968,
+    "director": "George A. Romero",
+    "tags": ["horror", "public-domain", "classic"],
+    "free": {
+      "available": true,
+      "note": "Public domain in the US — legal free copies on Internet Archive.",
+      "links": [
+        {
+          "label": "Internet Archive",
+          "url": "https://archive.org/details/night_of_the_living_dead"
+        }
+      ]
+    }
+  },
+  {
+    "id": "mad-max-1979",
+    "title": "Mad Max",
+    "year": 1979,
+    "director": "George Miller",
+    "tags": ["australian", "action", "classic"],
+    "free": {
+      "available": false,
+      "note": "Not free legally. Check library streaming, FTA catch-up, or JustWatch.",
+      "links": []
+    }
+  },
+  {
+    "id": "the-castle-1997",
+    "title": "The Castle",
+    "year": 1997,
+    "director": "Rob Sitch",
+    "tags": ["australian", "comedy"],
+    "free": {
+      "available": false,
+      "note": "Not free legally. Check ABC iview / library apps / JustWatch — don’t assume it’s listed.",
+      "links": []
+    }
+  },
+  {
+    "id": "picnic-hanging-rock-1975",
+    "title": "Picnic at Hanging Rock",
+    "year": 1975,
+    "director": "Peter Weir",
+    "tags": ["australian", "drama", "classic"],
+    "free": {
+      "available": false,
+      "note": "Not free legally. Search FTA catch-up and JustWatch.",
+      "links": []
+    }
+  },
+  {
+    "id": "priscilla-1994",
+    "title": "The Adventures of Priscilla, Queen of the Desert",
+    "year": 1994,
+    "director": "Stephan Elliott",
+    "tags": ["australian", "comedy"],
+    "free": {
+      "available": false,
+      "note": "Not free legally. Search JustWatch / FTA / library streaming.",
+      "links": []
+    }
+  },
+  {
+    "id": "gallipoli-1981",
+    "title": "Gallipoli",
+    "year": 1981,
+    "director": "Peter Weir",
+    "tags": ["australian", "war", "classic"],
+    "free": {
+      "available": false,
+      "note": "Not free legally. Search FTA catch-up and JustWatch.",
+      "links": []
+    }
+  },
+  {
+    "id": "crocodile-dundee-1986",
+    "title": "Crocodile Dundee",
+    "year": 1986,
+    "director": "Peter Faiman",
+    "tags": ["australian", "comedy"],
+    "free": {
+      "available": false,
+      "note": "Not free legally. Search JustWatch / store links.",
+      "links": []
+    }
+  },
+  {
+    "id": "the-matrix-1999",
+    "title": "The Matrix",
+    "year": 1999,
+    "director": "Lana Wachowski, Lilly Wachowski",
+    "tags": ["scifi", "action", "popular"],
+    "free": {
+      "available": false,
+      "note": "Not free legally. Use JustWatch / stream / buy search links.",
+      "links": []
+    }
+  },
+  {
+    "id": "inception-2010",
+    "title": "Inception",
+    "year": 2010,
+    "director": "Christopher Nolan",
+    "tags": ["scifi", "thriller", "popular"],
+    "free": {
+      "available": false,
+      "note": "Not free legally.",
+      "links": []
+    }
+  },
+  {
+    "id": "oppenheimer-2023",
+    "title": "Oppenheimer",
+    "year": 2023,
+    "director": "Christopher Nolan",
+    "tags": ["drama", "biography", "popular"],
+    "free": {
+      "available": false,
+      "note": "Not free legally.",
+      "links": []
+    }
+  },
+  {
+    "id": "barbie-2023",
+    "title": "Barbie",
+    "year": 2023,
+    "director": "Greta Gerwig",
+    "tags": ["comedy", "popular"],
+    "free": {
+      "available": false,
+      "note": "Not free legally.",
+      "links": []
+    }
+  },
+  {
+    "id": "dune-2021",
+    "title": "Dune",
+    "year": 2021,
+    "director": "Denis Villeneuve",
+    "tags": ["scifi", "popular"],
+    "free": {
+      "available": false,
+      "note": "Not free legally.",
+      "links": []
+    }
+  },
+  {
+    "id": "eeaao-2022",
+    "title": "Everything Everywhere All at Once",
+    "year": 2022,
+    "director": "Daniel Kwan, Daniel Scheinert",
+    "tags": ["scifi", "comedy", "popular"],
+    "free": {
+      "available": false,
+      "note": "Not free legally.",
+      "links": []
+    }
+  },
+  {
+    "id": "spiderverse-2023",
+    "title": "Spider-Man: Across the Spider-Verse",
+    "year": 2023,
+    "director": "Joaquim Dos Santos, Kemp Powers, Justin K. Thompson",
+    "tags": ["animation", "superhero", "popular"],
+    "free": {
+      "available": false,
+      "note": "Not free legally.",
+      "links": []
+    }
+  },
+  {
+    "id": "top-gun-maverick-2022",
+    "title": "Top Gun: Maverick",
+    "year": 2022,
+    "director": "Joseph Kosinski",
+    "tags": ["action", "popular"],
+    "free": {
+      "available": false,
+      "note": "Not free legally.",
+      "links": []
+    }
+  },
+  {
+    "id": "avatar-2009",
+    "title": "Avatar",
+    "year": 2009,
+    "director": "James Cameron",
+    "tags": ["scifi", "popular"],
+    "free": {
+      "available": false,
+      "note": "Not free legally.",
+      "links": []
+    }
+  },
+  {
+    "id": "wicked-2024",
+    "title": "Wicked",
+    "year": 2024,
+    "director": "Jon M. Chu",
+    "tags": ["musical", "popular"],
+    "free": {
+      "available": false,
+      "note": "Not free legally.",
+      "links": []
+    }
+  },
+  {
+    "id": "rabbit-proof-fence-2002",
+    "title": "Rabbit-Proof Fence",
+    "year": 2002,
+    "director": "Phillip Noyce",
+    "tags": ["australian", "drama"],
+    "free": {
+      "available": false,
+      "note": "Not free legally. Check FTA catch-up / Kanopy / JustWatch.",
+      "links": []
+    }
+  }
+]

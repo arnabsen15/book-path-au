@@ -69,3 +69,21 @@ export function formatPricesUpdated(iso?: string): string | null {
     timeZone: 'UTC',
   })
 }
+
+export type MovieSource = 'seed' | 'wikipedia' | 'tmdb' | 'query'
+
+export interface Movie {
+  id: string
+  title: string
+  year?: number
+  director?: string
+  tags?: string[]
+  /** Legal free / public-domain sources when known */
+  free: FreePath
+  coverUrl?: string
+  source?: MovieSource
+  overview?: string
+  /** TMDB id when from TMDB */
+  tmdbId?: number
+  wikipediaUrl?: string
+}

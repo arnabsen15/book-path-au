@@ -1,33 +1,44 @@
 import { useState } from 'react'
+import { RegionSelector } from './components/RegionSelector'
+import { useRegion } from './context/RegionContext'
 import { About } from './pages/About'
 import { Home } from './pages/Home'
+import { Movies } from './pages/Movies'
 import './App.css'
 
-type Page = 'home' | 'about'
+type Page = 'books' | 'movies' | 'about'
 
 export default function App() {
-  const [page, setPage] = useState<Page>('home')
+  const [page, setPage] = useState<Page>('books')
+  const { region } = useRegion()
 
   return (
     <div className="app">
       <header className="site-header">
         <a
-          href="#home"
+          href="#books"
           className="logo"
           onClick={(e) => {
             e.preventDefault()
-            setPage('home')
+            setPage('books')
           }}
         >
-          Book Path AU
+          Path AU
         </a>
         <nav>
           <button
             type="button"
-            className={page === 'home' ? 'nav-active' : ''}
-            onClick={() => setPage('home')}
+            className={page === 'books' ? 'nav-active' : ''}
+            onClick={() => setPage('books')}
           >
-            Home
+            Books
+          </button>
+          <button
+            type="button"
+            className={page === 'movies' ? 'nav-active' : ''}
+            onClick={() => setPage('movies')}
+          >
+            Movies
           </button>
           <button
             type="button"
@@ -39,13 +50,17 @@ export default function App() {
         </nav>
       </header>
 
-      <main>{page === 'home' ? <Home /> : <About />}</main>
+      <RegionSelector />
+
+      <main>
+        {page === 'books' ? <Home /> : page === 'movies' ? <Movies /> : <About />}
+      </main>
 
       <footer className="site-footer">
-        <p>Free · Borrow · Listen · Buy — legal paths only.</p>
+        <p>Free · Borrow · Stream/Listen · Buy — legal paths only ({region.name}).</p>
         <p className="muted footer-disclaimer">
-          Hobby project for book lovers · Not a shop · Not affiliated with retailers ·
-          Indicative AUD prices are not live
+          Hobby project for book &amp; movie lovers · Not a shop · Not affiliated with retailers or
+          streamers
         </p>
       </footer>
     </div>

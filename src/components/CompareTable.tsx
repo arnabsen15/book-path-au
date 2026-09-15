@@ -1,3 +1,4 @@
+import { useRegion } from '../context/RegionContext'
 import type { Book, IndicativePrices } from '../types'
 import {
   PRICES_DISCLAIMER,
@@ -6,8 +7,10 @@ import {
 } from '../types'
 import {
   amazonAuSearchUrl,
+  amazonLabel,
   appleBooksSearchUrl,
   audibleAuSearchUrl,
+  audibleLabel,
   booktopiaSearchUrl,
   dymocksSearchUrl,
   readingsSearchUrl,
@@ -49,9 +52,11 @@ function priceCell(price: PriceDisplay): string {
 }
 
 export function CompareTable({ book }: CompareTableProps) {
+  const { region } = useRegion()
   const p = book.indicativePrices
   const updated = formatPricesUpdated(book.pricesUpdated)
   const rows: CompareRow[] = []
+  const audibleUrl = audibleAuSearchUrl(book, region)
 
   if (book.free.available) {
     for (const link of book.free.links) {
@@ -76,20 +81,22 @@ export function CompareTable({ book }: CompareTableProps) {
     })
   }
 
+  if (region.code === 'AU' || region.code === 'NZ') {
+    rows.push({
+      path: 'Borrow',
+      option: 'Trove (NLA)',
+      format: 'Print / ebook search',
+      note: 'Find libraries holding this title',
+      url: troveSearchUrl(book),
+      available: true,
+      price: { kind: 'label', text: 'Library' },
+    })
+  }
   rows.push({
     path: 'Borrow',
-    option: 'Trove (NLA)',
-    format: 'Print / ebook search',
-    note: 'Find libraries holding this title',
-    url: troveSearchUrl(book),
-    available: true,
-    price: { kind: 'label', text: 'Library' },
-  })
-  rows.push({
-    path: 'Borrow',
-    option: 'Libby / BorrowBox',
+    option: 'Open Libby / library apps',
     format: 'Ebook / audiobook',
-    note: 'Needs your library card; stock varies',
+    note: 'Opens Libby — no title deep-link; stock varies by library',
     url: libbyUrl(),
     available: true,
     price: { kind: 'label', text: 'Library' },
@@ -116,16 +123,18 @@ export function CompareTable({ book }: CompareTableProps) {
     })
   }
 
-  rows.push({
-    path: 'Listen',
-    option: 'Audible.au',
-    format: 'Audiobook',
-    note: 'Buy or membership — verify on site',
-    url: audibleAuSearchUrl(book),
-    available: true,
-    price: moneyFrom(p, 'audible'),
-    priceKey: 'audible',
-  })
+  if (audibleUrl) {
+    rows.push({
+      path: 'Listen',
+      option: audibleLabel(region),
+      format: 'Audiobook',
+      note: 'Buy or membership — verify on site',
+      url: audibleUrl,
+      available: true,
+      price: moneyFrom(p, 'audible'),
+      priceKey: 'audible',
+    })
+  }
   rows.push({
     path: 'Listen',
     option: 'Google Play Audiobooks',
@@ -147,20 +156,20 @@ export function CompareTable({ book }: CompareTableProps) {
 
   rows.push({
     path: 'Buy',
-    option: 'Amazon.au',
+    option: amazonLabel(region),
     format: 'Print / other',
-    note: 'Indicative paperback-style listing',
-    url: amazonAuSearchUrl(book),
+    note: 'Title + author search — verify listing',
+    url: amazonAuSearchUrl(book, region),
     available: true,
     price: moneyFrom(p, 'amazonAu'),
     priceKey: 'amazonAu',
   })
   rows.push({
     path: 'Buy',
-    option: 'Kindle (Amazon.au)',
+    option: 'Kindle',
     format: 'Ebook',
     note: 'Digital edition',
-    url: kindleAuSearchUrl(book),
+    url: kindleAuSearchUrl(book, region),
     available: true,
     price: moneyFrom(p, 'kindle'),
     priceKey: 'kindle',
@@ -180,46 +189,49 @@ export function CompareTable({ book }: CompareTableProps) {
     option: 'Apple Books',
     format: 'Ebook',
     note: 'Digital edition',
-    url: appleBooksSearchUrl(book),
+    url: appleBooksSearchUrl(book, region),
     available: true,
     price: moneyFrom(p, 'appleBooks'),
     priceKey: 'appleBooks',
   })
-  rows.push({
-    path: 'Buy',
-    option: 'Booktopia',
-    format: 'Print / ebook',
-    note: 'Australian retailer',
-    url: booktopiaSearchUrl(book),
-    available: true,
-    price: moneyFrom(p, 'booktopia'),
-    priceKey: 'booktopia',
-  })
-  rows.push({
-    path: 'Buy',
-    option: 'Dymocks',
-    format: 'Print',
-    note: 'Australian retailer',
-    url: dymocksSearchUrl(book),
-    available: true,
-    price: moneyFrom(p, 'dymocks'),
-    priceKey: 'dymocks',
-  })
-  rows.push({
-    path: 'Buy',
-    option: 'Readings',
-    format: 'Print / ebook',
-    note: 'Australian independent bookseller',
-    url: readingsSearchUrl(book),
-    available: true,
-    price: moneyFrom(p, 'readings'),
-    priceKey: 'readings',
-  })
+  if (region.showAuBookRetailers) {
+    rows.push({
+      path: 'Buy',
+      option: 'Booktopia',
+      format: 'Print / ebook',
+      note: 'Australian retailer',
+      url: booktopiaSearchUrl(book),
+      available: true,
+      price: moneyFrom(p, 'booktopia'),
+      priceKey: 'booktopia',
+    })
+    rows.push({
+      path: 'Buy',
+      option: 'Dymocks (Google site search)',
+      format: 'Print',
+      note: 'Store search via Google — verify on Dymocks',
+      url: dymocksSearchUrl(book),
+      available: true,
+      price: moneyFrom(p, 'dymocks'),
+      priceKey: 'dymocks',
+    })
+    rows.push({
+      path: 'Buy',
+      option: 'Readings (Google site search)',
+      format: 'Print / ebook',
+      note: 'Store search via Google — verify on Readings',
+      url: readingsSearchUrl(book),
+      available: true,
+      price: moneyFrom(p, 'readings'),
+      priceKey: 'readings',
+    })
+  }
 
   return (
     <div className="compare-section">
       <h3>Compare ways to get this book</h3>
       <p className="compare-disclaimer">{PRICES_DISCLAIMER}</p>
+      <p className="compare-disclaimer muted">{region.note} Links ≠ live availability.</p>
       {updated ? (
         <p className="prices-updated">Prices last updated: {updated}</p>
       ) : null}
