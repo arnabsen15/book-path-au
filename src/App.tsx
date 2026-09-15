@@ -62,6 +62,10 @@ export default function App() {
           Hobby project for book &amp; movie lovers · Not a shop · Not affiliated with retailers or
           streamers
         </p>
+        <p className="muted footer-disclaimer">
+          Streaming platforms, publishers &amp; partners:{' '}
+          <a href="mailto:arnabsen1@proton.me">arnabsen1@proton.me</a>
+        </p>
       </footer>
     </div>
   )

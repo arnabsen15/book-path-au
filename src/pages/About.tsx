@@ -71,6 +71,15 @@ export function About() {
           <strong>Honesty.</strong> Outbound search links are not proof of stock or rights.
         </li>
       </ul>
+
+      <h2>Partners &amp; press</h2>
+      <p>
+        Streaming platforms, publishers &amp; partners:{' '}
+        <a href="mailto:arnabsen1@proton.me">arnabsen1@proton.me</a>
+      </p>
+      <p className="muted">
+        Path AU remains a hobby project — contact does not change the disclaimer above.
+      </p>
     </article>
   )
 }
