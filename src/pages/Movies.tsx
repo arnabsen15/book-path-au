@@ -9,7 +9,7 @@ import moviesData from '../data/movies.json'
 import { getNowShowingById, type NowShowingSeed } from '../data/nowShowingLocal'
 import { useDebouncedValue } from '../hooks/useDebouncedValue'
 import type { Movie } from '../types'
-import { mergeMovieSeedAndLive } from '../utils/movieSeedMatch'
+import { refineMovieSearch } from '../utils/movieSeedMatch'
 
 const seeds = (moviesData as Movie[]).map((m) => ({ ...m, source: 'seed' as const }))
 
@@ -45,6 +45,7 @@ export function Movies() {
   const [error, setError] = useState<string | null>(null)
   const [expandedId, setExpandedId] = useState<string | null>(null)
   const [selectedLocal, setSelectedLocal] = useState<Movie | null>(null)
+  const [showBroader, setShowBroader] = useState(false)
 
   const abortRef = useRef<AbortController | null>(null)
   const requestIdRef = useRef(0)
@@ -55,6 +56,10 @@ export function Movies() {
       setFlushQuery(null)
     }
   }, [debouncedQuery, flushQuery])
+
+  useEffect(() => {
+    setShowBroader(false)
+  }, [activeSearch])
 
   const runSearch = useCallback(async (q: string) => {
     abortRef.current?.abort()
@@ -97,10 +102,27 @@ export function Movies() {
     }
   }, [activeSearch, runSearch])
 
-  const results = useMemo(() => {
-    if (!activeSearch) return []
-    return mergeMovieSeedAndLive(seeds, liveResults, activeSearch)
+  const refined = useMemo(() => {
+    if (!activeSearch) {
+      return { close: [] as Movie[], broader: [] as Movie[], wasFiltered: false, rawCount: 0 }
+    }
+    return refineMovieSearch(seeds, liveResults, activeSearch)
   }, [activeSearch, liveResults])
+
+  const browsingEmpty = activeSearch === ''
+  const noCloseButRaw =
+    !browsingEmpty && !loading && refined.close.length === 0 && refined.rawCount > 0
+  const hardEmpty =
+    !browsingEmpty && !loading && refined.rawCount === 0 && !error
+
+  const results = useMemo(() => {
+    if (browsingEmpty) return []
+    if (showBroader || noCloseButRaw) {
+      if (noCloseButRaw && !showBroader) return []
+      return refined.broader
+    }
+    return refined.close
+  }, [browsingEmpty, showBroader, noCloseButRaw, refined])
 
   const resultIds = useMemo(() => results.map((r) => r.id).join('|'), [results])
 
@@ -126,15 +148,12 @@ export function Movies() {
     return () => window.clearTimeout(t)
   }, [expandedId, selectedLocal])
 
-  const browsingEmpty = activeSearch === ''
-  const noMatches = !loading && activeSearch !== '' && results.length === 0 && !error
   const metaHint = hasTmdbKey()
     ? 'TMDB + seeds'
     : 'Wikipedia OpenSearch + seeds (optional VITE_TMDB_API_KEY)'
 
   const openLocal = (seed: NowShowingSeed) => {
     const movie = seedToMovie(seed)
-    // Enrich cover from catalogue if local seed lacks one after merge
     const ns = getNowShowingById(seed.id)
     if (ns?.coverUrl && !movie.coverUrl) movie.coverUrl = ns.coverUrl
     setSelectedLocal(movie)
@@ -212,7 +231,7 @@ export function Movies() {
         </div>
       )}
 
-      {noMatches && (
+      {hardEmpty && (
         <div className="empty-state">
           <div className="empty-icon" aria-hidden="true">
             🎬
@@ -221,6 +240,48 @@ export function Movies() {
           <p className="muted">Try Hanuman Ansh — Village Werribee + HOYTS CTAs still help.</p>
         </div>
       )}
+
+      {noCloseButRaw && !showBroader ? (
+        <div className="empty-state filter-empty">
+          <div className="empty-icon" aria-hidden="true">
+            🎬
+          </div>
+          <p>No close matches — try a fuller title</p>
+          <p className="muted">We hid weak film hits for “{activeSearch}”.</p>
+          <button type="button" className="chip" onClick={() => setShowBroader(true)}>
+            Show broader results
+          </button>
+        </div>
+      ) : null}
+
+      {!browsingEmpty && refined.wasFiltered && results.length > 0 && !showBroader ? (
+        <p className="filter-status" role="status">
+          Showing {results.length} best match{results.length === 1 ? '' : 'es'}
+        </p>
+      ) : null}
+
+      {!browsingEmpty && showBroader && refined.rawCount > 0 ? (
+        <div className="filter-status-row">
+          <p className="filter-status" role="status">
+            Showing broader results ({results.length})
+          </p>
+          <button type="button" className="chip chip-quiet" onClick={() => setShowBroader(false)}>
+            Show best matches only
+          </button>
+        </div>
+      ) : null}
+
+      {!browsingEmpty &&
+      refined.wasFiltered &&
+      refined.close.length > 0 &&
+      !showBroader &&
+      refined.broader.length > refined.close.length ? (
+        <p className="filter-toggle-wrap">
+          <button type="button" className="linkish" onClick={() => setShowBroader(true)}>
+            Show broader results
+          </button>
+        </p>
+      ) : null}
 
       {!browsingEmpty ? (
         <div className="results" ref={decisionRef}>

@@ -1,4 +1,10 @@
 import type { Book } from '../types'
+import {
+  mostlyPresent,
+  refineRankedResults,
+  significantTokens,
+  type RefinedList,
+} from './searchRefine'
 
 function norm(s: string): string {
   return s
@@ -80,6 +86,8 @@ export function relevanceScore(book: Book, query: string): number {
   if (title === qJoined) score += 1000
   else if (title.startsWith(qJoined) || qJoined.startsWith(title)) score += 800
   else if (title.includes(qJoined)) score += 600
+  // Title without leading "the "
+  else if (title.replace(/^the /, '') === qJoined || qJoined.replace(/^the /, '') === title) score += 950
 
   // All query tokens appear in the title (strong signal vs weak OL "Hungry Heart")
   const allInTitle = tokens.every((t) => title.includes(t))
@@ -115,6 +123,32 @@ export function relevanceScore(book: Book, query: string): number {
   score += Math.round(coverage * 100)
 
   return score
+}
+
+/** Minimum score to keep after ranking (weak OL noise falls below this). */
+export const MIN_BOOK_RELEVANCE = 180
+
+/**
+ * Close match: query tokens mostly in title, or (for books) author.
+ * Catalogue seeds may also satisfy via tags. Live OL must clear title/author + min score.
+ */
+export function isCloseBookMatch(book: Book, query: string): boolean {
+  const tokens = significantTokens(query)
+  if (tokens.length === 0) return true
+
+  const titleOk = mostlyPresent(tokens, book.title)
+  const authorOk = mostlyPresent(tokens, book.author)
+  const combinedOk = mostlyPresent(tokens, book.title, book.author)
+
+  if (book.source === 'seed') {
+    const tagsOk = mostlyPresent(tokens, book.title, book.author, ...(book.tags ?? []))
+    if (!(titleOk || authorOk || tagsOk)) return false
+    return relevanceScore(book, query) >= MIN_BOOK_RELEVANCE - 50
+  }
+
+  // Live Open Library: require title or author coverage + score floor
+  if (!(titleOk || authorOk || combinedOk)) return false
+  return relevanceScore(book, query) >= MIN_BOOK_RELEVANCE
 }
 
 export function rankByRelevance(books: Book[], query: string): Book[] {
@@ -169,4 +203,18 @@ export function mergeSeedAndLive(seeds: Book[], live: Book[], query: string): Bo
   }
 
   return q ? rankByRelevance(result, q) : result
+}
+
+/** Ranked merge + noise filter / dedupe / cap for search UI. */
+export function refineBookSearch(
+  seeds: Book[],
+  live: Book[],
+  query: string,
+): RefinedList<Book> {
+  const ranked = mergeSeedAndLive(seeds, live, query)
+  const q = query.trim()
+  if (!q) {
+    return { close: ranked, broader: ranked, wasFiltered: false, rawCount: ranked.length }
+  }
+  return refineRankedResults(ranked, (book) => isCloseBookMatch(book, q))
 }

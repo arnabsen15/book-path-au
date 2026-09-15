@@ -413,6 +413,61 @@ main {
   margin-top: 1.25rem;
 }
 
+.filter-status {
+  text-align: center;
+  color: var(--text-muted);
+  font-size: 0.88rem;
+  margin: 0.35rem 0 0.75rem;
+}
+
+.filter-status-row {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem 0.75rem;
+  margin: 0.25rem 0 0.75rem;
+}
+
+.filter-status-row .filter-status {
+  margin: 0;
+}
+
+.filter-toggle-wrap {
+  text-align: center;
+  margin: 0 0 0.75rem;
+}
+
+button.linkish {
+  background: none;
+  border: none;
+  padding: 0;
+  color: var(--accent);
+  font: inherit;
+  font-size: 0.88rem;
+  text-decoration: underline;
+  text-underline-offset: 2px;
+  cursor: pointer;
+}
+
+button.linkish:hover {
+  color: var(--accent-strong, var(--accent));
+}
+
+.chip-quiet {
+  background: transparent;
+  border-color: var(--border-strong);
+}
+
+.filter-empty .chip {
+  margin-top: 0.5rem;
+}
+
+.muted {
+  color: var(--text-muted);
+  font-size: 0.92rem;
+}
+
 /* ——— Result cards ——— */
 .results {
   display: flex;

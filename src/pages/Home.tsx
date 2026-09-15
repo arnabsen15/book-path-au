@@ -7,7 +7,7 @@ import booksData from '../data/books.json'
 import { useRegion } from '../context/RegionContext'
 import { useDebouncedValue } from '../hooks/useDebouncedValue'
 import type { Book } from '../types'
-import { mergeSeedAndLive } from '../utils/seedMatch'
+import { refineBookSearch } from '../utils/seedMatch'
 
 const seeds = (booksData as Book[]).map((b) => ({ ...b, source: 'seed' as const }))
 
@@ -49,6 +49,7 @@ export function Home() {
   const [loading, setLoading] = useState(false)
   const [error, setError] = useState<string | null>(null)
   const [expandedId, setExpandedId] = useState<string | null>(null)
+  const [showBroader, setShowBroader] = useState(false)
 
   const abortRef = useRef<AbortController | null>(null)
   const requestIdRef = useRef(0)
@@ -58,6 +59,10 @@ export function Home() {
       setFlushQuery(null)
     }
   }, [debouncedQuery, flushQuery])
+
+  useEffect(() => {
+    setShowBroader(false)
+  }, [activeSearch])
 
   const runSearch = useCallback(async (q: string) => {
     abortRef.current?.abort()
@@ -102,10 +107,34 @@ export function Home() {
 
   const popular = useMemo(() => resolvePopular(), [])
 
-  const results = useMemo(() => {
-    if (!activeSearch) return popular
-    return mergeSeedAndLive(seeds, liveResults, activeSearch)
+  const refined = useMemo(() => {
+    if (!activeSearch) {
+      return {
+        close: popular,
+        broader: popular,
+        wasFiltered: false,
+        rawCount: popular.length,
+      }
+    }
+    return refineBookSearch(seeds, liveResults, activeSearch)
   }, [activeSearch, liveResults, popular])
+
+  const browsingEmpty = activeSearch === ''
+  const noCloseButRaw =
+    !browsingEmpty && !loading && refined.close.length === 0 && refined.rawCount > 0
+  const hardEmpty =
+    !browsingEmpty && !loading && refined.rawCount === 0 && !error
+
+  const results = useMemo(() => {
+    if (browsingEmpty) return popular
+    if (showBroader || noCloseButRaw) {
+      // When zero close matches, broader is the only useful list once toggled;
+      // default view still shows the empty/close-matches message until toggled.
+      if (noCloseButRaw && !showBroader) return []
+      return refined.broader
+    }
+    return refined.close
+  }, [browsingEmpty, popular, showBroader, noCloseButRaw, refined])
 
   const resultIds = useMemo(() => results.map((r) => r.id).join('|'), [results])
 
@@ -117,9 +146,6 @@ export function Home() {
     }
     setExpandedId((current) => (current && ids.includes(current) ? current : null))
   }, [resultIds])
-
-  const browsingEmpty = activeSearch === ''
-  const noMatches = !loading && activeSearch !== '' && results.length === 0 && !error
 
   return (
     <div className="home">
@@ -166,7 +192,7 @@ export function Home() {
         </div>
       )}
 
-      {noMatches && (
+      {hardEmpty && (
         <div className="empty-state">
           <div className="empty-icon" aria-hidden="true">
             📖
@@ -175,6 +201,52 @@ export function Home() {
           <p className="muted">Try Atomic Habits or another spelling / ISBN.</p>
         </div>
       )}
+
+      {noCloseButRaw && !showBroader ? (
+        <div className="empty-state filter-empty">
+          <div className="empty-icon" aria-hidden="true">
+            📖
+          </div>
+          <p>No close matches — try a fuller title</p>
+          <p className="muted">We hid weak Open Library hits for “{activeSearch}”.</p>
+          <button
+            type="button"
+            className="chip"
+            onClick={() => setShowBroader(true)}
+          >
+            Show broader results
+          </button>
+        </div>
+      ) : null}
+
+      {!browsingEmpty && refined.wasFiltered && results.length > 0 && !showBroader ? (
+        <p className="filter-status" role="status">
+          Showing {results.length} best match{results.length === 1 ? '' : 'es'}
+        </p>
+      ) : null}
+
+      {!browsingEmpty && showBroader && refined.rawCount > 0 ? (
+        <div className="filter-status-row">
+          <p className="filter-status" role="status">
+            Showing broader results ({results.length})
+          </p>
+          <button type="button" className="chip chip-quiet" onClick={() => setShowBroader(false)}>
+            Show best matches only
+          </button>
+        </div>
+      ) : null}
+
+      {!browsingEmpty &&
+      refined.wasFiltered &&
+      refined.close.length > 0 &&
+      !showBroader &&
+      refined.broader.length > refined.close.length ? (
+        <p className="filter-toggle-wrap">
+          <button type="button" className="linkish" onClick={() => setShowBroader(true)}>
+            Show broader results
+          </button>
+        </p>
+      ) : null}
 
       <div className="results">
         {results.map((book) => (
