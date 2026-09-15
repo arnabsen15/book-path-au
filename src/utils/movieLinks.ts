@@ -114,3 +114,29 @@ export function bingeSearchUrl(movie: Movie): string {
 export function appleTvPlusSearchUrl(movie: Movie, region: RegionConfig): string {
   return `https://tv.apple.com/${region.appleTvLocale}/search?term=${encodeQuery(titleQuery(movie))}`
 }
+
+/** Google showtimes for a title near Manor Lakes / Werribee (or custom suburb). */
+export function findAllSessionsUrl(movieTitle: string, suburb?: string | null): string {
+  const place = (suburb && suburb.trim()) || 'Manor Lakes'
+  return `https://www.google.com/search?q=${encodeQuery(`${movieTitle} showtimes ${place} Werribee`)}`
+}
+
+export function villageWerribeeCinemaUrl(): string {
+  return 'https://villagecinemas.com.au/cinemas/werribee'
+}
+
+export function villageHanumanAnshUrl(): string {
+  return 'https://villagecinemas.com.au/movies/hanuman-ansh'
+}
+
+export function hoytsHanumanAnshUrl(): string {
+  return 'https://www.hoyts.com.au/movies/hanuman-ansh-hindi-eng-sub'
+}
+
+export function hoytsWatergardensUrl(): string {
+  return 'https://www.hoyts.com.au/cinemas/watergardens'
+}
+
+export function hoytsHighpointUrl(): string {
+  return 'https://www.hoyts.com.au/cinemas/highpoint'
+}

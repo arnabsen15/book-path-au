@@ -15,8 +15,8 @@ export function About() {
 
       <h2>How to use</h2>
       <p>
-        Search a title, open one result, then follow the recommended next step (JustWatch for
-        movies, Trove/Libby for books). Extra stores stay collapsed under “More…”. All outbound
+        On Movies, start with Near Manor Lakes cinema cards (or search a title). Theatrical titles
+        lead with Village / HOYTS; JustWatch is secondary. For books: Trove/Libby first. Extra stores stay collapsed under “More…”. All outbound
         buttons are search links only — we don’t track live catalogues or claim a title is listed.
       </p>
 
@@ -59,10 +59,12 @@ export function About() {
 
       <h2>Movies</h2>
       <p>
-        Seed catalogue plus keyless Wikipedia OpenSearch (optional{' '}
-        <code>VITE_TMDB_API_KEY</code> for TMDB posters). Paths: Free · Borrow · Stream · Buy.
-        JustWatch is the primary “where to watch” aggregator. FTA catch-up links are search-only —
-        we never claim a title is on that service unless we know.
+        Local-first for Manor Lakes / Werribee: curated <strong>now showing</strong> seeds (Village
+        Werribee, HOYTS Watergardens / Highpoint) with real cinema deep links. Theatrical titles put
+        cinema CTAs first; JustWatch is secondary (“Also stream / rent”). Seed catalogue plus
+        Wikipedia OpenSearch (optional <code>VITE_TMDB_API_KEY</code>). FTA / stream / buy links are
+        search-only — we never claim live availability. Indicative session times are labelled and
+        always need a cinema check.
       </p>
 
       <h2>What we stand for</h2>

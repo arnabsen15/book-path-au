@@ -20,11 +20,11 @@ https://arnabsen15.github.io/path-au/
 - Readings / Dymocks: Google `site:` search fallbacks (their own search endpoints are unreliable)
 
 ### Movies
-- Seed catalogue (~22 titles including **Hanuman Ansh (2026)**) + Wikipedia OpenSearch
-- Optional `VITE_TMDB_API_KEY` for TMDB posters (without it, seeds + JustWatch still work)
-- Paths: **Free · Borrow · Stream · Buy** (no piracy)
-- JustWatch as primary aggregator; FTA catch-up search links for AU (SBS / iview / 7plus / 9Now / 10 Play)
-- Library: Kanopy / Beamafilm search; cinema showtimes via Google
+- **Local-first:** “Near Manor Lakes” landing — curated now showing (emphasis **Hanuman Ansh**) with Village Werribee + HOYTS deep links
+- Cinema CTAs open real showtimes destinations (new tab); JustWatch is secondary “Also stream / rent”
+- Indicative Village Werribee times labelled “check cinema”; Google “Find all sessions” fallback
+- Seed catalogue + Wikipedia OpenSearch; optional `VITE_TMDB_API_KEY` for posters
+- FTA / library / buy search links remain (no piracy)
 
 ### Region selector
 Australia (default), United States, United Kingdom, New Zealand, India — persisted in `localStorage`. Changes Amazon / JustWatch / Apple locale bases. AU FTA links only when Australia is selected. Links ≠ live availability.

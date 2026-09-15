@@ -3,21 +3,34 @@
     "id": "hanuman-ansh-2026",
     "title": "Hanuman Ansh",
     "year": 2026,
-    "director": "",
-    "tags": ["indian", "devotional", "hanuman", "2026"],
+    "director": "Vishal Chaturvedi",
+    "tags": [
+      "indian",
+      "devotional",
+      "hanuman",
+      "2026",
+      "theatrical",
+      "now-showing"
+    ],
     "free": {
       "available": false,
-      "note": "Not free legally. Use JustWatch / store search links — do not assume availability.",
+      "note": "In cinemas (theatrical). Not free to stream legally yet — use cinema CTAs or JustWatch later.",
       "links": []
     },
-    "wikipediaUrl": "https://en.wikipedia.org/wiki/Hanuman_Ansh"
+    "wikipediaUrl": "https://en.wikipedia.org/wiki/Hanuman_Ansh",
+    "coverUrl": "https://images.ctfassets.net/0scfp84lysj4/5woX0lc0dUEfvtY6I8pKHY/5e3f874257b9c2c6c470fd4922d68b9d/2d0aqa_HANUMAN-TP_500px.jpg"
   },
   {
     "id": "nosferatu-1922",
     "title": "Nosferatu",
     "year": 1922,
     "director": "F. W. Murnau",
-    "tags": ["silent", "horror", "public-domain", "classic"],
+    "tags": [
+      "silent",
+      "horror",
+      "public-domain",
+      "classic"
+    ],
     "free": {
       "available": true,
       "note": "Public-domain silent classic — legal free copies on Internet Archive.",
@@ -34,7 +47,12 @@
     "title": "Metropolis",
     "year": 1927,
     "director": "Fritz Lang",
-    "tags": ["silent", "scifi", "public-domain", "classic"],
+    "tags": [
+      "silent",
+      "scifi",
+      "public-domain",
+      "classic"
+    ],
     "free": {
       "available": true,
       "note": "Public-domain classic — check Internet Archive for legal free copies.",
@@ -51,7 +69,12 @@
     "title": "The Cabinet of Dr. Caligari",
     "year": 1920,
     "director": "Robert Wiene",
-    "tags": ["silent", "horror", "public-domain", "classic"],
+    "tags": [
+      "silent",
+      "horror",
+      "public-domain",
+      "classic"
+    ],
     "free": {
       "available": true,
       "note": "Public-domain expressionist classic — legal free copies on Internet Archive.",
@@ -68,7 +91,11 @@
     "title": "Night of the Living Dead",
     "year": 1968,
     "director": "George A. Romero",
-    "tags": ["horror", "public-domain", "classic"],
+    "tags": [
+      "horror",
+      "public-domain",
+      "classic"
+    ],
     "free": {
       "available": true,
       "note": "Public domain in the US — legal free copies on Internet Archive.",
@@ -85,7 +112,11 @@
     "title": "Mad Max",
     "year": 1979,
     "director": "George Miller",
-    "tags": ["australian", "action", "classic"],
+    "tags": [
+      "australian",
+      "action",
+      "classic"
+    ],
     "free": {
       "available": false,
       "note": "Not free legally. Check library streaming, FTA catch-up, or JustWatch.",
@@ -97,7 +128,10 @@
     "title": "The Castle",
     "year": 1997,
     "director": "Rob Sitch",
-    "tags": ["australian", "comedy"],
+    "tags": [
+      "australian",
+      "comedy"
+    ],
     "free": {
       "available": false,
       "note": "Not free legally. Check ABC iview / library apps / JustWatch — don’t assume it’s listed.",
@@ -109,7 +143,11 @@
     "title": "Picnic at Hanging Rock",
     "year": 1975,
     "director": "Peter Weir",
-    "tags": ["australian", "drama", "classic"],
+    "tags": [
+      "australian",
+      "drama",
+      "classic"
+    ],
     "free": {
       "available": false,
       "note": "Not free legally. Search FTA catch-up and JustWatch.",
@@ -121,7 +159,10 @@
     "title": "The Adventures of Priscilla, Queen of the Desert",
     "year": 1994,
     "director": "Stephan Elliott",
-    "tags": ["australian", "comedy"],
+    "tags": [
+      "australian",
+      "comedy"
+    ],
     "free": {
       "available": false,
       "note": "Not free legally. Search JustWatch / FTA / library streaming.",
@@ -133,7 +174,11 @@
     "title": "Gallipoli",
     "year": 1981,
     "director": "Peter Weir",
-    "tags": ["australian", "war", "classic"],
+    "tags": [
+      "australian",
+      "war",
+      "classic"
+    ],
     "free": {
       "available": false,
       "note": "Not free legally. Search FTA catch-up and JustWatch.",
@@ -145,7 +190,10 @@
     "title": "Crocodile Dundee",
     "year": 1986,
     "director": "Peter Faiman",
-    "tags": ["australian", "comedy"],
+    "tags": [
+      "australian",
+      "comedy"
+    ],
     "free": {
       "available": false,
       "note": "Not free legally. Search JustWatch / store links.",
@@ -157,7 +205,11 @@
     "title": "The Matrix",
     "year": 1999,
     "director": "Lana Wachowski, Lilly Wachowski",
-    "tags": ["scifi", "action", "popular"],
+    "tags": [
+      "scifi",
+      "action",
+      "popular"
+    ],
     "free": {
       "available": false,
       "note": "Not free legally. Use JustWatch / stream / buy search links.",
@@ -169,7 +221,11 @@
     "title": "Inception",
     "year": 2010,
     "director": "Christopher Nolan",
-    "tags": ["scifi", "thriller", "popular"],
+    "tags": [
+      "scifi",
+      "thriller",
+      "popular"
+    ],
     "free": {
       "available": false,
       "note": "Not free legally.",
@@ -181,7 +237,11 @@
     "title": "Oppenheimer",
     "year": 2023,
     "director": "Christopher Nolan",
-    "tags": ["drama", "biography", "popular"],
+    "tags": [
+      "drama",
+      "biography",
+      "popular"
+    ],
     "free": {
       "available": false,
       "note": "Not free legally.",
@@ -193,7 +253,10 @@
     "title": "Barbie",
     "year": 2023,
     "director": "Greta Gerwig",
-    "tags": ["comedy", "popular"],
+    "tags": [
+      "comedy",
+      "popular"
+    ],
     "free": {
       "available": false,
       "note": "Not free legally.",
@@ -205,7 +268,10 @@
     "title": "Dune",
     "year": 2021,
     "director": "Denis Villeneuve",
-    "tags": ["scifi", "popular"],
+    "tags": [
+      "scifi",
+      "popular"
+    ],
     "free": {
       "available": false,
       "note": "Not free legally.",
@@ -217,7 +283,11 @@
     "title": "Everything Everywhere All at Once",
     "year": 2022,
     "director": "Daniel Kwan, Daniel Scheinert",
-    "tags": ["scifi", "comedy", "popular"],
+    "tags": [
+      "scifi",
+      "comedy",
+      "popular"
+    ],
     "free": {
       "available": false,
       "note": "Not free legally.",
@@ -229,7 +299,11 @@
     "title": "Spider-Man: Across the Spider-Verse",
     "year": 2023,
     "director": "Joaquim Dos Santos, Kemp Powers, Justin K. Thompson",
-    "tags": ["animation", "superhero", "popular"],
+    "tags": [
+      "animation",
+      "superhero",
+      "popular"
+    ],
     "free": {
       "available": false,
       "note": "Not free legally.",
@@ -241,7 +315,10 @@
     "title": "Top Gun: Maverick",
     "year": 2022,
     "director": "Joseph Kosinski",
-    "tags": ["action", "popular"],
+    "tags": [
+      "action",
+      "popular"
+    ],
     "free": {
       "available": false,
       "note": "Not free legally.",
@@ -253,7 +330,10 @@
     "title": "Avatar",
     "year": 2009,
     "director": "James Cameron",
-    "tags": ["scifi", "popular"],
+    "tags": [
+      "scifi",
+      "popular"
+    ],
     "free": {
       "available": false,
       "note": "Not free legally.",
@@ -265,7 +345,10 @@
     "title": "Wicked",
     "year": 2024,
     "director": "Jon M. Chu",
-    "tags": ["musical", "popular"],
+    "tags": [
+      "musical",
+      "popular"
+    ],
     "free": {
       "available": false,
       "note": "Not free legally.",
@@ -277,10 +360,78 @@
     "title": "Rabbit-Proof Fence",
     "year": 2002,
     "director": "Phillip Noyce",
-    "tags": ["australian", "drama"],
+    "tags": [
+      "australian",
+      "drama"
+    ],
     "free": {
       "available": false,
       "note": "Not free legally. Check FTA catch-up / Kanopy / JustWatch.",
+      "links": []
+    }
+  },
+  {
+    "id": "fall-2-2026",
+    "title": "Fall 2",
+    "year": 2026,
+    "tags": [
+      "theatrical",
+      "now-showing",
+      "action"
+    ],
+    "director": "",
+    "free": {
+      "available": false,
+      "note": "Theatrical / now showing — check local cinema links.",
+      "links": []
+    }
+  },
+  {
+    "id": "insidious-out-of-the-further-2026",
+    "title": "Insidious: Out of the Further",
+    "year": 2026,
+    "tags": [
+      "theatrical",
+      "now-showing",
+      "horror"
+    ],
+    "director": "",
+    "free": {
+      "available": false,
+      "note": "Theatrical / now showing — check local cinema links.",
+      "links": []
+    }
+  },
+  {
+    "id": "spider-man-brand-new-day-2026",
+    "title": "Spider-Man: Brand New Day",
+    "year": 2026,
+    "tags": [
+      "theatrical",
+      "now-showing",
+      "superhero"
+    ],
+    "director": "",
+    "free": {
+      "available": false,
+      "note": "Theatrical / now showing — check local cinema links.",
+      "links": []
+    }
+  },
+  {
+    "id": "toy-story-5-2026",
+    "title": "Toy Story 5",
+    "year": 2026,
+    "tags": [
+      "theatrical",
+      "now-showing",
+      "animation",
+      "family"
+    ],
+    "director": "",
+    "free": {
+      "available": false,
+      "note": "Theatrical / now showing — check local cinema links.",
       "links": []
     }
   }

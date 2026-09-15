@@ -1,5 +1,6 @@
 import type { ReactNode } from 'react'
 import { useRegion } from '../context/RegionContext'
+import { getNowShowingById, isTheatricalTitle } from '../data/nowShowingLocal'
 import { useSuburb } from '../hooks/useSuburb'
 import type { Movie } from '../types'
 import { amazonSearchLabel } from '../utils/links'
@@ -9,11 +10,12 @@ import {
   appleTvSearchUrl,
   beamafilmSearchUrl,
   bingeSearchUrl,
-  cinemaShowtimesSearchUrl,
   disneyPlusSearchUrl,
-  eventCinemasSearchUrl,
+  findAllSessionsUrl,
   googlePlayMoviesSearchUrl,
+  hoytsHighpointUrl,
   hoytsSearchUrl,
+  hoytsWatergardensUrl,
   internetArchiveMoviesSearchUrl,
   justWatchSearchUrl,
   kanopySearchUrl,
@@ -75,12 +77,21 @@ function MoreDetails({
 
 export function MoviePathCards({ movie }: MoviePathCardsProps) {
   const { region } = useRegion()
-  const { suburb, setSuburb, hint } = useSuburb()
-  const placeLabel = suburb.trim() || hint
+  const { suburb, setSuburb, hint, effectiveSuburb } = useSuburb()
+  const placeLabel = effectiveSuburb
   const justWatchUrl = justWatchSearchUrl(movie, region)
-  const showtimesUrl = cinemaShowtimesSearchUrl(movie, region, suburb.trim() || hint)
   const showAuStreamers = region.code === 'AU' || region.code === 'NZ'
   const showAuCinemas = region.code === 'AU'
+  const local = getNowShowingById(movie.id)
+  const theatrical = isTheatricalTitle(movie.id, movie.tags)
+
+  const villageUrl =
+    local?.cinema.villagePrimaryUrl ||
+    (showAuCinemas ? villageCinemasSearchUrl(movie) : findAllSessionsUrl(movie.title, placeLabel))
+  const hoytsUrl =
+    local?.cinema.hoytsPrimaryUrl ||
+    (showAuCinemas ? hoytsSearchUrl(movie) : findAllSessionsUrl(movie.title, placeLabel))
+  const allSessionsUrl = findAllSessionsUrl(movie.title, placeLabel)
 
   return (
     <div className="movie-decision">
@@ -108,13 +119,131 @@ export function MoviePathCards({ movie }: MoviePathCardsProps) {
         </div>
       </div>
 
-      <section className="decision-step decision-step-primary" aria-labelledby={`jw-${movie.id}`}>
+      {theatrical && showAuCinemas ? (
+        <section
+          className="decision-step decision-step-primary decision-cinema-first"
+          aria-labelledby={`cinema-${movie.id}`}
+        >
+          <p className="decision-step-label" id={`cinema-${movie.id}`}>
+            Step 1 · Cinema near {placeLabel}
+          </p>
+
+          <label className="suburb-field" htmlFor={`suburb-decision-${movie.id}`}>
+            <span className="suburb-label">Suburb / area</span>
+            <input
+              id={`suburb-decision-${movie.id}`}
+              type="text"
+              value={suburb}
+              onChange={(e) => setSuburb(e.target.value)}
+              placeholder={hint}
+              autoComplete="address-level2"
+              onClick={(e) => e.stopPropagation()}
+            />
+          </label>
+
+          {local?.indicativeSessions ? (
+            <div className="indicative-sessions" role="note">
+              <p className="indicative-sessions-title">
+                {local.indicativeSessions.dateLabel} · {local.indicativeSessions.cinemaLabel}
+              </p>
+              <p className="indicative-sessions-times">
+                {local.indicativeSessions.times.join(' · ')}
+              </p>
+              <p className="indicative-sessions-note">{local.indicativeSessions.disclaimer}</p>
+            </div>
+          ) : null}
+
+          <a
+            className="cinema-cta"
+            href={villageUrl}
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            <span className="cinema-cta-icon" aria-hidden="true">
+              🎟️
+            </span>
+            <span className="cinema-cta-body">
+              <span className="cinema-cta-title">Village Werribee sessions</span>
+              <span className="cinema-cta-sub">
+                {local?.cinema.villageMovieUrl
+                  ? 'Opens Village movie / tickets page'
+                  : 'Opens Village Werribee showtimes'}
+              </span>
+            </span>
+            <span className="cinema-cta-arrow" aria-hidden="true">
+              →
+            </span>
+          </a>
+
+          <div className="store-btn-grid cinema-primary-grid">
+            <StoreButton href={hoytsUrl} label="HOYTS" hint="Movie page / cinemas" path="cinema" />
+            {local?.cinema.hoytsWatergardensUrl ? (
+              <StoreButton
+                href={local.cinema.hoytsWatergardensUrl}
+                label="HOYTS Watergardens"
+                hint="Cinema page"
+                path="cinema"
+              />
+            ) : (
+              <StoreButton
+                href={hoytsWatergardensUrl()}
+                label="HOYTS Watergardens"
+                hint="Cinema page"
+                path="cinema"
+              />
+            )}
+            {local?.cinema.hoytsHighpointUrl ? (
+              <StoreButton
+                href={local.cinema.hoytsHighpointUrl}
+                label="HOYTS Highpoint"
+                hint="Cinema page"
+                path="cinema"
+              />
+            ) : (
+              <StoreButton
+                href={hoytsHighpointUrl()}
+                label="HOYTS Highpoint"
+                hint="Cinema page"
+                path="cinema"
+              />
+            )}
+            <StoreButton
+              href={allSessionsUrl}
+              label="Find all sessions"
+              hint={`Google · ${movie.title} showtimes ${placeLabel}`}
+              path="cinema"
+            />
+          </div>
+
+          {local?.cinema.villageMovieUrl ? (
+            <p className="decision-jw-helper">
+              Prefer booking?{' '}
+              <a href={local.cinema.villagePrimaryUrl} target="_blank" rel="noopener noreferrer">
+                Book at Village
+              </a>
+              {' · '}
+              <a href={local.cinema.hoytsPrimaryUrl} target="_blank" rel="noopener noreferrer">
+                Book at HOYTS
+              </a>
+            </p>
+          ) : null}
+        </section>
+      ) : null}
+
+      <section
+        className={`decision-step ${theatrical && showAuCinemas ? 'decision-step-secondary' : 'decision-step-primary'}`}
+        aria-labelledby={`jw-${movie.id}`}
+      >
         <p className="decision-step-label" id={`jw-${movie.id}`}>
-          Step 1 · Best next step
+          {theatrical && showAuCinemas
+            ? 'Also stream / rent'
+            : 'Step 1 · Best next step'}
         </p>
         <a className="hero-cta decision-jw-hero" href={justWatchUrl} target="_blank" rel="noopener noreferrer">
           <span className="hero-cta-body">
-            <span className="hero-cta-title">See where it’s streaming</span>
+            <span className="hero-cta-title">
+              {theatrical && showAuCinemas ? 'Also on JustWatch' : 'See where it’s streaming'}
+            </span>
             <span className="hero-cta-sub">
               Netflix, Prime, Disney+, free TV, rent &amp; buy for your country
             </span>
@@ -126,73 +255,114 @@ export function MoviePathCards({ movie }: MoviePathCardsProps) {
         <p className="decision-jw-helper">Opens JustWatch for {region.name}</p>
       </section>
 
-      <section className="decision-step decision-step-secondary" aria-label="Other ways to watch">
-        <p className="decision-step-label">Step 2 · Or try one of these</p>
-        <div className="decision-card-row">
-          <div className="decision-card decision-card-cinema">
-            <div className="decision-card-icon" aria-hidden="true">
-              🎟️
-            </div>
-            <h4 className="decision-card-title">Cinema near me</h4>
-            <label className="suburb-field suburb-field-compact" htmlFor={`suburb-${movie.id}`}>
-              <span className="sr-only">Suburb / area</span>
-              <input
-                id={`suburb-${movie.id}`}
-                type="text"
-                value={suburb}
-                onChange={(e) => setSuburb(e.target.value)}
-                placeholder={hint}
-                autoComplete="address-level2"
-                onClick={(e) => e.stopPropagation()}
-              />
-            </label>
-            <a className="decision-card-cta" href={showtimesUrl} target="_blank" rel="noopener noreferrer">
-              Showtimes near {placeLabel} →
-            </a>
-          </div>
-
-          <div className="decision-card decision-card-fta">
-            <div className="decision-card-icon" aria-hidden="true">
-              🌿
-            </div>
-            <h4 className="decision-card-title">Free catch-up TV</h4>
-            {region.showAuFta ? (
-              <MoreDetails summary="Search FTA apps" className="fta-panel">
-                <div className="store-btn-grid">
-                  <StoreButton href={sbsOnDemandSearchUrl(movie)} label="SBS On Demand" path="free" />
-                  <StoreButton href={abcIviewSearchUrl(movie)} label="ABC iview" path="free" />
-                  <StoreButton href={sevenPlusSearchUrl(movie)} label="7plus" hint="Google site search" path="free" />
-                  <StoreButton href={nineNowSearchUrl(movie)} label="9Now" path="free" />
-                  <StoreButton href={tenPlaySearchUrl(movie)} label="10 Play" hint="Google site search" path="free" />
-                </div>
-              </MoreDetails>
-            ) : (
-              <p className="decision-card-note">Switch region to Australia for FTA apps.</p>
-            )}
-          </div>
-
-          <div className="decision-card decision-card-buy">
-            <div className="decision-card-icon" aria-hidden="true">
-              🛒
-            </div>
-            <h4 className="decision-card-title">Rent or buy</h4>
-            <div className="store-btn-grid store-btn-grid-stack">
-              <StoreButton href={appleTvSearchUrl(movie, region)} label="Apple TV" path="buy" />
-              <StoreButton href={googlePlayMoviesSearchUrl(movie)} label="Google Play" path="buy" />
-              <StoreButton href={youtubeMoviesSearchUrl(movie)} label="YouTube Movies" path="buy" />
-            </div>
-            <MoreDetails summary="More stores">
-              <div className="store-btn-grid store-btn-grid-stack">
-                <StoreButton
-                  href={amazonMovieSearchUrl(movie, region)}
-                  label={amazonSearchLabel(region)}
-                  path="buy"
-                />
+      {!theatrical || !showAuCinemas ? (
+        <section className="decision-step decision-step-secondary" aria-label="Other ways to watch">
+          <p className="decision-step-label">Step 2 · Or try cinema / free TV / buy</p>
+          <div className="decision-card-row">
+            <div className="decision-card decision-card-cinema">
+              <div className="decision-card-icon" aria-hidden="true">
+                🎟️
               </div>
-            </MoreDetails>
+              <h4 className="decision-card-title">Cinema near me</h4>
+              <label className="suburb-field suburb-field-compact" htmlFor={`suburb-${movie.id}`}>
+                <span className="sr-only">Suburb / area</span>
+                <input
+                  id={`suburb-${movie.id}`}
+                  type="text"
+                  value={suburb}
+                  onChange={(e) => setSuburb(e.target.value)}
+                  placeholder={hint}
+                  autoComplete="address-level2"
+                  onClick={(e) => e.stopPropagation()}
+                />
+              </label>
+              <a
+                className="decision-card-cta"
+                href={allSessionsUrl}
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                Showtimes near {placeLabel} →
+              </a>
+            </div>
+
+            <div className="decision-card decision-card-fta">
+              <div className="decision-card-icon" aria-hidden="true">
+                🌿
+              </div>
+              <h4 className="decision-card-title">Free catch-up TV</h4>
+              {region.showAuFta ? (
+                <MoreDetails summary="Search FTA apps" className="fta-panel">
+                  <div className="store-btn-grid">
+                    <StoreButton href={sbsOnDemandSearchUrl(movie)} label="SBS On Demand" path="free" />
+                    <StoreButton href={abcIviewSearchUrl(movie)} label="ABC iview" path="free" />
+                    <StoreButton
+                      href={sevenPlusSearchUrl(movie)}
+                      label="7plus"
+                      hint="Google site search"
+                      path="free"
+                    />
+                    <StoreButton href={nineNowSearchUrl(movie)} label="9Now" path="free" />
+                    <StoreButton
+                      href={tenPlaySearchUrl(movie)}
+                      label="10 Play"
+                      hint="Google site search"
+                      path="free"
+                    />
+                  </div>
+                </MoreDetails>
+              ) : (
+                <p className="decision-card-note">Switch region to Australia for FTA apps.</p>
+              )}
+            </div>
+
+            <div className="decision-card decision-card-buy">
+              <div className="decision-card-icon" aria-hidden="true">
+                🛒
+              </div>
+              <h4 className="decision-card-title">Rent or buy</h4>
+              <div className="store-btn-grid store-btn-grid-stack">
+                <StoreButton href={appleTvSearchUrl(movie, region)} label="Apple TV" path="buy" />
+                <StoreButton href={googlePlayMoviesSearchUrl(movie)} label="Google Play" path="buy" />
+                <StoreButton href={youtubeMoviesSearchUrl(movie)} label="YouTube Movies" path="buy" />
+              </div>
+            </div>
           </div>
-        </div>
-      </section>
+        </section>
+      ) : (
+        <section className="decision-step decision-step-secondary" aria-label="More ways to watch">
+          <p className="decision-step-label">Also try free TV / rent</p>
+          <div className="decision-card-row">
+            <div className="decision-card decision-card-fta">
+              <div className="decision-card-icon" aria-hidden="true">
+                🌿
+              </div>
+              <h4 className="decision-card-title">Free catch-up TV</h4>
+              {region.showAuFta ? (
+                <MoreDetails summary="Search FTA apps" className="fta-panel">
+                  <div className="store-btn-grid">
+                    <StoreButton href={sbsOnDemandSearchUrl(movie)} label="SBS On Demand" path="free" />
+                    <StoreButton href={abcIviewSearchUrl(movie)} label="ABC iview" path="free" />
+                    <StoreButton href={nineNowSearchUrl(movie)} label="9Now" path="free" />
+                  </div>
+                </MoreDetails>
+              ) : (
+                <p className="decision-card-note">Switch region to Australia for FTA apps.</p>
+              )}
+            </div>
+            <div className="decision-card decision-card-buy">
+              <div className="decision-card-icon" aria-hidden="true">
+                🛒
+              </div>
+              <h4 className="decision-card-title">Rent or buy</h4>
+              <div className="store-btn-grid store-btn-grid-stack">
+                <StoreButton href={appleTvSearchUrl(movie, region)} label="Apple TV" path="buy" />
+                <StoreButton href={googlePlayMoviesSearchUrl(movie)} label="Google Play" path="buy" />
+              </div>
+            </div>
+          </div>
+        </section>
+      )}
 
       <MoreDetails summary="More options" className="decision-more">
         <div className="decision-more-grid">
@@ -224,15 +394,19 @@ export function MoviePathCards({ movie }: MoviePathCardsProps) {
                 />
               ))
             : null}
-          {showAuCinemas ? (
+          <StoreButton
+            href={amazonMovieSearchUrl(movie, region)}
+            label={amazonSearchLabel(region)}
+            path="buy"
+          />
+          {showAuCinemas && !theatrical ? (
             <>
               <StoreButton href={villageCinemasSearchUrl(movie)} label="Village Cinemas" path="cinema" />
               <StoreButton href={hoytsSearchUrl(movie)} label="HOYTS" path="cinema" />
-              <StoreButton href={eventCinemasSearchUrl(movie)} label="Event Cinemas" path="cinema" />
             </>
           ) : null}
         </div>
-        <p className="decision-trust">Search links only — we don’t track live availability.</p>
+        <p className="decision-trust">Search / cinema links only — we don’t track live availability.</p>
       </MoreDetails>
     </div>
   )

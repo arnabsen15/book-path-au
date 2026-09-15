@@ -1,41 +1,36 @@
 import { useCallback, useEffect, useMemo, useRef, useState } from 'react'
 import { hasTmdbKey, searchMoviesLive } from '../api/movieSearch'
 import { MovieResult } from '../components/MovieResult'
+import { NearManorPanel } from '../components/NearManorPanel'
 import { SearchBox } from '../components/SearchBox'
 import { SearchSkeleton } from '../components/SearchSkeleton'
 import { useRegion } from '../context/RegionContext'
 import moviesData from '../data/movies.json'
+import { getNowShowingById, type NowShowingSeed } from '../data/nowShowingLocal'
 import { useDebouncedValue } from '../hooks/useDebouncedValue'
 import type { Movie } from '../types'
 import { mergeMovieSeedAndLive } from '../utils/movieSeedMatch'
 
 const seeds = (moviesData as Movie[]).map((m) => ({ ...m, source: 'seed' as const }))
 
-const POPULAR_IDS = [
-  'hanuman-ansh-2026',
-  'mad-max-1979',
-  'the-castle-1997',
-  'nosferatu-1922',
-  'oppenheimer-2023',
-  'picnic-hanging-rock-1975',
-]
+const SUGGESTIONS = ['Hanuman Ansh', 'Fall 2', 'Toy Story 5', 'Spider-Man: Brand New Day', 'Insidious']
 
-const SUGGESTIONS = ['Hanuman Ansh', 'Mad Max', 'The Castle', 'Nosferatu', 'Oppenheimer']
-
-function resolvePopular(): Movie[] {
-  const byId = new Map(seeds.map((m) => [m.id, m]))
-  const picked: Movie[] = []
-  for (const id of POPULAR_IDS) {
-    const hit = byId.get(id)
-    if (hit) picked.push(hit)
+function seedToMovie(seed: NowShowingSeed): Movie {
+  const fromCatalogue = seeds.find((m) => m.id === seed.id)
+  return {
+    id: seed.id,
+    title: seed.title,
+    year: seed.year,
+    director: seed.director || fromCatalogue?.director || '',
+    tags: fromCatalogue?.tags || ['theatrical', 'now-showing'],
+    free: fromCatalogue?.free || {
+      available: false,
+      note: 'Theatrical / now showing — check local cinema links.',
+      links: [],
+    },
+    coverUrl: seed.coverUrl || fromCatalogue?.coverUrl,
+    source: 'seed',
   }
-  if (picked.length < 6) {
-    for (const m of seeds) {
-      if (picked.length >= 6) break
-      if (!picked.some((p) => p.id === m.id)) picked.push(m)
-    }
-  }
-  return picked.slice(0, 6)
 }
 
 export function Movies() {
@@ -49,7 +44,7 @@ export function Movies() {
   const [loading, setLoading] = useState(false)
   const [error, setError] = useState<string | null>(null)
   const [expandedId, setExpandedId] = useState<string | null>(null)
-  const [selectedPopular, setSelectedPopular] = useState<Movie | null>(null)
+  const [selectedLocal, setSelectedLocal] = useState<Movie | null>(null)
 
   const abortRef = useRef<AbortController | null>(null)
   const requestIdRef = useRef(0)
@@ -88,7 +83,7 @@ export function Movies() {
       setError(
         err instanceof Error
           ? err.message
-          : 'Could not reach film metadata. Seed list and JustWatch links still work.',
+          : 'Could not reach film metadata. Local cinema seeds and JustWatch still work.',
       )
     } finally {
       if (reqId === requestIdRef.current) setLoading(false)
@@ -102,8 +97,6 @@ export function Movies() {
     }
   }, [activeSearch, runSearch])
 
-  const popular = useMemo(() => resolvePopular(), [])
-
   const results = useMemo(() => {
     if (!activeSearch) return []
     return mergeMovieSeedAndLive(seeds, liveResults, activeSearch)
@@ -116,7 +109,7 @@ export function Movies() {
       setExpandedId(null)
       return
     }
-    setSelectedPopular(null)
+    setSelectedLocal(null)
     const ids = resultIds.split('|').filter(Boolean)
     if (ids.length === 1) {
       setExpandedId(ids[0])
@@ -126,12 +119,12 @@ export function Movies() {
   }, [resultIds, activeSearch])
 
   useEffect(() => {
-    if (!expandedId && !selectedPopular) return
+    if (!expandedId && !selectedLocal) return
     const t = window.setTimeout(() => {
       decisionRef.current?.scrollIntoView({ behavior: 'smooth', block: 'nearest' })
     }, 50)
     return () => window.clearTimeout(t)
-  }, [expandedId, selectedPopular])
+  }, [expandedId, selectedLocal])
 
   const browsingEmpty = activeSearch === ''
   const noMatches = !loading && activeSearch !== '' && results.length === 0 && !error
@@ -139,8 +132,12 @@ export function Movies() {
     ? 'TMDB + seeds'
     : 'Wikipedia OpenSearch + seeds (optional VITE_TMDB_API_KEY)'
 
-  const openPopular = (movie: Movie) => {
-    setSelectedPopular(movie)
+  const openLocal = (seed: NowShowingSeed) => {
+    const movie = seedToMovie(seed)
+    // Enrich cover from catalogue if local seed lacks one after merge
+    const ns = getNowShowingById(seed.id)
+    if (ns?.coverUrl && !movie.coverUrl) movie.coverUrl = ns.coverUrl
+    setSelectedLocal(movie)
     setExpandedId(null)
     setQuery('')
     setFlushQuery(null)
@@ -150,7 +147,9 @@ export function Movies() {
     <div className="home movies-home">
       <section className="hero hero-compact">
         <h1>Movies</h1>
-        <p className="tagline">Find where to watch — stream, cinema, free TV, or buy</p>
+        <p className="tagline">
+          What’s on near Manor Lakes / Werribee tonight (and this week)?
+        </p>
       </section>
 
       <div className="region-pill" role="status">
@@ -158,61 +157,41 @@ export function Movies() {
         Links for <strong>{region.name}</strong>
       </div>
 
+      {browsingEmpty && !selectedLocal ? <NearManorPanel onSelect={openLocal} /> : null}
+
       <SearchBox
         value={query}
         onChange={(v) => {
           setQuery(v)
           setFlushQuery(null)
-          setSelectedPopular(null)
+          setSelectedLocal(null)
         }}
         onSubmit={() => {
           setFlushQuery(query.trim())
-          setSelectedPopular(null)
+          setSelectedLocal(null)
         }}
         suggestions={SUGGESTIONS}
         loading={loading}
-        placeholder="Search movies by title…"
+        placeholder="Search other titles…"
         label="Search movies"
         inputId="movie-search"
       />
 
-      <p className="movies-search-hint">Tap a title to see where to watch.</p>
+      <p className="movies-search-hint">
+        {browsingEmpty
+          ? 'Or search any title — cinema first when it’s theatrical, JustWatch secondary.'
+          : 'Tap a title to see cinema + where to watch.'}
+      </p>
 
-      {browsingEmpty && !selectedPopular ? (
-        <>
-          <p className="popular-label">Popular to try</p>
-          <div className="popular-poster-grid" role="list">
-            {popular.map((movie) => (
-              <button
-                key={movie.id}
-                type="button"
-                className="popular-poster-tile"
-                role="listitem"
-                onClick={() => openPopular(movie)}
-              >
-                {movie.coverUrl ? (
-                  <img src={movie.coverUrl} alt="" loading="lazy" width={120} height={180} />
-                ) : (
-                  <span className="popular-poster-fallback" aria-hidden="true">
-                    🎬
-                  </span>
-                )}
-                <span className="popular-poster-caption">
-                  <span className="popular-poster-title">{movie.title}</span>
-                  {movie.year ? <span className="popular-poster-year">{movie.year}</span> : null}
-                </span>
-              </button>
-            ))}
-          </div>
-        </>
-      ) : null}
-
-      {selectedPopular && browsingEmpty ? (
+      {selectedLocal && browsingEmpty ? (
         <div className="results" ref={decisionRef}>
+          <button type="button" className="chip back-near-chip" onClick={() => setSelectedLocal(null)}>
+            ← Back to Near Manor Lakes
+          </button>
           <MovieResult
-            movie={selectedPopular}
+            movie={selectedLocal}
             expanded
-            onToggle={() => setSelectedPopular(null)}
+            onToggle={() => setSelectedLocal(null)}
           />
         </div>
       ) : null}
@@ -239,7 +218,7 @@ export function Movies() {
             🎬
           </div>
           <p>No matches for “{activeSearch}”.</p>
-          <p className="muted">Try Hanuman Ansh or another spelling — JustWatch still helps.</p>
+          <p className="muted">Try Hanuman Ansh — Village Werribee + HOYTS CTAs still help.</p>
         </div>
       )}
 

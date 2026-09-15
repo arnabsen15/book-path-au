@@ -1657,3 +1657,203 @@ main {
   color: var(--text-muted);
 }
 
+
+/* —— Near Manor Lakes / now showing —— */
+.near-manor {
+  margin: 0 0 1.5rem;
+  padding: 1.15rem 1.1rem 1.25rem;
+  border-radius: var(--radius-lg, 1rem);
+  border: 1px solid color-mix(in srgb, #c026d3 28%, var(--border));
+  background:
+    linear-gradient(165deg, #fdf4ff 0%, var(--bg-elevated) 42%, var(--bg-soft) 100%);
+  box-shadow: var(--shadow-sm);
+}
+
+.near-manor-eyebrow {
+  margin: 0 0 0.25rem;
+  font-size: 0.75rem;
+  font-weight: 700;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  color: #a21caf;
+}
+
+.near-manor-head h2 {
+  margin: 0 0 0.35rem;
+  font-family: var(--font-serif);
+  font-size: 1.45rem;
+  font-weight: 600;
+}
+
+.near-manor-sub {
+  margin: 0 0 0.9rem;
+  font-size: 0.92rem;
+  color: var(--text-secondary);
+  line-height: 1.45;
+}
+
+.now-showing-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 0.85rem;
+}
+
+.now-showing-card {
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  background: var(--bg-elevated);
+  overflow: hidden;
+}
+
+.now-showing-card.emphasis {
+  border-color: color-mix(in srgb, #c026d3 40%, var(--border));
+  box-shadow: 0 0 0 1px color-mix(in srgb, #c026d3 18%, transparent);
+}
+
+.now-showing-main {
+  display: flex;
+  gap: 0.75rem;
+  width: 100%;
+  padding: 0.75rem 0.85rem;
+  border: 0;
+  background: transparent;
+  text-align: left;
+  cursor: pointer;
+  color: inherit;
+  font: inherit;
+  min-height: 44px;
+}
+
+.now-showing-main:hover,
+.now-showing-main:focus-visible {
+  background: color-mix(in srgb, #c026d3 6%, transparent);
+  outline: none;
+}
+
+.now-showing-poster img,
+.now-showing-poster-fallback {
+  width: 56px;
+  height: 84px;
+  border-radius: 0.45rem;
+  object-fit: cover;
+  display: block;
+  background: var(--bg-muted);
+  border: 1px solid var(--border);
+}
+
+.now-showing-poster-fallback {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.35rem;
+}
+
+.now-showing-text {
+  display: flex;
+  flex-direction: column;
+  gap: 0.2rem;
+  min-width: 0;
+  flex: 1;
+}
+
+.now-showing-badge {
+  align-self: flex-start;
+  font-size: 0.68rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  color: #86198f;
+  background: #f5d0fe;
+  padding: 0.15rem 0.45rem;
+  border-radius: 999px;
+}
+
+.now-showing-title {
+  font-weight: 700;
+  font-size: 1.05rem;
+  line-height: 1.25;
+}
+
+.now-showing-meta {
+  font-size: 0.8rem;
+  color: var(--text-muted);
+  line-height: 1.35;
+}
+
+.now-showing-times {
+  margin-top: 0.2rem;
+  font-size: 0.82rem;
+  color: var(--text-secondary);
+  line-height: 1.4;
+}
+
+.now-showing-times em {
+  font-style: normal;
+  color: var(--text-muted);
+}
+
+.now-showing-ctas {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 0.45rem;
+  padding: 0 0.85rem 0.85rem;
+}
+
+@media (min-width: 560px) {
+  .now-showing-ctas {
+    grid-template-columns: 1fr 1fr 1fr;
+  }
+}
+
+.near-manor-foot {
+  margin: 0.9rem 0 0;
+  font-size: 0.85rem;
+}
+
+.near-manor-foot a {
+  font-weight: 600;
+}
+
+.indicative-sessions {
+  margin: 0 0 0.75rem;
+  padding: 0.75rem 0.85rem;
+  border-radius: 0.75rem;
+  background: #faf5ff;
+  border: 1px dashed color-mix(in srgb, #c026d3 35%, var(--border));
+}
+
+.indicative-sessions-title {
+  margin: 0 0 0.25rem;
+  font-weight: 700;
+  font-size: 0.92rem;
+}
+
+.indicative-sessions-times {
+  margin: 0 0 0.25rem;
+  font-size: 0.95rem;
+  font-variant-numeric: tabular-nums;
+}
+
+.indicative-sessions-note {
+  margin: 0;
+  font-size: 0.78rem;
+  color: var(--text-muted);
+}
+
+.cinema-primary-grid {
+  margin-top: 0.75rem;
+}
+
+.decision-cinema-first {
+  padding: 1rem;
+  border-radius: var(--radius);
+  background: linear-gradient(180deg, #fdf4ff 0%, var(--bg-soft) 55%);
+  border: 1px solid color-mix(in srgb, #c026d3 22%, var(--border));
+}
+
+.back-near-chip {
+  margin-bottom: 0.75rem;
+}
