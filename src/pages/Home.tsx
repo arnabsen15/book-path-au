@@ -9,7 +9,7 @@ import { mergeSeedAndLive } from '../utils/seedMatch'
 
 const seeds = (booksData as Book[]).map((b) => ({ ...b, source: 'seed' as const }))
 
-const SUGGESTIONS = ['Raja Yoga', 'Vivekananda', 'Pride and Prejudice', 'Atomic Habits']
+const SUGGESTIONS = ['Heartfulness Way', 'Daaji', 'Raja Yoga', 'Pride and Prejudice', 'Atomic Habits']
 
 export function Home() {
   const [query, setQuery] = useState('')

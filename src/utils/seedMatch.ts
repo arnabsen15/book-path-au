@@ -15,6 +15,10 @@ function isbnDigits(isbn?: string): string | undefined {
   return d || undefined
 }
 
+function queryTokens(q: string): string[] {
+  return norm(q).split(/\s+/).filter(Boolean)
+}
+
 /** Prefer matching seed catalogue rows (including indicativePrices) over live-only rows. */
 export function seedMatchesLive(seed: Book, live: Book): boolean {
   const sIsbn = isbnDigits(seed.isbn)
@@ -56,9 +60,82 @@ export function matchesQuery(book: Book, q: string): boolean {
 }
 
 /**
+ * Relevance score for client-side ranking of merged seed + Open Library hits.
+ * Higher = better. Boosts exact/near-exact titles, all-tokens-in-title, seeds,
+ * and Heartfulness-related rows when the query mentions heartfulness / daaji.
+ */
+export function relevanceScore(book: Book, query: string): number {
+  const tokens = queryTokens(query)
+  if (tokens.length === 0) return 0
+
+  const title = norm(book.title)
+  const author = norm(book.author)
+  const tags = norm((book.tags ?? []).join(' '))
+  const hay = `${title} ${author} ${tags}`
+  const qJoined = tokens.join(' ')
+
+  let score = 0
+
+  // Exact / near-exact title
+  if (title === qJoined) score += 1000
+  else if (title.startsWith(qJoined) || qJoined.startsWith(title)) score += 800
+  else if (title.includes(qJoined)) score += 600
+
+  // All query tokens appear in the title (strong signal vs weak OL "Hungry Heart")
+  const allInTitle = tokens.every((t) => title.includes(t))
+  if (allInTitle) score += 400
+
+  // Fraction of tokens in title
+  const titleHits = tokens.filter((t) => title.includes(t)).length
+  score += titleHits * 80
+
+  // Author / tag hits
+  const authorHits = tokens.filter((t) => author.includes(t)).length
+  score += authorHits * 40
+  const tagHits = tokens.filter((t) => tags.includes(t)).length
+  score += tagHits * 50
+
+  // Prefer catalogue seeds over weak live-only hits
+  if (book.source === 'seed' || (!book.source && book.indicativePrices)) score += 250
+
+  // Heartfulness / Daaji intent: boost related seeds and OL titles that actually say heartfulness
+  const wantsHeartfulness = tokens.some((t) => t === 'heartfulness' || t === 'daaji')
+  if (wantsHeartfulness) {
+    if (title.includes('heartfulness')) score += 500
+    if (tags.includes('heartfulness') || tags.includes('daaji')) score += 350
+    if (author.includes('patel') || author.includes('pollock') || author.includes('daaji')) score += 150
+    // Penalise unrelated "heart" / "way" OL noise when the query is clearly Heartfulness
+    if (!title.includes('heartfulness') && !tags.includes('heartfulness') && !tags.includes('daaji')) {
+      score -= 200
+    }
+  }
+
+  // Token coverage across full haystack (must already match for seeds; helps order live)
+  const coverage = tokens.filter((t) => hay.includes(t)).length / tokens.length
+  score += Math.round(coverage * 100)
+
+  return score
+}
+
+export function rankByRelevance(books: Book[], query: string): Book[] {
+  const q = query.trim()
+  if (!q) return books
+  return [...books].sort((a, b) => {
+    const diff = relevanceScore(b, q) - relevanceScore(a, q)
+    if (diff !== 0) return diff
+    // Stable-ish tie-break: seeds first, then title
+    const aSeed = a.source === 'seed' ? 0 : 1
+    const bSeed = b.source === 'seed' ? 0 : 1
+    if (aSeed !== bSeed) return aSeed - bSeed
+    return a.title.localeCompare(b.title)
+  })
+}
+
+/**
  * Merge seed catalogue with live Open Library hits.
  * Matching seeds win (keep free links, LibriVox, indicativePrices).
  * Cover from live is used when seed has none.
+ * Results are ranked so exact/near-exact and Heartfulness matches surface near the top.
  */
 export function mergeSeedAndLive(seeds: Book[], live: Book[], query: string): Book[] {
   const q = query.trim()
@@ -91,5 +168,5 @@ export function mergeSeedAndLive(seeds: Book[], live: Book[], query: string): Bo
     result.push(l)
   }
 
-  return result
+  return q ? rankByRelevance(result, q) : result
 }

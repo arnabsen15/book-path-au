@@ -531,7 +531,7 @@
     ],
     "free": {
       "available": false,
-      "note": "Still under copyright \u2014 not available as a free legal ebook.",
+      "note": "Still under copyright — not available as a free legal ebook.",
       "links": []
     },
     "audiobook": {},
@@ -559,7 +559,7 @@
     ],
     "free": {
       "available": false,
-      "note": "Still under copyright \u2014 not available as a free legal ebook.",
+      "note": "Still under copyright — not available as a free legal ebook.",
       "links": []
     },
     "audiobook": {},
@@ -587,7 +587,7 @@
     ],
     "free": {
       "available": false,
-      "note": "Still under copyright \u2014 not available as a free legal ebook.",
+      "note": "Still under copyright — not available as a free legal ebook.",
       "links": []
     },
     "audiobook": {},
@@ -615,7 +615,7 @@
     ],
     "free": {
       "available": false,
-      "note": "Still under copyright \u2014 not available as a free legal ebook.",
+      "note": "Still under copyright — not available as a free legal ebook.",
       "links": []
     },
     "audiobook": {},
@@ -643,7 +643,7 @@
     ],
     "free": {
       "available": false,
-      "note": "Still under copyright \u2014 not available as a free legal ebook.",
+      "note": "Still under copyright — not available as a free legal ebook.",
       "links": []
     },
     "audiobook": {},
@@ -671,7 +671,7 @@
     ],
     "free": {
       "available": false,
-      "note": "Still under copyright \u2014 not available as a free legal ebook.",
+      "note": "Still under copyright — not available as a free legal ebook.",
       "links": []
     },
     "audiobook": {},
@@ -699,7 +699,7 @@
     ],
     "free": {
       "available": false,
-      "note": "Still under copyright \u2014 not available as a free legal ebook.",
+      "note": "Still under copyright — not available as a free legal ebook.",
       "links": []
     },
     "audiobook": {},
@@ -727,7 +727,7 @@
     ],
     "free": {
       "available": false,
-      "note": "Still under copyright \u2014 not available as a free legal ebook.",
+      "note": "Still under copyright — not available as a free legal ebook.",
       "links": []
     },
     "audiobook": {},
@@ -755,7 +755,7 @@
     ],
     "free": {
       "available": false,
-      "note": "Still under copyright \u2014 not available as a free legal ebook.",
+      "note": "Still under copyright — not available as a free legal ebook.",
       "links": []
     },
     "audiobook": {},
@@ -783,7 +783,7 @@
     ],
     "free": {
       "available": false,
-      "note": "Still under copyright \u2014 not available as a free legal ebook.",
+      "note": "Still under copyright — not available as a free legal ebook.",
       "links": []
     },
     "audiobook": {},
@@ -797,6 +797,68 @@
       "appleBooks": 13.99,
       "googlePlay": 12.99,
       "audible": 33.99
+    }
+  },
+  {
+    "id": "the-heartfulness-way",
+    "title": "The Heartfulness Way",
+    "author": "Kamlesh D. Patel & Joshua Pollock",
+    "isbn": "9781684031344",
+    "year": 2018,
+    "tags": [
+      "spiritual",
+      "heartfulness",
+      "daaji",
+      "meditation",
+      "modern"
+    ],
+    "free": {
+      "available": false,
+      "note": "Not free legally / buy or borrow. Still under copyright — no free PDF, Gutenberg, or LibriVox.",
+      "links": []
+    },
+    "audiobook": {},
+    "pricesUpdated": "2026-09-15",
+    "indicativePrices": {
+      "amazonAu": 28.99,
+      "kindle": 14.99,
+      "booktopia": 26.95,
+      "dymocks": 32.99,
+      "readings": 29.99,
+      "appleBooks": 15.99,
+      "googlePlay": 14.99,
+      "audible": 29.99
+    }
+  },
+  {
+    "id": "designing-destiny",
+    "title": "Designing Destiny",
+    "author": "Kamlesh D. Patel",
+    "isbn": "9781401964283",
+    "year": 2019,
+    "tags": [
+      "spiritual",
+      "heartfulness",
+      "daaji",
+      "meditation",
+      "modern"
+    ],
+    "free": {
+      "available": false,
+      "note": "Not free legally / buy or borrow. Still under copyright — no free PDF, Gutenberg, or LibriVox.",
+      "links": []
+    },
+    "audiobook": {},
+    "pricesUpdated": "2026-09-15",
+    "indicativePrices": {
+      "amazonAu": 27.99,
+      "kindle": 13.99,
+      "booktopia": 25.95,
+      "dymocks": 31.99,
+      "readings": 28.99,
+      "appleBooks": 14.99,
+      "googlePlay": 13.99,
+      "audible": 28.99
     }
   }
 ]

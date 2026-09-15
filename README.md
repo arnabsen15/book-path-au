@@ -27,7 +27,7 @@ As you type (≈300 ms debounce) or submit the form, results show cover (when 
 
 ### Seed catalogue
 
-Twenty-two seeded books in `src/data/books.json` appear when the query is empty (with indicative prices). When a live hit matches a seed (ISBN / title+author), **seed data wins** — including free links and indicative prices.
+Twenty-four seeded books in `src/data/books.json` appear when the query is empty (with indicative prices). When a live hit matches a seed (ISBN / title+author), **seed data wins** — including free links and indicative prices.
 
 ### Google Books
 
