@@ -70,6 +70,40 @@ export function amazonMovieSearchUrl(movie: Movie, region: RegionConfig): string
   return `https://${region.amazonHost}/s?k=${encodeQuery(`${titleQuery(movie)} movie`)}`
 }
 
-export function cinemaShowtimesSearchUrl(movie: Movie, region: RegionConfig): string {
-  return `https://www.google.com/search?q=${encodeQuery(`${movie.title} cinema showtimes ${region.cinemaCity}`)}`
+export function cinemaShowtimesSearchUrl(
+  movie: Movie,
+  region: RegionConfig,
+  suburb?: string | null,
+): string {
+  const place = (suburb && suburb.trim()) || region.cinemaCity
+  const near = suburb && suburb.trim() ? `near ${suburb.trim()}` : `near me`
+  return `https://www.google.com/search?q=${encodeQuery(`${movie.title} showtimes ${near} ${place}`)}`
+}
+
+export function villageCinemasSearchUrl(movie: Movie): string {
+  return `https://www.google.com/search?q=${encodeQuery(`site:villagecinemas.com.au ${movie.title} showtimes`)}`
+}
+
+export function hoytsSearchUrl(movie: Movie): string {
+  return `https://www.google.com/search?q=${encodeQuery(`site:hoyts.com.au ${movie.title} showtimes`)}`
+}
+
+export function eventCinemasSearchUrl(movie: Movie): string {
+  return `https://www.google.com/search?q=${encodeQuery(`site:eventcinemas.com.au ${movie.title} showtimes`)}`
+}
+
+export function disneyPlusSearchUrl(movie: Movie): string {
+  return `https://www.disneyplus.com/search/${encodeQuery(movie.title)}`
+}
+
+export function stanSearchUrl(movie: Movie): string {
+  return `https://www.stan.com.au/search?q=${encodeQuery(movie.title)}`
+}
+
+export function bingeSearchUrl(movie: Movie): string {
+  return `https://binge.com.au/search?q=${encodeQuery(movie.title)}`
+}
+
+export function appleTvPlusSearchUrl(movie: Movie, region: RegionConfig): string {
+  return `https://tv.apple.com/${region.appleTvLocale}/search?term=${encodeQuery(titleQuery(movie))}`
 }

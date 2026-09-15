@@ -2,7 +2,9 @@ import { useCallback, useEffect, useMemo, useRef, useState } from 'react'
 import { searchOpenLibrary } from '../api/openLibrary'
 import { BookResult } from '../components/BookResult'
 import { SearchBox } from '../components/SearchBox'
+import { SearchSkeleton } from '../components/SearchSkeleton'
 import booksData from '../data/books.json'
+import { useRegion } from '../context/RegionContext'
 import { useDebouncedValue } from '../hooks/useDebouncedValue'
 import type { Book } from '../types'
 import { mergeSeedAndLive } from '../utils/seedMatch'
@@ -12,6 +14,7 @@ const seeds = (booksData as Book[]).map((b) => ({ ...b, source: 'seed' as const 
 const SUGGESTIONS = ['Heartfulness Way', 'Daaji', 'Raja Yoga', 'Pride and Prejudice', 'Atomic Habits']
 
 export function Home() {
+  const { region } = useRegion()
   const [query, setQuery] = useState('')
   /** When set (e.g. form submit), search immediately instead of waiting for debounce. */
   const [flushQuery, setFlushQuery] = useState<string | null>(null)
@@ -97,16 +100,17 @@ export function Home() {
     <div className="home">
       <section className="hero">
         <h1>Books</h1>
-        <p className="tagline">
-          Find legal ways to read in your region — Free · Borrow · Listen · Buy
-        </p>
+        <p className="tagline">Legal ways to read — Free · Borrow · Listen · Buy</p>
         <p className="explainer">
-          We don’t warehouse or deliver books. Search Open Library live, then compare legal Free ·
-          Borrow · Listen · Buy options. Seeded favourites keep indicative AUD prices; live-only
-          hits show “See store”. Use the region selector for local storefront links. Links ≠ live
-          availability.
+          Search Open Library, then pick a legal path. Seeded titles show indicative AUD prices;
+          live hits say “See store”. Links ≠ live availability.
         </p>
       </section>
+
+      <div className="region-pill" role="status">
+        <span className="region-pill-dot" aria-hidden="true" />
+        Showing links for <strong>{region.name}</strong>
+      </div>
 
       <SearchBox
         value={query}
@@ -122,8 +126,9 @@ export function Home() {
       />
 
       {loading && (
-        <div className="status-banner loading" role="status" aria-live="polite">
-          Searching Open Library…
+        <div className="loading-block" role="status" aria-live="polite">
+          <p className="loading-label">Searching Open Library…</p>
+          <SearchSkeleton />
         </div>
       )}
 
@@ -138,8 +143,9 @@ export function Home() {
 
       {noMatches && (
         <div className="empty-state">
+          <div className="empty-icon" aria-hidden="true">📖</div>
           <p>No matches for “{activeSearch}”.</p>
-          <p className="muted">Try another spelling, ISBN, or a chip above.</p>
+          <p className="muted">Try Atomic Habits or another spelling / ISBN.</p>
         </div>
       )}
 

@@ -1,9 +1,45 @@
 :root {
-  font-family: "Segoe UI", system-ui, -apple-system, sans-serif;
+  --font-sans: "DM Sans", system-ui, -apple-system, "Segoe UI", sans-serif;
+  --font-serif: "Source Serif 4", Georgia, "Times New Roman", serif;
+
+  --bg: #f6f4f1;
+  --bg-elevated: #ffffff;
+  --bg-soft: #faf9f7;
+  --bg-muted: #f0eeeb;
+  --text: #1c1917;
+  --text-secondary: #57534e;
+  --text-muted: #78716c;
+  --border: #e8e4df;
+  --border-strong: #d6d0c8;
+  --shadow-sm: 0 1px 2px rgb(28 25 23 / 4%), 0 1px 3px rgb(28 25 23 / 3%);
+  --shadow-md: 0 4px 16px rgb(28 25 23 / 6%), 0 1px 3px rgb(28 25 23 / 4%);
+  --shadow-lg: 0 12px 32px rgb(28 25 23 / 8%), 0 2px 6px rgb(28 25 23 / 4%);
+  --radius: 1rem;
+  --radius-lg: 1.25rem;
+  --radius-pill: 999px;
+  --accent: #2563eb;
+  --accent-soft: #eff6ff;
+  --accent-hover: #1d4ed8;
+  --focus: #93c5fd;
+  --header-h: 3.5rem;
+  --max: 44rem;
+
+  --path-free-bg: #ecfdf5;
+  --path-free-fg: #047857;
+  --path-borrow-bg: #eff6ff;
+  --path-borrow-fg: #1d4ed8;
+  --path-listen-bg: #f5f3ff;
+  --path-listen-fg: #6d28d9;
+  --path-stream-bg: #f0fdfa;
+  --path-stream-fg: #0f766e;
+  --path-buy-bg: #fff7ed;
+  --path-buy-fg: #c2410c;
+
+  font-family: var(--font-sans);
   line-height: 1.55;
   font-weight: 400;
-  color: #1c1917;
-  background: #faf8f5;
+  color: var(--text);
+  background: var(--bg);
   font-synthesis: none;
   text-rendering: optimizeLegibility;
   -webkit-font-smoothing: antialiased;
@@ -19,23 +55,35 @@ body {
   margin: 0;
   min-width: 320px;
   min-height: 100vh;
-  background: #faf8f5;
+  background:
+    radial-gradient(1200px 600px at 10% -10%, #e8eef8 0%, transparent 55%),
+    radial-gradient(900px 500px at 100% 0%, #f3ebe3 0%, transparent 50%),
+    var(--bg);
 }
 
 a {
-  color: #1d4ed8;
+  color: var(--accent);
   text-decoration-thickness: 1px;
   text-underline-offset: 2px;
+  transition: color 0.15s ease;
 }
 
 a:hover {
-  color: #1e3a8a;
+  color: var(--accent-hover);
 }
 
-h1, h2, h3 {
+h1,
+h2,
+h3 {
   line-height: 1.25;
   font-weight: 650;
-  color: #1c1917;
+  color: var(--text);
+  letter-spacing: -0.02em;
+}
+
+h1 {
+  font-family: var(--font-serif);
+  font-weight: 600;
 }
 
 button {
@@ -55,5 +103,5 @@ button {
 }
 
 .muted {
-  color: #78716c;
+  color: var(--text-muted);
 }

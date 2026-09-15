@@ -20,7 +20,7 @@ export function SearchBox({
   inputId = 'book-search',
 }: SearchBoxProps) {
   return (
-    <div className="search-box">
+    <div className="search-box sticky-search">
       <form
         className="search-form"
         onSubmit={(e) => {
@@ -31,15 +31,21 @@ export function SearchBox({
         <label htmlFor={inputId} className="sr-only">
           {label}
         </label>
-        <input
-          id={inputId}
-          type="search"
-          placeholder={placeholder}
-          value={value}
-          onChange={(e) => onChange(e.target.value)}
-          autoComplete="off"
-          aria-busy={loading || undefined}
-        />
+        <div className="search-input-wrap">
+          <span className="search-icon" aria-hidden="true">
+            🔍
+          </span>
+          <input
+            id={inputId}
+            type="search"
+            placeholder={placeholder}
+            value={value}
+            onChange={(e) => onChange(e.target.value)}
+            autoComplete="off"
+            aria-busy={loading || undefined}
+          />
+          {loading ? <span className="search-spinner" aria-hidden="true" /> : null}
+        </div>
         <button type="submit" className="search-submit">
           Search
         </button>
@@ -48,12 +54,7 @@ export function SearchBox({
         <div className="chips">
           <span className="chips-label">Try:</span>
           {suggestions.map((chip) => (
-            <button
-              key={chip}
-              type="button"
-              className="chip"
-              onClick={() => onChange(chip)}
-            >
+            <button key={chip} type="button" className="chip" onClick={() => onChange(chip)}>
               {chip}
             </button>
           ))}

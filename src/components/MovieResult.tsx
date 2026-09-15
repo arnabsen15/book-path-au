@@ -8,53 +8,58 @@ interface MovieResultProps {
 }
 
 export function MovieResult({ movie, expanded, onToggle }: MovieResultProps) {
-  const metaParts = [
-    movie.director || null,
-    movie.year ? String(movie.year) : null,
-  ].filter(Boolean)
+  const metaParts = [movie.director || null, movie.year ? String(movie.year) : null].filter(Boolean)
 
   return (
-    <section className={`book-result ${expanded ? 'expanded' : 'collapsed'}`} id={movie.id}>
-      <button type="button" className="book-summary" onClick={onToggle} aria-expanded={expanded}>
-        <div className="book-cover-wrap" aria-hidden={!movie.coverUrl}>
+    <section className={`result-card ${expanded ? 'expanded' : 'collapsed'}`} id={movie.id}>
+      <button type="button" className="result-summary" onClick={onToggle} aria-expanded={expanded}>
+        <div className="cover-wrap" aria-hidden={!movie.coverUrl}>
           {movie.coverUrl ? (
             <img
-              className="book-cover"
+              className="cover-img"
               src={movie.coverUrl}
               alt=""
               loading="lazy"
-              width={64}
-              height={96}
+              width={72}
+              height={108}
               onError={(e) => {
                 ;(e.currentTarget as HTMLImageElement).style.display = 'none'
               }}
             />
           ) : (
-            <div className="book-cover placeholder">🎬</div>
+            <div className="cover-img placeholder">🎬</div>
           )}
         </div>
-        <div className="book-summary-text">
-          <header className="book-header">
+        <div className="result-summary-text">
+          <header className="result-header">
             <h2>{movie.title}</h2>
-            <p className="book-meta">{metaParts.join(' · ') || 'Film'}</p>
-            <p className="path-legend">
-              Free · Borrow · Stream · Buy
+            <p className="result-meta">{metaParts.join(' · ') || 'Film'}</p>
+            <div className="path-chip-row" aria-label="Paths">
+              <span className="path-badge path-free"><span aria-hidden="true">🌿 </span>Free</span>
+              <span className="path-badge path-borrow"><span aria-hidden="true">📚 </span>Borrow</span>
+              <span className="path-badge path-stream"><span aria-hidden="true">📡 </span>Stream</span>
+              <span className="path-badge path-buy"><span aria-hidden="true">🛒 </span>Buy</span>
+              <span className="path-badge path-cinema"><span aria-hidden="true">🎟️ </span>Cinema</span>
               {movie.source === 'seed' ? (
-                <span className="seed-badge"> · Seed</span>
+                <span className="meta-pill seed">Seed</span>
               ) : movie.source === 'query' ? (
-                <span className="live-badge"> · Search links</span>
+                <span className="meta-pill live">Search links</span>
               ) : movie.source ? (
-                <span className="live-badge"> · Live</span>
+                <span className="meta-pill live">Live</span>
               ) : null}
-            </p>
+            </div>
             {movie.overview ? <p className="movie-overview muted">{movie.overview}</p> : null}
           </header>
         </div>
-        <span className="expand-hint">{expanded ? 'Hide paths' : 'Show paths'}</span>
+        <span className={`expand-chevron${expanded ? ' open' : ''}`} aria-hidden="true">
+          <svg width="20" height="20" viewBox="0 0 20 20" fill="none">
+            <path d="M5 7.5L10 12.5L15 7.5" stroke="currentColor" strokeWidth="1.75" strokeLinecap="round" strokeLinejoin="round"/>
+          </svg>
+        </span>
       </button>
 
       {expanded && (
-        <div className="book-details">
+        <div className="result-details">
           <MoviePathCards movie={movie} />
         </div>
       )}

@@ -46,7 +46,7 @@ export function PathCards({ book }: PathCardsProps) {
   return (
     <div className="path-grid">
       <article className="path-card path-free">
-        <h3>Free</h3>
+        <h3><span className="path-badge path-free"><span aria-hidden="true">🌿 </span>Free</span></h3>
         {book.free.available ? (
           <>
             <p>{book.free.note}</p>
@@ -80,7 +80,7 @@ export function PathCards({ book }: PathCardsProps) {
       </article>
 
       <article className="path-card path-borrow">
-        <h3>Borrow</h3>
+        <h3><span className="path-badge path-borrow"><span aria-hidden="true">📚 </span>Borrow</span></h3>
         <p>
           Check your local library catalogue
           {region.code === 'AU' ? ' — for example Wyndham Library or Yarra Plenty Regional Library (YPRL)' : ''}.
@@ -106,7 +106,7 @@ export function PathCards({ book }: PathCardsProps) {
       </article>
 
       <article className="path-card path-listen">
-        <h3>Listen</h3>
+        <h3><span className="path-badge path-listen"><span aria-hidden="true">🎧 </span>Listen</span></h3>
         {librivox ? (
           <>
             <p>Free public-domain audiobook may be available:</p>
@@ -160,7 +160,7 @@ export function PathCards({ book }: PathCardsProps) {
       </article>
 
       <article className="path-card path-buy">
-        <h3>Buy</h3>
+        <h3><span className="path-badge path-buy"><span aria-hidden="true">🛒 </span>Buy</span></h3>
         <p className="disclaimer">{PRICES_DISCLAIMER}</p>
         {updated ? <p className="prices-updated">Prices last updated: {updated}</p> : null}
         <ul className="link-list">

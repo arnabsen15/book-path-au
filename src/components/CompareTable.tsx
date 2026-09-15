@@ -236,7 +236,7 @@ export function CompareTable({ book }: CompareTableProps) {
         <p className="prices-updated">Prices last updated: {updated}</p>
       ) : null}
 
-      <div className="compare-chips" aria-label="Quick store links">
+      <div className="compare-chips store-btn-grid" aria-label="Quick store links">
         {rows
           .filter((r) => r.url)
           .map((r) => (
@@ -254,6 +254,8 @@ export function CompareTable({ book }: CompareTableProps) {
           ))}
       </div>
 
+      <details className="compare-table-details">
+        <summary>Full comparison table</summary>
       <div className="compare-table-wrap">
         <table className="compare-table">
           <thead>
@@ -290,6 +292,7 @@ export function CompareTable({ book }: CompareTableProps) {
           </tbody>
         </table>
       </div>
+      </details>
     </div>
   )
 }

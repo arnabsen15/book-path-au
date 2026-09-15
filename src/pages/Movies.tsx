@@ -2,6 +2,7 @@ import { useCallback, useEffect, useMemo, useRef, useState } from 'react'
 import { hasTmdbKey, searchMoviesLive } from '../api/movieSearch'
 import { MovieResult } from '../components/MovieResult'
 import { SearchBox } from '../components/SearchBox'
+import { SearchSkeleton } from '../components/SearchSkeleton'
 import { useRegion } from '../context/RegionContext'
 import moviesData from '../data/movies.json'
 import { useDebouncedValue } from '../hooks/useDebouncedValue'
@@ -100,16 +101,17 @@ export function Movies() {
     <div className="home">
       <section className="hero">
         <h1>Movies</h1>
-        <p className="tagline">
-          Find legal ways to watch in {region.name} — Free · Borrow · Stream · Buy
-        </p>
+        <p className="tagline">Legal ways to watch — Free · Borrow · Stream · Buy</p>
         <p className="explainer">
-          Not a cinema or streaming service. We point you to legal paths: public-domain /
-          Internet Archive when known, library apps (Kanopy / Beamafilm), JustWatch, FTA
-          catch-up search{region.showAuFta ? ' (SBS, iview, 7plus, 9Now, 10 Play)' : ''}, and
-          buy/rent storefronts. Links ≠ live availability. {region.note}
+          Tap a title, then start with JustWatch. We also link free-to-air, streamers, libraries,
+          and rent/buy — search only, not live catalogues.
         </p>
       </section>
+
+      <div className="region-pill" role="status">
+        <span className="region-pill-dot" aria-hidden="true" />
+        Showing links for <strong>{region.name}</strong>
+      </div>
 
       <SearchBox
         value={query}
@@ -128,8 +130,9 @@ export function Movies() {
       />
 
       {loading && (
-        <div className="status-banner loading" role="status" aria-live="polite">
-          Searching film metadata ({metaHint})…
+        <div className="loading-block" role="status" aria-live="polite">
+          <p className="loading-label">Searching film metadata ({metaHint})…</p>
+          <SearchSkeleton />
         </div>
       )}
 
@@ -144,8 +147,9 @@ export function Movies() {
 
       {noMatches && (
         <div className="empty-state">
+          <div className="empty-icon" aria-hidden="true">🎬</div>
           <p>No matches for “{activeSearch}”.</p>
-          <p className="muted">Try another spelling or a chip above — JustWatch links still help.</p>
+          <p className="muted">Try Hanuman Ansh or another spelling — JustWatch still helps.</p>
         </div>
       )}
 
