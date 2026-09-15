@@ -29,6 +29,21 @@ export function About() {
         </p>
       </section>
 
+      <h2>Indicative prices</h2>
+      <p>
+        Where we show dollar amounts, they are <strong>manual indicative prices in AUD</strong>,
+        not live scrapes from retailers. Someone updated them by hand (last updated date appears
+        on each book result). Editions, discounts, and stock change often — always verify the
+        price on the retailer site before you buy.
+      </p>
+      <p>
+        Free sources (Project Gutenberg, Wikisource, Open Library, LibriVox) and library borrow
+        paths are labelled Free or Library — we never invent a fake dollar price for those.
+      </p>
+      <p className="disclaimer">
+        Indicative prices in AUD — not live. Check the store for today’s price.
+      </p>
+
       <h2>What we stand for</h2>
       <ul>
         <li>
@@ -44,7 +59,7 @@ export function About() {
         <li>
           <strong>Retailers for buying.</strong> Outbound search links to Amazon.au, Kindle,
           Booktopia, Dymocks, Readings, Google Play Books, Apple Books, Audible.au, and Spotify.
-          Prices and delivery live on those sites.
+          Indicative AUD figures are a starting point only — final price is always on those sites.
         </li>
         <li>
           <strong>Affiliate-ready later.</strong> No affiliate tags in this MVP. If we add them,

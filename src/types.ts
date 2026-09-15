@@ -13,6 +13,18 @@ export interface AudiobookInfo {
   librivox?: OutboundLink
 }
 
+/** Manual indicative AUD prices for paid retailers (not live). */
+export interface IndicativePrices {
+  amazonAu?: number
+  kindle?: number
+  booktopia?: number
+  dymocks?: number
+  readings?: number
+  appleBooks?: number
+  googlePlay?: number
+  audible?: number
+}
+
 export interface Book {
   id: string
   title: string
@@ -22,4 +34,30 @@ export interface Book {
   tags?: string[]
   free: FreePath
   audiobook?: AudiobookInfo
+  /** ISO date when indicativePrices were last manually updated */
+  pricesUpdated?: string
+  indicativePrices?: IndicativePrices
+}
+
+export const PRICES_DISCLAIMER =
+  'Indicative prices in AUD — not live. Check the store for today’s price.'
+
+export function formatAud(amount: number): string {
+  return new Intl.NumberFormat('en-AU', {
+    style: 'currency',
+    currency: 'AUD',
+  }).format(amount)
+}
+
+/** Display label for last-updated ISO date, e.g. 2026-09-15 → 15 Sep 2026 */
+export function formatPricesUpdated(iso?: string): string | null {
+  if (!iso) return null
+  const d = new Date(`${iso}T00:00:00Z`)
+  if (Number.isNaN(d.getTime())) return iso
+  return d.toLocaleDateString('en-GB', {
+    day: 'numeric',
+    month: 'short',
+    year: 'numeric',
+    timeZone: 'UTC',
+  })
 }

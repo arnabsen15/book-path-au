@@ -44,7 +44,8 @@ export default function App() {
       <footer className="site-footer">
         <p>Free · Borrow · Listen · Buy — legal paths only.</p>
         <p className="muted footer-disclaimer">
-          Hobby project for book lovers · Not a shop · Not affiliated with retailers
+          Hobby project for book lovers · Not a shop · Not affiliated with retailers ·
+          Indicative AUD prices are not live
         </p>
       </footer>
     </div>

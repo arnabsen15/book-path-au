@@ -5,18 +5,45 @@
     "author": "Swami Vivekananda",
     "isbn": "9780911206234",
     "year": 1896,
-    "tags": ["spiritual", "yoga", "vivekananda"],
+    "tags": [
+      "spiritual",
+      "yoga",
+      "vivekananda"
+    ],
     "free": {
       "available": true,
       "note": "Public domain. Read online or download from Project Gutenberg or Wikisource.",
       "links": [
-        { "label": "Project Gutenberg", "url": "https://www.gutenberg.org/ebooks/13656" },
-        { "label": "Wikisource", "url": "https://en.wikisource.org/wiki/The_Complete_Works_of_Swami_Vivekananda/Volume_1/Raja-Yoga" },
-        { "label": "Open Library", "url": "https://openlibrary.org/works/OL15141254W/Raja_Yoga" }
+        {
+          "label": "Project Gutenberg",
+          "url": "https://www.gutenberg.org/ebooks/13656"
+        },
+        {
+          "label": "Wikisource",
+          "url": "https://en.wikisource.org/wiki/The_Complete_Works_of_Swami_Vivekananda/Volume_1/Raja-Yoga"
+        },
+        {
+          "label": "Open Library",
+          "url": "https://openlibrary.org/works/OL15141254W/Raja_Yoga"
+        }
       ]
     },
     "audiobook": {
-      "librivox": { "label": "LibriVox", "url": "https://librivox.org/search?q=Raja+Yoga+Vivekananda&search_form=advanced" }
+      "librivox": {
+        "label": "LibriVox",
+        "url": "https://librivox.org/search?q=Raja+Yoga+Vivekananda&search_form=advanced"
+      }
+    },
+    "pricesUpdated": "2026-09-15",
+    "indicativePrices": {
+      "amazonAu": 19.99,
+      "kindle": 4.99,
+      "booktopia": 19.69,
+      "dymocks": 24.99,
+      "readings": 22.95,
+      "appleBooks": 5.99,
+      "googlePlay": 5.49,
+      "audible": 18.99
     }
   },
   {
@@ -25,18 +52,45 @@
     "author": "Swami Vivekananda",
     "isbn": "9780911206227",
     "year": 1896,
-    "tags": ["spiritual", "yoga", "vivekananda"],
+    "tags": [
+      "spiritual",
+      "yoga",
+      "vivekananda"
+    ],
     "free": {
       "available": true,
       "note": "Public domain. Available from Project Gutenberg and Wikisource.",
       "links": [
-        { "label": "Project Gutenberg", "url": "https://www.gutenberg.org/ebooks/13657" },
-        { "label": "Wikisource", "url": "https://en.wikisource.org/wiki/The_Complete_Works_of_Swami_Vivekananda/Volume_1/Karma-Yoga" },
-        { "label": "Open Library", "url": "https://openlibrary.org/works/OL15141252W/Karma_Yoga" }
+        {
+          "label": "Project Gutenberg",
+          "url": "https://www.gutenberg.org/ebooks/13657"
+        },
+        {
+          "label": "Wikisource",
+          "url": "https://en.wikisource.org/wiki/The_Complete_Works_of_Swami_Vivekananda/Volume_1/Karma-Yoga"
+        },
+        {
+          "label": "Open Library",
+          "url": "https://openlibrary.org/works/OL15141252W/Karma_Yoga"
+        }
       ]
     },
     "audiobook": {
-      "librivox": { "label": "LibriVox", "url": "https://librivox.org/search?q=Karma+Yoga+Vivekananda&search_form=advanced" }
+      "librivox": {
+        "label": "LibriVox",
+        "url": "https://librivox.org/search?q=Karma+Yoga+Vivekananda&search_form=advanced"
+      }
+    },
+    "pricesUpdated": "2026-09-15",
+    "indicativePrices": {
+      "amazonAu": 18.5,
+      "kindle": 3.99,
+      "booktopia": 17.95,
+      "dymocks": 22.99,
+      "readings": 21.95,
+      "appleBooks": 4.99,
+      "googlePlay": 4.49,
+      "audible": 16.99
     }
   },
   {
@@ -45,18 +99,45 @@
     "author": "Swami Vivekananda",
     "isbn": "9780911206210",
     "year": 1899,
-    "tags": ["spiritual", "yoga", "vivekananda"],
+    "tags": [
+      "spiritual",
+      "yoga",
+      "vivekananda"
+    ],
     "free": {
       "available": true,
       "note": "Public domain. Read via Wikisource or Open Library.",
       "links": [
-        { "label": "Wikisource", "url": "https://en.wikisource.org/wiki/The_Complete_Works_of_Swami_Vivekananda/Volume_2/Jnana-Yoga" },
-        { "label": "Open Library", "url": "https://openlibrary.org/works/OL15141251W/Jnana_Yoga" },
-        { "label": "Internet Archive", "url": "https://archive.org/search?query=jnana+yoga+vivekananda" }
+        {
+          "label": "Wikisource",
+          "url": "https://en.wikisource.org/wiki/The_Complete_Works_of_Swami_Vivekananda/Volume_2/Jnana-Yoga"
+        },
+        {
+          "label": "Open Library",
+          "url": "https://openlibrary.org/works/OL15141251W/Jnana_Yoga"
+        },
+        {
+          "label": "Internet Archive",
+          "url": "https://archive.org/search?query=jnana+yoga+vivekananda"
+        }
       ]
     },
     "audiobook": {
-      "librivox": { "label": "LibriVox", "url": "https://librivox.org/search?q=Jnana+Yoga+Vivekananda&search_form=advanced" }
+      "librivox": {
+        "label": "LibriVox",
+        "url": "https://librivox.org/search?q=Jnana+Yoga+Vivekananda&search_form=advanced"
+      }
+    },
+    "pricesUpdated": "2026-09-15",
+    "indicativePrices": {
+      "amazonAu": 18.99,
+      "kindle": 3.99,
+      "booktopia": 18.5,
+      "dymocks": 23.99,
+      "readings": 21.95,
+      "appleBooks": 4.99,
+      "googlePlay": 4.49,
+      "audible": 17.99
     }
   },
   {
@@ -65,17 +146,41 @@
     "author": "Swami Vivekananda",
     "isbn": "9780911206241",
     "year": 1896,
-    "tags": ["spiritual", "yoga", "vivekananda"],
+    "tags": [
+      "spiritual",
+      "yoga",
+      "vivekananda"
+    ],
     "free": {
       "available": true,
       "note": "Public domain. Available on Wikisource and Open Library.",
       "links": [
-        { "label": "Wikisource", "url": "https://en.wikisource.org/wiki/The_Complete_Works_of_Swami_Vivekananda/Volume_3/Bhakti-Yoga" },
-        { "label": "Open Library", "url": "https://openlibrary.org/works/OL15141249W/Bhakti_Yoga" }
+        {
+          "label": "Wikisource",
+          "url": "https://en.wikisource.org/wiki/The_Complete_Works_of_Swami_Vivekananda/Volume_3/Bhakti-Yoga"
+        },
+        {
+          "label": "Open Library",
+          "url": "https://openlibrary.org/works/OL15141249W/Bhakti_Yoga"
+        }
       ]
     },
     "audiobook": {
-      "librivox": { "label": "LibriVox", "url": "https://librivox.org/search?q=Bhakti+Yoga+Vivekananda&search_form=advanced" }
+      "librivox": {
+        "label": "LibriVox",
+        "url": "https://librivox.org/search?q=Bhakti+Yoga+Vivekananda&search_form=advanced"
+      }
+    },
+    "pricesUpdated": "2026-09-15",
+    "indicativePrices": {
+      "amazonAu": 17.99,
+      "kindle": 2.99,
+      "booktopia": 16.95,
+      "dymocks": 21.99,
+      "readings": 19.95,
+      "appleBooks": 3.99,
+      "googlePlay": 3.49,
+      "audible": 15.99
     }
   },
   {
@@ -84,17 +189,40 @@
     "author": "Swami Vivekananda",
     "isbn": "9788175053335",
     "year": 1897,
-    "tags": ["spiritual", "vivekananda"],
+    "tags": [
+      "spiritual",
+      "vivekananda"
+    ],
     "free": {
       "available": true,
       "note": "Public domain. Full volume on Wikisource and Internet Archive.",
       "links": [
-        { "label": "Wikisource", "url": "https://en.wikisource.org/wiki/The_Complete_Works_of_Swami_Vivekananda/Volume_1" },
-        { "label": "Internet Archive", "url": "https://archive.org/details/completeworksofs01viveuoft" }
+        {
+          "label": "Wikisource",
+          "url": "https://en.wikisource.org/wiki/The_Complete_Works_of_Swami_Vivekananda/Volume_1"
+        },
+        {
+          "label": "Internet Archive",
+          "url": "https://archive.org/details/completeworksofs01viveuoft"
+        }
       ]
     },
     "audiobook": {
-      "librivox": { "label": "LibriVox", "url": "https://librivox.org/search?q=Swami+Vivekananda&search_form=advanced" }
+      "librivox": {
+        "label": "LibriVox",
+        "url": "https://librivox.org/search?q=Swami+Vivekananda&search_form=advanced"
+      }
+    },
+    "pricesUpdated": "2026-09-15",
+    "indicativePrices": {
+      "amazonAu": 34.99,
+      "kindle": 9.99,
+      "booktopia": 32.95,
+      "dymocks": 39.99,
+      "readings": 36.95,
+      "appleBooks": 11.99,
+      "googlePlay": 10.99,
+      "audible": 28.99
     }
   },
   {
@@ -103,17 +231,40 @@
     "author": "Swami Vivekananda",
     "isbn": "9780911206180",
     "year": 1909,
-    "tags": ["spiritual", "vivekananda"],
+    "tags": [
+      "spiritual",
+      "vivekananda"
+    ],
     "free": {
       "available": true,
       "note": "Public domain. Available via Wikisource.",
       "links": [
-        { "label": "Wikisource", "url": "https://en.wikisource.org/wiki/Inspired_Talks" },
-        { "label": "Open Library", "url": "https://openlibrary.org/search?q=Inspired+Talks+Vivekananda" }
+        {
+          "label": "Wikisource",
+          "url": "https://en.wikisource.org/wiki/Inspired_Talks"
+        },
+        {
+          "label": "Open Library",
+          "url": "https://openlibrary.org/search?q=Inspired+Talks+Vivekananda"
+        }
       ]
     },
     "audiobook": {
-      "librivox": { "label": "LibriVox", "url": "https://librivox.org/search?q=Inspired+Talks+Vivekananda&search_form=advanced" }
+      "librivox": {
+        "label": "LibriVox",
+        "url": "https://librivox.org/search?q=Inspired+Talks+Vivekananda&search_form=advanced"
+      }
+    },
+    "pricesUpdated": "2026-09-15",
+    "indicativePrices": {
+      "amazonAu": 21.99,
+      "kindle": 4.49,
+      "booktopia": 20.95,
+      "dymocks": 26.99,
+      "readings": 24.95,
+      "appleBooks": 5.49,
+      "googlePlay": 4.99,
+      "audible": 19.99
     }
   },
   {
@@ -122,17 +273,40 @@
     "author": "Jane Austen",
     "isbn": "9780141439518",
     "year": 1813,
-    "tags": ["classic", "fiction"],
+    "tags": [
+      "classic",
+      "fiction"
+    ],
     "free": {
       "available": true,
       "note": "Public domain classic.",
       "links": [
-        { "label": "Project Gutenberg", "url": "https://www.gutenberg.org/ebooks/1342" },
-        { "label": "Open Library", "url": "https://openlibrary.org/works/OL66554W/Pride_and_Prejudice" }
+        {
+          "label": "Project Gutenberg",
+          "url": "https://www.gutenberg.org/ebooks/1342"
+        },
+        {
+          "label": "Open Library",
+          "url": "https://openlibrary.org/works/OL66554W/Pride_and_Prejudice"
+        }
       ]
     },
     "audiobook": {
-      "librivox": { "label": "LibriVox", "url": "https://librivox.org/pride-and-prejudice-by-jane-austen/" }
+      "librivox": {
+        "label": "LibriVox",
+        "url": "https://librivox.org/pride-and-prejudice-by-jane-austen/"
+      }
+    },
+    "pricesUpdated": "2026-09-15",
+    "indicativePrices": {
+      "amazonAu": 14.99,
+      "kindle": 1.99,
+      "booktopia": 12.99,
+      "dymocks": 16.99,
+      "readings": 14.95,
+      "appleBooks": 2.99,
+      "googlePlay": 1.99,
+      "audible": 22.99
     }
   },
   {
@@ -141,17 +315,40 @@
     "author": "Mary Shelley",
     "isbn": "9780141439471",
     "year": 1818,
-    "tags": ["classic", "fiction"],
+    "tags": [
+      "classic",
+      "fiction"
+    ],
     "free": {
       "available": true,
       "note": "Public domain.",
       "links": [
-        { "label": "Project Gutenberg", "url": "https://www.gutenberg.org/ebooks/84" },
-        { "label": "Open Library", "url": "https://openlibrary.org/works/OL450063W/Frankenstein" }
+        {
+          "label": "Project Gutenberg",
+          "url": "https://www.gutenberg.org/ebooks/84"
+        },
+        {
+          "label": "Open Library",
+          "url": "https://openlibrary.org/works/OL450063W/Frankenstein"
+        }
       ]
     },
     "audiobook": {
-      "librivox": { "label": "LibriVox", "url": "https://librivox.org/frankenstein-1818-version-by-mary-wollstonecraft-shelley/" }
+      "librivox": {
+        "label": "LibriVox",
+        "url": "https://librivox.org/frankenstein-1818-version-by-mary-wollstonecraft-shelley/"
+      }
+    },
+    "pricesUpdated": "2026-09-15",
+    "indicativePrices": {
+      "amazonAu": 13.99,
+      "kindle": 1.49,
+      "booktopia": 11.99,
+      "dymocks": 15.99,
+      "readings": 14.95,
+      "appleBooks": 2.49,
+      "googlePlay": 1.49,
+      "audible": 19.99
     }
   },
   {
@@ -160,17 +357,40 @@
     "author": "Arthur Conan Doyle",
     "isbn": "9780140439076",
     "year": 1892,
-    "tags": ["classic", "mystery"],
+    "tags": [
+      "classic",
+      "mystery"
+    ],
     "free": {
       "available": true,
       "note": "Public domain.",
       "links": [
-        { "label": "Project Gutenberg", "url": "https://www.gutenberg.org/ebooks/1661" },
-        { "label": "Open Library", "url": "https://openlibrary.org/works/OL262457W/The_Adventures_of_Sherlock_Holmes" }
+        {
+          "label": "Project Gutenberg",
+          "url": "https://www.gutenberg.org/ebooks/1661"
+        },
+        {
+          "label": "Open Library",
+          "url": "https://openlibrary.org/works/OL262457W/The_Adventures_of_Sherlock_Holmes"
+        }
       ]
     },
     "audiobook": {
-      "librivox": { "label": "LibriVox", "url": "https://librivox.org/the-adventures-of-sherlock-holmes-by-sir-arthur-conan-doyle/" }
+      "librivox": {
+        "label": "LibriVox",
+        "url": "https://librivox.org/the-adventures-of-sherlock-holmes-by-sir-arthur-conan-doyle/"
+      }
+    },
+    "pricesUpdated": "2026-09-15",
+    "indicativePrices": {
+      "amazonAu": 15.99,
+      "kindle": 1.99,
+      "booktopia": 13.99,
+      "dymocks": 17.99,
+      "readings": 16.95,
+      "appleBooks": 2.99,
+      "googlePlay": 1.99,
+      "audible": 24.99
     }
   },
   {
@@ -179,17 +399,40 @@
     "author": "Marcus Aurelius",
     "isbn": "9780140449334",
     "year": 180,
-    "tags": ["philosophy", "classic"],
+    "tags": [
+      "philosophy",
+      "classic"
+    ],
     "free": {
       "available": true,
       "note": "Public domain (older translations).",
       "links": [
-        { "label": "Project Gutenberg", "url": "https://www.gutenberg.org/ebooks/2680" },
-        { "label": "Open Library", "url": "https://openlibrary.org/works/OL15832854W/Meditations" }
+        {
+          "label": "Project Gutenberg",
+          "url": "https://www.gutenberg.org/ebooks/2680"
+        },
+        {
+          "label": "Open Library",
+          "url": "https://openlibrary.org/works/OL15832854W/Meditations"
+        }
       ]
     },
     "audiobook": {
-      "librivox": { "label": "LibriVox", "url": "https://librivox.org/the-meditations-of-marcus-aurelius/" }
+      "librivox": {
+        "label": "LibriVox",
+        "url": "https://librivox.org/the-meditations-of-marcus-aurelius/"
+      }
+    },
+    "pricesUpdated": "2026-09-15",
+    "indicativePrices": {
+      "amazonAu": 16.99,
+      "kindle": 2.99,
+      "booktopia": 14.99,
+      "dymocks": 18.99,
+      "readings": 17.95,
+      "appleBooks": 3.99,
+      "googlePlay": 2.99,
+      "audible": 21.99
     }
   },
   {
@@ -198,17 +441,40 @@
     "author": "Traditional (tr. Sir Edwin Arnold)",
     "isbn": "9780486277820",
     "year": 1885,
-    "tags": ["spiritual", "hinduism"],
+    "tags": [
+      "spiritual",
+      "hinduism"
+    ],
     "free": {
       "available": true,
       "note": "Arnold's public-domain translation.",
       "links": [
-        { "label": "Project Gutenberg", "url": "https://www.gutenberg.org/ebooks/2388" },
-        { "label": "Wikisource", "url": "https://en.wikisource.org/wiki/The_Bhagavad_Gita_(Arnold_translation)" }
+        {
+          "label": "Project Gutenberg",
+          "url": "https://www.gutenberg.org/ebooks/2388"
+        },
+        {
+          "label": "Wikisource",
+          "url": "https://en.wikisource.org/wiki/The_Bhagavad_Gita_(Arnold_translation)"
+        }
       ]
     },
     "audiobook": {
-      "librivox": { "label": "LibriVox", "url": "https://librivox.org/search?q=Bhagavad+Gita+Arnold&search_form=advanced" }
+      "librivox": {
+        "label": "LibriVox",
+        "url": "https://librivox.org/search?q=Bhagavad+Gita+Arnold&search_form=advanced"
+      }
+    },
+    "pricesUpdated": "2026-09-15",
+    "indicativePrices": {
+      "amazonAu": 12.99,
+      "kindle": 1.99,
+      "booktopia": 11.5,
+      "dymocks": 14.99,
+      "readings": 13.95,
+      "appleBooks": 2.49,
+      "googlePlay": 1.99,
+      "audible": 17.99
     }
   },
   {
@@ -217,17 +483,40 @@
     "author": "Henry David Thoreau",
     "isbn": "9780140390445",
     "year": 1854,
-    "tags": ["classic", "philosophy"],
+    "tags": [
+      "classic",
+      "philosophy"
+    ],
     "free": {
       "available": true,
       "note": "Public domain.",
       "links": [
-        { "label": "Project Gutenberg", "url": "https://www.gutenberg.org/ebooks/205" },
-        { "label": "Open Library", "url": "https://openlibrary.org/works/OL15570W/Walden" }
+        {
+          "label": "Project Gutenberg",
+          "url": "https://www.gutenberg.org/ebooks/205"
+        },
+        {
+          "label": "Open Library",
+          "url": "https://openlibrary.org/works/OL15570W/Walden"
+        }
       ]
     },
     "audiobook": {
-      "librivox": { "label": "LibriVox", "url": "https://librivox.org/walden-by-henry-david-thoreau/" }
+      "librivox": {
+        "label": "LibriVox",
+        "url": "https://librivox.org/walden-by-henry-david-thoreau/"
+      }
+    },
+    "pricesUpdated": "2026-09-15",
+    "indicativePrices": {
+      "amazonAu": 14.5,
+      "kindle": 1.49,
+      "booktopia": 12.95,
+      "dymocks": 16.99,
+      "readings": 15.95,
+      "appleBooks": 2.49,
+      "googlePlay": 1.49,
+      "audible": 20.99
     }
   },
   {
@@ -236,13 +525,27 @@
     "author": "James Clear",
     "isbn": "9780735211292",
     "year": 2018,
-    "tags": ["self-help", "modern"],
+    "tags": [
+      "self-help",
+      "modern"
+    ],
     "free": {
       "available": false,
-      "note": "Still under copyright — not available as a free legal ebook.",
+      "note": "Still under copyright \u2014 not available as a free legal ebook.",
       "links": []
     },
-    "audiobook": {}
+    "audiobook": {},
+    "pricesUpdated": "2026-09-15",
+    "indicativePrices": {
+      "amazonAu": 29.99,
+      "kindle": 16.99,
+      "booktopia": 27.75,
+      "dymocks": 36.99,
+      "readings": 34.99,
+      "appleBooks": 17.99,
+      "googlePlay": 16.99,
+      "audible": 26.45
+    }
   },
   {
     "id": "educated",
@@ -250,13 +553,27 @@
     "author": "Tara Westover",
     "isbn": "9780399590504",
     "year": 2018,
-    "tags": ["memoir", "modern"],
+    "tags": [
+      "memoir",
+      "modern"
+    ],
     "free": {
       "available": false,
-      "note": "Still under copyright — not available as a free legal ebook.",
+      "note": "Still under copyright \u2014 not available as a free legal ebook.",
       "links": []
     },
-    "audiobook": {}
+    "audiobook": {},
+    "pricesUpdated": "2026-09-15",
+    "indicativePrices": {
+      "amazonAu": 24.99,
+      "kindle": 14.99,
+      "booktopia": 22.95,
+      "dymocks": 26.99,
+      "readings": 26.99,
+      "appleBooks": 15.99,
+      "googlePlay": 14.99,
+      "audible": 32.99
+    }
   },
   {
     "id": "sapiens",
@@ -264,13 +581,27 @@
     "author": "Yuval Noah Harari",
     "isbn": "9780062316097",
     "year": 2015,
-    "tags": ["history", "modern"],
+    "tags": [
+      "history",
+      "modern"
+    ],
     "free": {
       "available": false,
-      "note": "Still under copyright — not available as a free legal ebook.",
+      "note": "Still under copyright \u2014 not available as a free legal ebook.",
       "links": []
     },
-    "audiobook": {}
+    "audiobook": {},
+    "pricesUpdated": "2026-09-15",
+    "indicativePrices": {
+      "amazonAu": 24.99,
+      "kindle": 14.99,
+      "booktopia": 23.75,
+      "dymocks": 27.99,
+      "readings": 27.99,
+      "appleBooks": 15.99,
+      "googlePlay": 14.99,
+      "audible": 34.99
+    }
   },
   {
     "id": "the-midnight-library",
@@ -278,13 +609,27 @@
     "author": "Matt Haig",
     "isbn": "9780525559474",
     "year": 2020,
-    "tags": ["fiction", "modern"],
+    "tags": [
+      "fiction",
+      "modern"
+    ],
     "free": {
       "available": false,
-      "note": "Still under copyright — not available as a free legal ebook.",
+      "note": "Still under copyright \u2014 not available as a free legal ebook.",
       "links": []
     },
-    "audiobook": {}
+    "audiobook": {},
+    "pricesUpdated": "2026-09-15",
+    "indicativePrices": {
+      "amazonAu": 22.99,
+      "kindle": 12.99,
+      "booktopia": 21.5,
+      "dymocks": 24.99,
+      "readings": 24.99,
+      "appleBooks": 13.99,
+      "googlePlay": 12.99,
+      "audible": 29.99
+    }
   },
   {
     "id": "where-the-crawdads-sing",
@@ -292,13 +637,27 @@
     "author": "Delia Owens",
     "isbn": "9780735219090",
     "year": 2018,
-    "tags": ["fiction", "modern"],
+    "tags": [
+      "fiction",
+      "modern"
+    ],
     "free": {
       "available": false,
-      "note": "Still under copyright — not available as a free legal ebook.",
+      "note": "Still under copyright \u2014 not available as a free legal ebook.",
       "links": []
     },
-    "audiobook": {}
+    "audiobook": {},
+    "pricesUpdated": "2026-09-15",
+    "indicativePrices": {
+      "amazonAu": 22.5,
+      "kindle": 12.99,
+      "booktopia": 20.95,
+      "dymocks": 24.99,
+      "readings": 24.99,
+      "appleBooks": 13.99,
+      "googlePlay": 12.99,
+      "audible": 31.99
+    }
   },
   {
     "id": "becoming",
@@ -306,13 +665,27 @@
     "author": "Michelle Obama",
     "isbn": "9781524763138",
     "year": 2018,
-    "tags": ["memoir", "modern"],
+    "tags": [
+      "memoir",
+      "modern"
+    ],
     "free": {
       "available": false,
-      "note": "Still under copyright — not available as a free legal ebook.",
+      "note": "Still under copyright \u2014 not available as a free legal ebook.",
       "links": []
     },
-    "audiobook": {}
+    "audiobook": {},
+    "pricesUpdated": "2026-09-15",
+    "indicativePrices": {
+      "amazonAu": 32.99,
+      "kindle": 18.99,
+      "booktopia": 29.95,
+      "dymocks": 34.99,
+      "readings": 34.99,
+      "appleBooks": 19.99,
+      "googlePlay": 18.99,
+      "audible": 42.99
+    }
   },
   {
     "id": "the-alchemist",
@@ -320,13 +693,27 @@
     "author": "Paulo Coelho",
     "isbn": "9780062315007",
     "year": 1988,
-    "tags": ["fiction", "spiritual"],
+    "tags": [
+      "fiction",
+      "spiritual"
+    ],
     "free": {
       "available": false,
-      "note": "Still under copyright — not available as a free legal ebook.",
+      "note": "Still under copyright \u2014 not available as a free legal ebook.",
       "links": []
     },
-    "audiobook": {}
+    "audiobook": {},
+    "pricesUpdated": "2026-09-15",
+    "indicativePrices": {
+      "amazonAu": 19.99,
+      "kindle": 11.99,
+      "booktopia": 18.5,
+      "dymocks": 22.99,
+      "readings": 21.95,
+      "appleBooks": 12.99,
+      "googlePlay": 11.99,
+      "audible": 24.99
+    }
   },
   {
     "id": "lessons-in-chemistry",
@@ -334,13 +721,27 @@
     "author": "Bonnie Garmus",
     "isbn": "9780385547345",
     "year": 2022,
-    "tags": ["fiction", "modern"],
+    "tags": [
+      "fiction",
+      "modern"
+    ],
     "free": {
       "available": false,
-      "note": "Still under copyright — not available as a free legal ebook.",
+      "note": "Still under copyright \u2014 not available as a free legal ebook.",
       "links": []
     },
-    "audiobook": {}
+    "audiobook": {},
+    "pricesUpdated": "2026-09-15",
+    "indicativePrices": {
+      "amazonAu": 24.99,
+      "kindle": 14.99,
+      "booktopia": 22.95,
+      "dymocks": 32.99,
+      "readings": 32.99,
+      "appleBooks": 15.99,
+      "googlePlay": 14.99,
+      "audible": 35.99
+    }
   },
   {
     "id": "project-hail-mary",
@@ -348,13 +749,27 @@
     "author": "Andy Weir",
     "isbn": "9780593135204",
     "year": 2021,
-    "tags": ["sci-fi", "modern"],
+    "tags": [
+      "sci-fi",
+      "modern"
+    ],
     "free": {
       "available": false,
-      "note": "Still under copyright — not available as a free legal ebook.",
+      "note": "Still under copyright \u2014 not available as a free legal ebook.",
       "links": []
     },
-    "audiobook": {}
+    "audiobook": {},
+    "pricesUpdated": "2026-09-15",
+    "indicativePrices": {
+      "amazonAu": 26.99,
+      "kindle": 15.99,
+      "booktopia": 24.95,
+      "dymocks": 29.99,
+      "readings": 29.99,
+      "appleBooks": 16.99,
+      "googlePlay": 15.99,
+      "audible": 39.99
+    }
   },
   {
     "id": "the-seven-husbands",
@@ -362,12 +777,26 @@
     "author": "Taylor Jenkins Reid",
     "isbn": "9781501161933",
     "year": 2017,
-    "tags": ["fiction", "modern"],
+    "tags": [
+      "fiction",
+      "modern"
+    ],
     "free": {
       "available": false,
-      "note": "Still under copyright — not available as a free legal ebook.",
+      "note": "Still under copyright \u2014 not available as a free legal ebook.",
       "links": []
     },
-    "audiobook": {}
+    "audiobook": {},
+    "pricesUpdated": "2026-09-15",
+    "indicativePrices": {
+      "amazonAu": 22.99,
+      "kindle": 12.99,
+      "booktopia": 21.5,
+      "dymocks": 24.99,
+      "readings": 24.99,
+      "appleBooks": 13.99,
+      "googlePlay": 12.99,
+      "audible": 33.99
+    }
   }
 ]

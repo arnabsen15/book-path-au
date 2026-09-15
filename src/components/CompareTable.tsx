@@ -1,4 +1,9 @@
-import type { Book } from '../types'
+import type { Book, IndicativePrices } from '../types'
+import {
+  PRICES_DISCLAIMER,
+  formatAud,
+  formatPricesUpdated,
+} from '../types'
 import {
   amazonAuSearchUrl,
   appleBooksSearchUrl,
@@ -18,6 +23,8 @@ interface CompareTableProps {
   book: Book
 }
 
+type PriceDisplay = { kind: 'money'; amount: number } | { kind: 'label'; text: string } | { kind: 'see' }
+
 interface CompareRow {
   path: string
   option: string
@@ -25,9 +32,25 @@ interface CompareRow {
   note: string
   url?: string
   available: boolean
+  price: PriceDisplay
+  priceKey?: keyof IndicativePrices
+}
+
+function moneyFrom(prices: IndicativePrices | undefined, key: keyof IndicativePrices): PriceDisplay {
+  const n = prices?.[key]
+  if (typeof n === 'number') return { kind: 'money', amount: n }
+  return { kind: 'see' }
+}
+
+function priceCell(price: PriceDisplay): string {
+  if (price.kind === 'money') return formatAud(price.amount)
+  if (price.kind === 'label') return price.text
+  return 'See store'
 }
 
 export function CompareTable({ book }: CompareTableProps) {
+  const p = book.indicativePrices
+  const updated = formatPricesUpdated(book.pricesUpdated)
   const rows: CompareRow[] = []
 
   if (book.free.available) {
@@ -39,6 +62,7 @@ export function CompareTable({ book }: CompareTableProps) {
         note: 'Public domain or open access',
         url: link.url,
         available: true,
+        price: { kind: 'label', text: 'Free' },
       })
     }
   } else {
@@ -48,6 +72,7 @@ export function CompareTable({ book }: CompareTableProps) {
       format: '—',
       note: book.free.note || 'Not free legally',
       available: false,
+      price: { kind: 'label', text: '—' },
     })
   }
 
@@ -58,6 +83,7 @@ export function CompareTable({ book }: CompareTableProps) {
     note: 'Find libraries holding this title',
     url: troveSearchUrl(book),
     available: true,
+    price: { kind: 'label', text: 'Library' },
   })
   rows.push({
     path: 'Borrow',
@@ -66,6 +92,7 @@ export function CompareTable({ book }: CompareTableProps) {
     note: 'Needs your library card; stock varies',
     url: libbyUrl(),
     available: true,
+    price: { kind: 'label', text: 'Library' },
   })
 
   if (book.audiobook?.librivox) {
@@ -76,6 +103,7 @@ export function CompareTable({ book }: CompareTableProps) {
       note: 'Public-domain recording',
       url: book.audiobook.librivox.url,
       available: true,
+      price: { kind: 'label', text: 'Free' },
     })
   } else {
     rows.push({
@@ -84,6 +112,7 @@ export function CompareTable({ book }: CompareTableProps) {
       format: 'Audiobook',
       note: 'No free legal audiobook listed',
       available: false,
+      price: { kind: 'label', text: '—' },
     })
   }
 
@@ -91,9 +120,11 @@ export function CompareTable({ book }: CompareTableProps) {
     path: 'Listen',
     option: 'Audible.au',
     format: 'Audiobook',
-    note: 'Buy or membership — price on site',
+    note: 'Buy or membership — verify on site',
     url: audibleAuSearchUrl(book),
     available: true,
+    price: moneyFrom(p, 'audible'),
+    priceKey: 'audible',
   })
   rows.push({
     path: 'Listen',
@@ -102,6 +133,7 @@ export function CompareTable({ book }: CompareTableProps) {
     note: 'Price on store',
     url: googlePlayAudiobookSearchUrl(book),
     available: true,
+    price: { kind: 'see' },
   })
   rows.push({
     path: 'Listen',
@@ -110,39 +142,48 @@ export function CompareTable({ book }: CompareTableProps) {
     note: 'Availability depends on plan/region',
     url: spotifyAudiobookSearchUrl(book),
     available: true,
+    price: { kind: 'see' },
   })
 
   rows.push({
     path: 'Buy',
     option: 'Amazon.au',
     format: 'Print / other',
-    note: 'Price & delivery on retailer site',
+    note: 'Indicative paperback-style listing',
     url: amazonAuSearchUrl(book),
     available: true,
+    price: moneyFrom(p, 'amazonAu'),
+    priceKey: 'amazonAu',
   })
   rows.push({
     path: 'Buy',
     option: 'Kindle (Amazon.au)',
     format: 'Ebook',
-    note: 'Digital edition search',
+    note: 'Digital edition',
     url: kindleAuSearchUrl(book),
     available: true,
+    price: moneyFrom(p, 'kindle'),
+    priceKey: 'kindle',
   })
   rows.push({
     path: 'Buy',
     option: 'Google Play Books',
     format: 'Ebook',
-    note: 'Price on store',
+    note: 'Digital edition',
     url: googlePlayBooksSearchUrl(book),
     available: true,
+    price: moneyFrom(p, 'googlePlay'),
+    priceKey: 'googlePlay',
   })
   rows.push({
     path: 'Buy',
     option: 'Apple Books',
     format: 'Ebook',
-    note: 'Price on store',
+    note: 'Digital edition',
     url: appleBooksSearchUrl(book),
     available: true,
+    price: moneyFrom(p, 'appleBooks'),
+    priceKey: 'appleBooks',
   })
   rows.push({
     path: 'Buy',
@@ -151,6 +192,8 @@ export function CompareTable({ book }: CompareTableProps) {
     note: 'Australian retailer',
     url: booktopiaSearchUrl(book),
     available: true,
+    price: moneyFrom(p, 'booktopia'),
+    priceKey: 'booktopia',
   })
   rows.push({
     path: 'Buy',
@@ -159,6 +202,8 @@ export function CompareTable({ book }: CompareTableProps) {
     note: 'Australian retailer',
     url: dymocksSearchUrl(book),
     available: true,
+    price: moneyFrom(p, 'dymocks'),
+    priceKey: 'dymocks',
   })
   rows.push({
     path: 'Buy',
@@ -167,15 +212,17 @@ export function CompareTable({ book }: CompareTableProps) {
     note: 'Australian independent bookseller',
     url: readingsSearchUrl(book),
     available: true,
+    price: moneyFrom(p, 'readings'),
+    priceKey: 'readings',
   })
 
   return (
     <div className="compare-section">
       <h3>Compare ways to get this book</h3>
-      <p className="compare-disclaimer">
-        We don’t show live prices in this MVP. Each link opens that store or catalogue so you
-        can compare price and format there. We don’t sell, ship, or host books or audio.
-      </p>
+      <p className="compare-disclaimer">{PRICES_DISCLAIMER}</p>
+      {updated ? (
+        <p className="prices-updated">Prices last updated: {updated}</p>
+      ) : null}
 
       <div className="compare-chips" aria-label="Quick store links">
         {rows
@@ -189,7 +236,8 @@ export function CompareTable({ book }: CompareTableProps) {
               rel="noopener noreferrer"
             >
               <span className="chip-path">{r.path}</span>
-              {r.option}
+              <span className="chip-option">{r.option}</span>
+              <span className="chip-price">{priceCell(r.price)}</span>
             </a>
           ))}
       </div>
@@ -201,6 +249,7 @@ export function CompareTable({ book }: CompareTableProps) {
               <th scope="col">Path</th>
               <th scope="col">Option</th>
               <th scope="col">Format</th>
+              <th scope="col">Indicative price</th>
               <th scope="col">Notes</th>
               <th scope="col">Link</th>
             </tr>
@@ -213,6 +262,7 @@ export function CompareTable({ book }: CompareTableProps) {
                 </td>
                 <td>{row.option}</td>
                 <td>{row.format}</td>
+                <td className="price-cell">{priceCell(row.price)}</td>
                 <td>{row.note}</td>
                 <td>
                   {row.url ? (

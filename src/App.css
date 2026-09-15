@@ -384,3 +384,61 @@ main {
   max-width: 48rem;
   line-height: 1.45;
 }
+
+.prices-updated {
+  margin: 0 0 0.75rem;
+  font-size: 0.8rem;
+  color: #78716c;
+  font-weight: 500;
+}
+
+.path-card .prices-updated {
+  margin-top: -0.35rem;
+}
+
+.price-tag {
+  display: inline-block;
+  margin-left: 0.4rem;
+  font-size: 0.78rem;
+  font-weight: 600;
+  color: #57534e;
+  white-space: nowrap;
+}
+
+.price-tag.free-tag {
+  color: #15803d;
+}
+
+.price-tag.library-tag {
+  color: #1d4ed8;
+}
+
+.link-list li {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  gap: 0.15rem 0.25rem;
+}
+
+.chip-option {
+  max-width: 11rem;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.chip-price {
+  font-size: 0.75rem;
+  font-weight: 700;
+  color: #44403c;
+  margin-left: 0.15rem;
+}
+
+.price-cell {
+  font-weight: 600;
+  white-space: nowrap;
+}
+
+.compare-disclaimer {
+  margin-bottom: 0.35rem;
+}
