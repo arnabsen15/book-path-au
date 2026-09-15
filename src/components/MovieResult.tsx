@@ -8,7 +8,7 @@ interface MovieResultProps {
 }
 
 export function MovieResult({ movie, expanded, onToggle }: MovieResultProps) {
-  const metaParts = [movie.director || null, movie.year ? String(movie.year) : null].filter(Boolean)
+  const metaParts = [movie.year ? String(movie.year) : null, movie.director || null].filter(Boolean)
 
   return (
     <section className={`result-card ${expanded ? 'expanded' : 'collapsed'}`} id={movie.id}>
@@ -35,25 +35,22 @@ export function MovieResult({ movie, expanded, onToggle }: MovieResultProps) {
             <h2>{movie.title}</h2>
             <p className="result-meta">{metaParts.join(' · ') || 'Film'}</p>
             <div className="path-chip-row" aria-label="Paths">
-              <span className="path-badge path-free"><span aria-hidden="true">🌿 </span>Free</span>
-              <span className="path-badge path-borrow"><span aria-hidden="true">📚 </span>Borrow</span>
-              <span className="path-badge path-stream"><span aria-hidden="true">📡 </span>Stream</span>
-              <span className="path-badge path-buy"><span aria-hidden="true">🛒 </span>Buy</span>
-              <span className="path-badge path-cinema"><span aria-hidden="true">🎟️ </span>Cinema</span>
-              {movie.source === 'seed' ? (
-                <span className="meta-pill seed">Seed</span>
-              ) : movie.source === 'query' ? (
-                <span className="meta-pill live">Search links</span>
-              ) : movie.source ? (
-                <span className="meta-pill live">Live</span>
-              ) : null}
+              <span className="path-badge path-free">Free</span>
+              <span className="path-badge path-borrow">Borrow</span>
+              <span className="path-badge path-stream">Stream</span>
+              <span className="path-badge path-buy">Buy</span>
             </div>
-            {movie.overview ? <p className="movie-overview muted">{movie.overview}</p> : null}
           </header>
         </div>
         <span className={`expand-chevron${expanded ? ' open' : ''}`} aria-hidden="true">
           <svg width="20" height="20" viewBox="0 0 20 20" fill="none">
-            <path d="M5 7.5L10 12.5L15 7.5" stroke="currentColor" strokeWidth="1.75" strokeLinecap="round" strokeLinejoin="round"/>
+            <path
+              d="M5 7.5L10 12.5L15 7.5"
+              stroke="currentColor"
+              strokeWidth="1.75"
+              strokeLinecap="round"
+              strokeLinejoin="round"
+            />
           </svg>
         </span>
       </button>

@@ -45,9 +45,12 @@ export function googlePlayBooksSearchUrl(book: Book): string {
   return `https://play.google.com/store/search?q=${encodeQuery(titleAuthor(book))}&c=books`
 }
 
-/** Apple Books locale search (not booksearch.music.apple.com — that host fails DNS). */
+/**
+ * books.apple.com/{locale}/search?term= redirects to marketing and drops a useful results page.
+ * Apple.com locale search keeps the query for humans.
+ */
 export function appleBooksSearchUrl(book: Book, region: RegionConfig): string {
-  return `https://books.apple.com/${region.appleBooksLocale}/search?term=${encodeQuery(titleAuthor(book))}`
+  return `https://www.apple.com/${region.appleBooksLocale}/search/${encodeQuery(titleAuthor(book))}?src=serp`
 }
 
 export function audibleAuSearchUrl(book: Book, region: RegionConfig): string | null {
@@ -84,6 +87,10 @@ export function amazonLabel(region: RegionConfig): string {
     default:
       return 'Amazon'
   }
+}
+
+export function amazonSearchLabel(region: RegionConfig): string {
+  return `Search ${amazonLabel(region)}`
 }
 
 export function audibleLabel(region: RegionConfig): string {

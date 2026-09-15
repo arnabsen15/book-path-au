@@ -13,6 +13,13 @@ export function About() {
         search URL patterns.
       </p>
 
+      <h2>How to use</h2>
+      <p>
+        Search a title, open one result, then follow the recommended next step (JustWatch for
+        movies, Trove/Libby for books). Extra stores stay collapsed under “More…”. All outbound
+        buttons are search links only — we don’t track live catalogues or claim a title is listed.
+      </p>
+
       <section className="legal-notice" aria-labelledby="legal-heading">
         <h2 id="legal-heading">Legal &amp; disclaimer</h2>
         <p>

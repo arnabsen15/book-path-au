@@ -11,12 +11,36 @@ import { mergeSeedAndLive } from '../utils/seedMatch'
 
 const seeds = (booksData as Book[]).map((b) => ({ ...b, source: 'seed' as const }))
 
+const POPULAR_IDS = [
+  'pride-and-prejudice',
+  'frankenstein',
+  'atomic-habits',
+  'raja-yoga',
+  'the-heartfulness-way',
+  'sapiens',
+]
+
 const SUGGESTIONS = ['Heartfulness Way', 'Daaji', 'Raja Yoga', 'Pride and Prejudice', 'Atomic Habits']
+
+function resolvePopular(): Book[] {
+  const byId = new Map(seeds.map((b) => [b.id, b]))
+  const picked: Book[] = []
+  for (const id of POPULAR_IDS) {
+    const hit = byId.get(id)
+    if (hit) picked.push(hit)
+  }
+  if (picked.length < 6) {
+    for (const b of seeds) {
+      if (picked.length >= 6) break
+      if (!picked.some((p) => p.id === b.id)) picked.push(b)
+    }
+  }
+  return picked.slice(0, 6)
+}
 
 export function Home() {
   const { region } = useRegion()
   const [query, setQuery] = useState('')
-  /** When set (e.g. form submit), search immediately instead of waiting for debounce. */
   const [flushQuery, setFlushQuery] = useState<string | null>(null)
   const debouncedQuery = useDebouncedValue(query, 300)
   const activeSearch = (flushQuery !== null ? flushQuery : debouncedQuery).trim()
@@ -29,7 +53,6 @@ export function Home() {
   const abortRef = useRef<AbortController | null>(null)
   const requestIdRef = useRef(0)
 
-  // Once debounce catches up to a flushed query, drop the flush override
   useEffect(() => {
     if (flushQuery !== null && debouncedQuery.trim() === flushQuery.trim()) {
       setFlushQuery(null)
@@ -77,10 +100,12 @@ export function Home() {
     }
   }, [activeSearch, runSearch])
 
+  const popular = useMemo(() => resolvePopular(), [])
+
   const results = useMemo(() => {
-    if (!activeSearch) return seeds
+    if (!activeSearch) return popular
     return mergeSeedAndLive(seeds, liveResults, activeSearch)
-  }, [activeSearch, liveResults])
+  }, [activeSearch, liveResults, popular])
 
   const resultIds = useMemo(() => results.map((r) => r.id).join('|'), [results])
 
@@ -93,23 +118,19 @@ export function Home() {
     setExpandedId((current) => (current && ids.includes(current) ? current : null))
   }, [resultIds])
 
-  const browsingAll = activeSearch === ''
+  const browsingEmpty = activeSearch === ''
   const noMatches = !loading && activeSearch !== '' && results.length === 0 && !error
 
   return (
     <div className="home">
-      <section className="hero">
+      <section className="hero hero-compact">
         <h1>Books</h1>
-        <p className="tagline">Legal ways to read — Free · Borrow · Listen · Buy</p>
-        <p className="explainer">
-          Search Open Library, then pick a legal path. Seeded titles show indicative AUD prices;
-          live hits say “See store”. Links ≠ live availability.
-        </p>
+        <p className="tagline">Legal paths: Free → Borrow → Listen → Buy</p>
       </section>
 
       <div className="region-pill" role="status">
         <span className="region-pill-dot" aria-hidden="true" />
-        Showing links for <strong>{region.name}</strong>
+        Links for <strong>{region.name}</strong>
       </div>
 
       <SearchBox
@@ -124,6 +145,10 @@ export function Home() {
         suggestions={SUGGESTIONS}
         loading={loading}
       />
+
+      {browsingEmpty ? (
+        <p className="popular-label">Popular to try</p>
+      ) : null}
 
       {loading && (
         <div className="loading-block" role="status" aria-live="polite">
@@ -143,7 +168,9 @@ export function Home() {
 
       {noMatches && (
         <div className="empty-state">
-          <div className="empty-icon" aria-hidden="true">📖</div>
+          <div className="empty-icon" aria-hidden="true">
+            📖
+          </div>
           <p>No matches for “{activeSearch}”.</p>
           <p className="muted">Try Atomic Habits or another spelling / ISBN.</p>
         </div>
@@ -160,13 +187,12 @@ export function Home() {
         ))}
       </div>
 
-      {results.length > 0 && (
+      {results.length > 0 && !browsingEmpty ? (
         <p className="result-count">
-          {browsingAll
-            ? `${results.length} seeded books — type to search Open Library`
-            : `${results.length} result${results.length === 1 ? '' : 's'}${loading ? ' (updating…)' : ''}`}
+          {results.length} result{results.length === 1 ? '' : 's'}
+          {loading ? ' (updating…)' : ''}
         </p>
-      )}
+      ) : null}
     </div>
   )
 }

@@ -30,10 +30,10 @@
   --path-borrow-fg: #1d4ed8;
   --path-listen-bg: #f5f3ff;
   --path-listen-fg: #6d28d9;
-  --path-stream-bg: #f0fdfa;
-  --path-stream-fg: #0f766e;
-  --path-buy-bg: #fff7ed;
-  --path-buy-fg: #c2410c;
+  --path-stream-bg: #f5f3ff;
+  --path-stream-fg: #6d28d9;
+  --path-buy-bg: #f5f5f4;
+  --path-buy-fg: #44403c;
 
   font-family: var(--font-sans);
   line-height: 1.55;

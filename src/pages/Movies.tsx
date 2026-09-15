@@ -11,7 +11,32 @@ import { mergeMovieSeedAndLive } from '../utils/movieSeedMatch'
 
 const seeds = (moviesData as Movie[]).map((m) => ({ ...m, source: 'seed' as const }))
 
+const POPULAR_IDS = [
+  'hanuman-ansh-2026',
+  'mad-max-1979',
+  'the-castle-1997',
+  'nosferatu-1922',
+  'oppenheimer-2023',
+  'picnic-hanging-rock-1975',
+]
+
 const SUGGESTIONS = ['Hanuman Ansh', 'Mad Max', 'The Castle', 'Nosferatu', 'Oppenheimer']
+
+function resolvePopular(): Movie[] {
+  const byId = new Map(seeds.map((m) => [m.id, m]))
+  const picked: Movie[] = []
+  for (const id of POPULAR_IDS) {
+    const hit = byId.get(id)
+    if (hit) picked.push(hit)
+  }
+  if (picked.length < 6) {
+    for (const m of seeds) {
+      if (picked.length >= 6) break
+      if (!picked.some((p) => p.id === m.id)) picked.push(m)
+    }
+  }
+  return picked.slice(0, 6)
+}
 
 export function Movies() {
   const { region } = useRegion()
@@ -75,10 +100,12 @@ export function Movies() {
     }
   }, [activeSearch, runSearch])
 
+  const popular = useMemo(() => resolvePopular(), [])
+
   const results = useMemo(() => {
-    if (!activeSearch) return seeds
+    if (!activeSearch) return popular
     return mergeMovieSeedAndLive(seeds, liveResults, activeSearch)
-  }, [activeSearch, liveResults])
+  }, [activeSearch, liveResults, popular])
 
   const resultIds = useMemo(() => results.map((r) => r.id).join('|'), [results])
 
@@ -91,7 +118,7 @@ export function Movies() {
     setExpandedId((current) => (current && ids.includes(current) ? current : null))
   }, [resultIds])
 
-  const browsingAll = activeSearch === ''
+  const browsingEmpty = activeSearch === ''
   const noMatches = !loading && activeSearch !== '' && results.length === 0 && !error
   const metaHint = hasTmdbKey()
     ? 'TMDB + seeds'
@@ -99,18 +126,14 @@ export function Movies() {
 
   return (
     <div className="home">
-      <section className="hero">
+      <section className="hero hero-compact">
         <h1>Movies</h1>
-        <p className="tagline">Legal ways to watch — Free · Borrow · Stream · Buy</p>
-        <p className="explainer">
-          Tap a title, then start with JustWatch. We also link free-to-air, streamers, libraries,
-          and rent/buy — search only, not live catalogues.
-        </p>
+        <p className="tagline">Legal paths: Free → Borrow → Stream → Buy</p>
       </section>
 
       <div className="region-pill" role="status">
         <span className="region-pill-dot" aria-hidden="true" />
-        Showing links for <strong>{region.name}</strong>
+        Links for <strong>{region.name}</strong>
       </div>
 
       <SearchBox
@@ -128,6 +151,8 @@ export function Movies() {
         label="Search movies"
         inputId="movie-search"
       />
+
+      {browsingEmpty ? <p className="popular-label">Popular to try</p> : null}
 
       {loading && (
         <div className="loading-block" role="status" aria-live="polite">
@@ -147,7 +172,9 @@ export function Movies() {
 
       {noMatches && (
         <div className="empty-state">
-          <div className="empty-icon" aria-hidden="true">🎬</div>
+          <div className="empty-icon" aria-hidden="true">
+            🎬
+          </div>
           <p>No matches for “{activeSearch}”.</p>
           <p className="muted">Try Hanuman Ansh or another spelling — JustWatch still helps.</p>
         </div>
@@ -164,13 +191,12 @@ export function Movies() {
         ))}
       </div>
 
-      {results.length > 0 && (
+      {results.length > 0 && !browsingEmpty ? (
         <p className="result-count">
-          {browsingAll
-            ? `${results.length} seeded movies — type to search (${metaHint})`
-            : `${results.length} result${results.length === 1 ? '' : 's'}${loading ? ' (updating…)' : ''}`}
+          {results.length} result{results.length === 1 ? '' : 's'}
+          {loading ? ' (updating…)' : ''}
         </p>
-      )}
+      ) : null}
     </div>
   )
 }

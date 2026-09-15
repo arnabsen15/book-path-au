@@ -1,3 +1,4 @@
+import { useState } from 'react'
 import type { Book } from '../types'
 import { formatAud } from '../types'
 import { CompareTable } from './CompareTable'
@@ -18,19 +19,14 @@ function lowestIndicative(book: Book): number | undefined {
 }
 
 export function BookResult({ book, expanded, onToggle }: BookResultProps) {
+  const [showCompare, setShowCompare] = useState(false)
   const metaParts = [
     book.author,
     book.year ? String(book.year) : null,
-    book.isbn ? `ISBN ${book.isbn}` : null,
   ].filter(Boolean)
 
   const low = lowestIndicative(book)
-  const priceHint =
-    typeof low === 'number'
-      ? `From ${formatAud(low)}`
-      : book.source === 'openlibrary'
-        ? 'See store for prices'
-        : null
+  const priceHint = typeof low === 'number' ? `From ${formatAud(low)}` : null
 
   return (
     <section className={`result-card ${expanded ? 'expanded' : 'collapsed'}`} id={book.id}>
@@ -49,7 +45,7 @@ export function BookResult({ book, expanded, onToggle }: BookResultProps) {
               }}
             />
           ) : (
-            <div className="cover-img placeholder">No cover</div>
+            <div className="cover-img placeholder">📖</div>
           )}
         </div>
         <div className="result-summary-text">
@@ -57,22 +53,23 @@ export function BookResult({ book, expanded, onToggle }: BookResultProps) {
             <h2>{book.title}</h2>
             <p className="result-meta">{metaParts.join(' · ')}</p>
             <div className="path-chip-row" aria-label="Paths">
-              <span className="path-badge path-free"><span aria-hidden="true">🌿 </span>Free</span>
-              <span className="path-badge path-borrow"><span aria-hidden="true">📚 </span>Borrow</span>
-              <span className="path-badge path-listen"><span aria-hidden="true">🎧 </span>Listen</span>
-              <span className="path-badge path-buy"><span aria-hidden="true">🛒 </span>Buy</span>
+              <span className="path-badge path-free">Free</span>
+              <span className="path-badge path-borrow">Borrow</span>
+              <span className="path-badge path-listen">Listen</span>
+              <span className="path-badge path-buy">Buy</span>
               {priceHint ? <span className="meta-pill">{priceHint}</span> : null}
-              {book.source === 'seed' && book.indicativePrices ? (
-                <span className="meta-pill seed">Seed</span>
-              ) : book.source === 'openlibrary' ? (
-                <span className="meta-pill live">Live</span>
-              ) : null}
             </div>
           </header>
         </div>
         <span className={`expand-chevron${expanded ? ' open' : ''}`} aria-hidden="true">
           <svg width="20" height="20" viewBox="0 0 20 20" fill="none">
-            <path d="M5 7.5L10 12.5L15 7.5" stroke="currentColor" strokeWidth="1.75" strokeLinecap="round" strokeLinejoin="round"/>
+            <path
+              d="M5 7.5L10 12.5L15 7.5"
+              stroke="currentColor"
+              strokeWidth="1.75"
+              strokeLinecap="round"
+              strokeLinejoin="round"
+            />
           </svg>
         </span>
       </button>
@@ -80,7 +77,17 @@ export function BookResult({ book, expanded, onToggle }: BookResultProps) {
       {expanded && (
         <div className="result-details">
           <PathCards book={book} />
-          <CompareTable book={book} />
+          <div className="compare-toggle-wrap">
+            <button
+              type="button"
+              className="chip"
+              aria-pressed={showCompare}
+              onClick={() => setShowCompare((v) => !v)}
+            >
+              {showCompare ? 'Hide full comparison' : 'Show full comparison'}
+            </button>
+          </div>
+          {showCompare ? <CompareTable book={book} /> : null}
         </div>
       )}
     </section>

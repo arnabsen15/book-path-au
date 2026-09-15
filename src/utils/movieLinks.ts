@@ -27,27 +27,34 @@ export function beamafilmSearchUrl(movie: Movie): string {
 
 /** Free-to-air / free catch-up search links (AU) — do not claim availability. */
 export function sbsOnDemandSearchUrl(movie: Movie): string {
-  return `https://www.sbs.com.au/ondemand/search?q=${encodeQuery(movie.title)}`
+  // Path form keeps the query; ?q= is dropped by SBS.
+  return `https://www.sbs.com.au/ondemand/search/${encodeQuery(movie.title)}`
 }
 
 export function abcIviewSearchUrl(movie: Movie): string {
   return `https://iview.abc.net.au/search?q=${encodeQuery(movie.title)}`
 }
 
+/** 7plus has no reliable deep-link search (?q= ignored). Google site: is honest. */
 export function sevenPlusSearchUrl(movie: Movie): string {
-  return `https://7plus.com.au/search?q=${encodeQuery(movie.title)}`
+  return `https://www.google.com/search?q=${encodeQuery(`site:7plus.com.au ${movie.title}`)}`
 }
 
 export function nineNowSearchUrl(movie: Movie): string {
   return `https://www.9now.com.au/search?q=${encodeQuery(movie.title)}`
 }
 
+/**
+ * 10play.com.au/search?q= redirects to 10.com.au (wrong product).
+ * Stay on 10 Play via Google site: search.
+ */
 export function tenPlaySearchUrl(movie: Movie): string {
-  return `https://10play.com.au/search?q=${encodeQuery(movie.title)}`
+  return `https://www.google.com/search?q=${encodeQuery(`site:10play.com.au ${movie.title}`)}`
 }
 
+/** AU-friendly Prime search; bots often see 503 — humans usually OK. */
 export function primeVideoSearchUrl(movie: Movie): string {
-  return `https://www.primevideo.com/search/ref=atv_nb_sr?phrase=${encodeQuery(titleQuery(movie))}`
+  return `https://www.primevideo.com/region/au/search?phrase=${encodeQuery(titleQuery(movie))}`
 }
 
 export function appleTvSearchUrl(movie: Movie, region: RegionConfig): string {

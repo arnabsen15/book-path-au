@@ -1225,3 +1225,118 @@ main {
     transition-duration: 0.01ms !important;
   }
 }
+
+
+/* ——— Progressive disclosure ——— */
+.global-trust {
+  margin: 0 0 0.85rem;
+  font-size: 0.9rem;
+  color: var(--text-muted);
+}
+
+.path-jump {
+  position: sticky;
+  top: 3.55rem;
+  z-index: 25;
+  display: flex;
+  gap: 0.35rem;
+  flex-wrap: nowrap;
+  overflow-x: auto;
+  padding: 0.45rem 0;
+  margin: 0 0 0.85rem;
+  background: linear-gradient(to bottom, var(--bg-elevated) 70%, transparent);
+  -webkit-overflow-scrolling: touch;
+  scrollbar-width: none;
+}
+
+.path-jump::-webkit-scrollbar {
+  display: none;
+}
+
+.path-jump a {
+  flex: 0 0 auto;
+  text-decoration: none;
+  font-size: 0.8rem;
+  font-weight: 600;
+  padding: 0.35rem 0.75rem;
+  border-radius: var(--radius-pill);
+  background: var(--bg-muted);
+  color: var(--text-secondary);
+  border: 1px solid var(--border);
+}
+
+.path-jump a:hover {
+  color: var(--accent-hover);
+  border-color: color-mix(in srgb, var(--accent) 35%, var(--border));
+}
+
+.more-stores {
+  margin-top: 0.75rem;
+}
+
+.more-stores > summary {
+  cursor: pointer;
+  font-weight: 600;
+  font-size: 0.9rem;
+  color: var(--text-secondary);
+  padding: 0.45rem 0;
+  list-style: none;
+}
+
+.more-stores > summary::-webkit-details-marker {
+  display: none;
+}
+
+.more-stores > summary::before {
+  content: '▸ ';
+  color: var(--accent);
+}
+
+.more-stores[open] > summary::before {
+  content: '▾ ';
+}
+
+.more-stores-body {
+  margin-top: 0.5rem;
+}
+
+.hero-compact {
+  margin: 0.85rem 0 0.65rem;
+}
+
+.hero-compact .tagline {
+  margin: 0;
+}
+
+.popular-label {
+  margin: 0 0 0.65rem;
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: var(--text-muted);
+  letter-spacing: 0.02em;
+  text-transform: uppercase;
+}
+
+.price-toggle-row,
+.compare-toggle-wrap {
+  margin: 0 0 0.65rem;
+}
+
+.footer-trust {
+  margin: 0;
+  font-size: 0.85rem;
+  color: var(--text-muted);
+  text-align: center;
+}
+
+.path-section-stream .hero-cta {
+  margin-top: 0.35rem;
+}
+
+.movie-paths .path-section {
+  margin-bottom: 1.15rem;
+}
+
+.movie-paths .store-btn {
+  margin-top: 0.35rem;
+}

@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import { RegionSelector } from './components/RegionSelector'
 import { useRegion } from './context/RegionContext'
 import { About } from './pages/About'
@@ -8,9 +8,29 @@ import './App.css'
 
 type Page = 'books' | 'movies' | 'about'
 
+const PAGE_KEY = 'path-au-page'
+
+function readStoredPage(): Page {
+  try {
+    const v = localStorage.getItem(PAGE_KEY)
+    if (v === 'books' || v === 'movies' || v === 'about') return v
+  } catch {
+    /* ignore */
+  }
+  return 'books'
+}
+
 export default function App() {
-  const [page, setPage] = useState<Page>('books')
+  const [page, setPage] = useState<Page>(readStoredPage)
   const { region } = useRegion()
+
+  useEffect(() => {
+    try {
+      localStorage.setItem(PAGE_KEY, page)
+    } catch {
+      /* ignore */
+    }
+  }, [page])
 
   return (
     <div className="app">
@@ -61,19 +81,11 @@ export default function App() {
         </div>
       </header>
 
-      <main>
-        {page === 'books' ? <Home /> : page === 'movies' ? <Movies /> : <About />}
-      </main>
+      <main>{page === 'books' ? <Home /> : page === 'movies' ? <Movies /> : <About />}</main>
 
       <footer className="site-footer">
-        <p>Free · Borrow · Stream/Listen · Buy — legal paths only ({region.name}).</p>
-        <p className="muted footer-disclaimer">
-          Hobby project for book &amp; movie lovers · Not a shop · Not affiliated with retailers or
-          streamers
-        </p>
-        <p className="muted footer-disclaimer">
-          Streaming platforms, publishers &amp; partners:{' '}
-          <a href="mailto:arnabsen1@proton.me">arnabsen1@proton.me</a>
+        <p className="footer-trust">
+          Legal discovery only · Not affiliated · Availability varies ({region.name}).
         </p>
       </footer>
     </div>
