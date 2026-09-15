@@ -22,12 +22,12 @@ export function Home() {
 
   const results = useMemo(() => {
     const q = query.trim()
-    if (!q) return []
+    if (!q) return books
     return books.filter((b) => matchesQuery(b, q))
   }, [query])
 
-  const showEmptyPrompt = query.trim() === ''
   const noMatches = query.trim() !== '' && results.length === 0
+  const browsingAll = query.trim() === ''
 
   return (
     <div className="home">
@@ -44,16 +44,6 @@ export function Home() {
 
       <SearchBox value={query} onChange={setQuery} suggestions={SUGGESTIONS} />
 
-      {showEmptyPrompt && (
-        <div className="empty-state">
-          <p>Search the catalogue by title, author, or ISBN.</p>
-          <p className="muted">
-            Sample ideas: spiritual classics like <strong>Raja Yoga</strong>, or popular titles
-            like <strong>Atomic Habits</strong>.
-          </p>
-        </div>
-      )}
-
       {noMatches && (
         <div className="empty-state">
           <p>No matches for “{query.trim()}”.</p>
@@ -67,9 +57,11 @@ export function Home() {
         ))}
       </div>
 
-      {!showEmptyPrompt && results.length > 0 && (
+      {results.length > 0 && (
         <p className="result-count">
-          {results.length} book{results.length === 1 ? '' : 's'} found
+          {browsingAll
+            ? `${results.length} books in the catalogue`
+            : `${results.length} book${results.length === 1 ? '' : 's'} found`}
         </p>
       )}
     </div>
