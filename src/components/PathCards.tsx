@@ -47,7 +47,7 @@ export function PathCards({ book }: PathCardsProps) {
             <p>{book.free.note}</p>
             <ul className="link-list">
               {book.free.links.map((link) => (
-                <li key={link.url}>
+                <li key={`${link.label}-${link.url}`}>
                   <a href={link.url} target="_blank" rel="noopener noreferrer">
                     {link.label}
                   </a>
@@ -57,7 +57,20 @@ export function PathCards({ book }: PathCardsProps) {
             </ul>
           </>
         ) : (
-          <p className="muted">{book.free.note || 'Not available free legally.'}</p>
+          <>
+            <p className="muted">{book.free.note || 'Not available free legally.'}</p>
+            {book.free.links.length > 0 && (
+              <ul className="link-list">
+                {book.free.links.map((link) => (
+                  <li key={`${link.label}-${link.url}`}>
+                    <a href={link.url} target="_blank" rel="noopener noreferrer">
+                      {link.label}
+                    </a>
+                  </li>
+                ))}
+              </ul>
+            )}
+          </>
         )}
       </article>
 

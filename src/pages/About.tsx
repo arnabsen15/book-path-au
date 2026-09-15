@@ -67,10 +67,16 @@ export function About() {
         </li>
       </ul>
 
-      <h2>Hosting</h2>
+      <h2>Live search &amp; hosting</h2>
       <p>
-        This site is a static app hosted on GitHub Pages. Catalogue data is seeded for the MVP —
-        not a live inventory feed.
+        This site is a static app hosted on GitHub Pages. Book search queries the{' '}
+        <strong>Open Library Search API</strong> from your browser (CORS-friendly). A seeded
+        catalogue of favourites still powers empty-state browsing and indicative AUD prices.
+        Live-only results do not invent prices — they show “See store”.
+      </p>
+      <p>
+        Google Books is not used: a public API key would be required for reliable quota, and we do
+        not ship invented keys.
       </p>
 
       <h2>Australia-focused</h2>

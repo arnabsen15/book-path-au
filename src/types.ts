@@ -25,6 +25,8 @@ export interface IndicativePrices {
   audible?: number
 }
 
+export type BookSource = 'seed' | 'openlibrary'
+
 export interface Book {
   id: string
   title: string
@@ -37,6 +39,12 @@ export interface Book {
   /** ISO date when indicativePrices were last manually updated */
   pricesUpdated?: string
   indicativePrices?: IndicativePrices
+  /** Open Library cover id → https://covers.openlibrary.org/b/id/{id}-M.jpg */
+  coverUrl?: string
+  /** Where this row came from */
+  source?: BookSource
+  /** Open Library work/edition key, e.g. /works/OL…W */
+  openLibraryKey?: string
 }
 
 export const PRICES_DISCLAIMER =
