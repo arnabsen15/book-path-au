@@ -56,9 +56,17 @@ function StoreButton({
   )
 }
 
-function MoreDetails({ summary, children }: { summary: string; children: ReactNode }) {
+function MoreDetails({
+  summary,
+  children,
+  className,
+}: {
+  summary: string
+  children: ReactNode
+  className?: string
+}) {
   return (
-    <details className="more-stores">
+    <details className={`more-stores${className ? ` ${className}` : ''}`}>
       <summary>{summary}</summary>
       <div className="more-stores-body">{children}</div>
     </details>
@@ -75,236 +83,157 @@ export function MoviePathCards({ movie }: MoviePathCardsProps) {
   const showAuCinemas = region.code === 'AU'
 
   return (
-    <div className="movie-paths">
-      <p className="pathway-note global-trust">
-        Search links only — we don’t track live availability.
-      </p>
-
-      <nav className="path-jump" aria-label="Paths">
-        <a href={`#stream-${movie.id}`}>Stream</a>
-        <a href={`#free-${movie.id}`}>Free</a>
-        <a href={`#borrow-${movie.id}`}>Borrow</a>
-        <a href={`#cinema-${movie.id}`}>Cinema</a>
-        <a href={`#buy-${movie.id}`}>Buy</a>
-      </nav>
-
-      <section className="path-section path-section-stream" id={`stream-${movie.id}`} aria-labelledby={`stream-h-${movie.id}`}>
-        <div className="path-section-head">
-          <span className="path-badge path-stream">
-            <span aria-hidden="true">📡 </span>Stream
-          </span>
-          <h3 id={`stream-h-${movie.id}`}>Stream</h3>
+    <div className="movie-decision">
+      <div className="decision-header">
+        <div className="decision-poster" aria-hidden={!movie.coverUrl}>
+          {movie.coverUrl ? (
+            <img
+              className="decision-poster-img"
+              src={movie.coverUrl}
+              alt=""
+              loading="lazy"
+              width={96}
+              height={144}
+              onError={(e) => {
+                ;(e.currentTarget as HTMLImageElement).style.display = 'none'
+              }}
+            />
+          ) : (
+            <div className="decision-poster-img placeholder">🎬</div>
+          )}
         </div>
-        <a className="hero-cta" href={justWatchUrl} target="_blank" rel="noopener noreferrer">
+        <div className="decision-header-text">
+          <h3 className="decision-title">{movie.title}</h3>
+          <p className="decision-year">{movie.year ? String(movie.year) : 'Film'}</p>
+        </div>
+      </div>
+
+      <section className="decision-step decision-step-primary" aria-labelledby={`jw-${movie.id}`}>
+        <p className="decision-step-label" id={`jw-${movie.id}`}>
+          Step 1 · Best next step
+        </p>
+        <a className="hero-cta decision-jw-hero" href={justWatchUrl} target="_blank" rel="noopener noreferrer">
           <span className="hero-cta-body">
-            <span className="hero-cta-kicker">Recommended · {region.name}</span>
-            <span className="hero-cta-title">Search on JustWatch</span>
-            <span className="hero-cta-sub">Best next step — where it’s listed to stream, rent, or buy.</span>
+            <span className="hero-cta-title">See where it’s streaming</span>
+            <span className="hero-cta-sub">
+              Netflix, Prime, Disney+, free TV, rent &amp; buy for your country
+            </span>
           </span>
           <span className="hero-cta-arrow" aria-hidden="true">
             →
           </span>
         </a>
-        <MoreDetails summary="More stores">
-          <div className="store-btn-grid">
-            <StoreButton href={netflixSearchUrl(movie)} label="Search on Netflix" path="stream" />
-            <StoreButton href={primeVideoSearchUrl(movie)} label="Search on Prime Video" path="stream" />
-            <StoreButton href={disneyPlusSearchUrl(movie)} label="Search on Disney+" path="stream" />
-            {showAuStreamers ? (
-              <>
-                <StoreButton href={stanSearchUrl(movie)} label="Search on Stan" path="stream" />
-                <StoreButton href={bingeSearchUrl(movie)} label="Search on Binge" path="stream" />
-              </>
-            ) : null}
-            <StoreButton
-              href={appleTvSearchUrl(movie, region)}
-              label="Search on Apple TV+"
-              path="stream"
-            />
-          </div>
-        </MoreDetails>
+        <p className="decision-jw-helper">Opens JustWatch for {region.name}</p>
       </section>
 
-      <section className="path-section" id={`free-${movie.id}`} aria-labelledby={`free-h-${movie.id}`}>
-        <div className="path-section-head">
-          <span className="path-badge path-free">
-            <span aria-hidden="true">🌿 </span>Free
-          </span>
-          <h3 id={`free-h-${movie.id}`}>Free</h3>
+      <section className="decision-step decision-step-secondary" aria-label="Other ways to watch">
+        <p className="decision-step-label">Step 2 · Or try one of these</p>
+        <div className="decision-card-row">
+          <div className="decision-card decision-card-cinema">
+            <div className="decision-card-icon" aria-hidden="true">
+              🎟️
+            </div>
+            <h4 className="decision-card-title">Cinema near me</h4>
+            <label className="suburb-field suburb-field-compact" htmlFor={`suburb-${movie.id}`}>
+              <span className="sr-only">Suburb / area</span>
+              <input
+                id={`suburb-${movie.id}`}
+                type="text"
+                value={suburb}
+                onChange={(e) => setSuburb(e.target.value)}
+                placeholder={hint}
+                autoComplete="address-level2"
+                onClick={(e) => e.stopPropagation()}
+              />
+            </label>
+            <a className="decision-card-cta" href={showtimesUrl} target="_blank" rel="noopener noreferrer">
+              Showtimes near {placeLabel} →
+            </a>
+          </div>
+
+          <div className="decision-card decision-card-fta">
+            <div className="decision-card-icon" aria-hidden="true">
+              🌿
+            </div>
+            <h4 className="decision-card-title">Free catch-up TV</h4>
+            {region.showAuFta ? (
+              <MoreDetails summary="Search FTA apps" className="fta-panel">
+                <div className="store-btn-grid">
+                  <StoreButton href={sbsOnDemandSearchUrl(movie)} label="SBS On Demand" path="free" />
+                  <StoreButton href={abcIviewSearchUrl(movie)} label="ABC iview" path="free" />
+                  <StoreButton href={sevenPlusSearchUrl(movie)} label="7plus" hint="Google site search" path="free" />
+                  <StoreButton href={nineNowSearchUrl(movie)} label="9Now" path="free" />
+                  <StoreButton href={tenPlaySearchUrl(movie)} label="10 Play" hint="Google site search" path="free" />
+                </div>
+              </MoreDetails>
+            ) : (
+              <p className="decision-card-note">Switch region to Australia for FTA apps.</p>
+            )}
+          </div>
+
+          <div className="decision-card decision-card-buy">
+            <div className="decision-card-icon" aria-hidden="true">
+              🛒
+            </div>
+            <h4 className="decision-card-title">Rent or buy</h4>
+            <div className="store-btn-grid store-btn-grid-stack">
+              <StoreButton href={appleTvSearchUrl(movie, region)} label="Apple TV" path="buy" />
+              <StoreButton href={googlePlayMoviesSearchUrl(movie)} label="Google Play" path="buy" />
+              <StoreButton href={youtubeMoviesSearchUrl(movie)} label="YouTube Movies" path="buy" />
+            </div>
+            <MoreDetails summary="More stores">
+              <div className="store-btn-grid store-btn-grid-stack">
+                <StoreButton
+                  href={amazonMovieSearchUrl(movie, region)}
+                  label={amazonSearchLabel(region)}
+                  path="buy"
+                />
+              </div>
+            </MoreDetails>
+          </div>
         </div>
-        {movie.free.available && movie.free.links.length > 0 ? (
-          <>
-            <p className="path-section-desc">{movie.free.note}</p>
-            <div className="store-btn-grid">
-              {movie.free.links.slice(0, 2).map((link) => (
+      </section>
+
+      <MoreDetails summary="More options" className="decision-more">
+        <div className="decision-more-grid">
+          <StoreButton href={netflixSearchUrl(movie)} label="Netflix" path="stream" />
+          <StoreButton href={primeVideoSearchUrl(movie)} label="Prime Video" path="stream" />
+          <StoreButton href={disneyPlusSearchUrl(movie)} label="Disney+" path="stream" />
+          {showAuStreamers ? (
+            <>
+              <StoreButton href={stanSearchUrl(movie)} label="Stan" path="stream" />
+              <StoreButton href={bingeSearchUrl(movie)} label="Binge" path="stream" />
+            </>
+          ) : null}
+          <StoreButton href={kanopySearchUrl(movie)} label="Kanopy" hint="Library" path="borrow" />
+          <StoreButton href={beamafilmSearchUrl(movie)} label="Beamafilm" hint="Library" path="borrow" />
+          <StoreButton
+            href={internetArchiveMoviesSearchUrl(movie)}
+            label="Internet Archive"
+            hint="Public domain?"
+            path="free"
+          />
+          {movie.free.available && movie.free.links.length > 0
+            ? movie.free.links.map((link) => (
                 <StoreButton
                   key={`${link.label}-${link.url}`}
                   href={link.url}
-                  label={link.label.startsWith('Search') ? link.label : `Search on ${link.label}`}
+                  label={link.label}
                   hint="Free"
                   path="free"
                 />
-              ))}
-            </div>
-            {movie.free.links.length > 2 ? (
-              <MoreDetails summary="More free sources">
-                <div className="store-btn-grid">
-                  {movie.free.links.slice(2).map((link) => (
-                    <StoreButton
-                      key={`${link.label}-${link.url}`}
-                      href={link.url}
-                      label={link.label.startsWith('Search') ? link.label : `Search on ${link.label}`}
-                      hint="Free"
-                      path="free"
-                    />
-                  ))}
-                </div>
-              </MoreDetails>
-            ) : null}
-          </>
-        ) : (
-          <>
-            <StoreButton
-              href={internetArchiveMoviesSearchUrl(movie)}
-              label="Search on Internet Archive"
-              hint="Public domain?"
-              path="free"
-            />
-            {!movie.free.available && movie.free.note ? (
-              <p className="path-section-desc muted">{movie.free.note}</p>
-            ) : null}
-          </>
-        )}
-
-        {region.showAuFta ? (
-          <MoreDetails summary="Free catch-up TV (AU)">
-            <p className="path-section-desc">
-              Best from Australia. Search only — we don’t claim this title is listed.
-            </p>
-            <div className="store-btn-grid">
-              <StoreButton href={sbsOnDemandSearchUrl(movie)} label="Search on SBS On Demand" path="free" />
-              <StoreButton href={abcIviewSearchUrl(movie)} label="Search on ABC iview" path="free" />
-              <StoreButton
-                href={sevenPlusSearchUrl(movie)}
-                label="7plus (Google search)"
-                hint="No deep-link"
-                path="free"
-              />
-              <StoreButton
-                href={nineNowSearchUrl(movie)}
-                label="Search on 9Now"
-                hint="Best from Australia"
-                path="free"
-              />
-              <StoreButton
-                href={tenPlaySearchUrl(movie)}
-                label="10 Play (Google search)"
-                hint="Stays on 10play"
-                path="free"
-              />
-            </div>
-          </MoreDetails>
-        ) : (
-          <p className="path-section-desc muted">Switch region to Australia for FTA catch-up apps.</p>
-        )}
-      </section>
-
-      <section className="path-section" id={`borrow-${movie.id}`} aria-labelledby={`borrow-h-${movie.id}`}>
-        <div className="path-section-head">
-          <span className="path-badge path-borrow">
-            <span aria-hidden="true">📚 </span>Borrow
-          </span>
-          <h3 id={`borrow-h-${movie.id}`}>Borrow</h3>
+              ))
+            : null}
+          {showAuCinemas ? (
+            <>
+              <StoreButton href={villageCinemasSearchUrl(movie)} label="Village Cinemas" path="cinema" />
+              <StoreButton href={hoytsSearchUrl(movie)} label="HOYTS" path="cinema" />
+              <StoreButton href={eventCinemasSearchUrl(movie)} label="Event Cinemas" path="cinema" />
+            </>
+          ) : null}
         </div>
-        <StoreButton href={kanopySearchUrl(movie)} label="Search on Kanopy" hint="Library" path="borrow" />
-        <MoreDetails summary="More libraries">
-          <div className="store-btn-grid">
-            <StoreButton
-              href={beamafilmSearchUrl(movie)}
-              label="Search on Beamafilm"
-              hint="Library"
-              path="borrow"
-            />
-          </div>
-        </MoreDetails>
-      </section>
-
-      <section
-        className="path-section path-section-cinema"
-        id={`cinema-${movie.id}`}
-        aria-labelledby={`cinema-h-${movie.id}`}
-      >
-        <div className="path-section-head">
-          <span className="path-badge path-cinema">
-            <span aria-hidden="true">🎟️ </span>Cinema
-          </span>
-          <h3 id={`cinema-h-${movie.id}`}>Cinema</h3>
-        </div>
-        <label className="suburb-field" htmlFor={`suburb-${movie.id}`}>
-          <span className="suburb-label">Suburb / area</span>
-          <input
-            id={`suburb-${movie.id}`}
-            type="text"
-            value={suburb}
-            onChange={(e) => setSuburb(e.target.value)}
-            placeholder={hint}
-            autoComplete="address-level2"
-          />
-        </label>
-        <a className="cinema-cta" href={showtimesUrl} target="_blank" rel="noopener noreferrer">
-          <span className="cinema-cta-body">
-            <span className="cinema-cta-title">Find sessions near {placeLabel}</span>
-            <span className="cinema-cta-sub">Google showtimes search</span>
-          </span>
-          <span className="cinema-cta-arrow" aria-hidden="true">
-            →
-          </span>
-        </a>
-        {showAuCinemas ? (
-          <MoreDetails summary="More cinemas">
-            <div className="store-btn-grid">
-              <StoreButton
-                href={villageCinemasSearchUrl(movie)}
-                label="Village (Google search)"
-                path="cinema"
-              />
-              <StoreButton href={hoytsSearchUrl(movie)} label="HOYTS (Google search)" path="cinema" />
-              <StoreButton
-                href={eventCinemasSearchUrl(movie)}
-                label="Event (Google search)"
-                path="cinema"
-              />
-            </div>
-          </MoreDetails>
-        ) : null}
-      </section>
-
-      <section className="path-section" id={`buy-${movie.id}`} aria-labelledby={`buy-h-${movie.id}`}>
-        <div className="path-section-head">
-          <span className="path-badge path-buy">
-            <span aria-hidden="true">🛒 </span>Buy
-          </span>
-          <h3 id={`buy-h-${movie.id}`}>Rent or buy</h3>
-        </div>
-        <div className="store-btn-grid">
-          <StoreButton
-            href={appleTvSearchUrl(movie, region)}
-            label="Search on Apple TV"
-            path="buy"
-          />
-          <StoreButton href={googlePlayMoviesSearchUrl(movie)} label="Search on Google Play" path="buy" />
-          <StoreButton
-            href={amazonMovieSearchUrl(movie, region)}
-            label={amazonSearchLabel(region)}
-            path="buy"
-          />
-        </div>
-        <MoreDetails summary="More…">
-          <div className="store-btn-grid">
-            <StoreButton href={youtubeMoviesSearchUrl(movie)} label="Search on YouTube Movies" path="buy" />
-          </div>
-        </MoreDetails>
-      </section>
+        <p className="decision-trust">Search links only — we don’t track live availability.</p>
+      </MoreDetails>
     </div>
   )
 }

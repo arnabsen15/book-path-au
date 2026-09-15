@@ -49,9 +49,11 @@ export function Movies() {
   const [loading, setLoading] = useState(false)
   const [error, setError] = useState<string | null>(null)
   const [expandedId, setExpandedId] = useState<string | null>(null)
+  const [selectedPopular, setSelectedPopular] = useState<Movie | null>(null)
 
   const abortRef = useRef<AbortController | null>(null)
   const requestIdRef = useRef(0)
+  const decisionRef = useRef<HTMLDivElement | null>(null)
 
   useEffect(() => {
     if (flushQuery !== null && debouncedQuery.trim() === flushQuery.trim()) {
@@ -103,20 +105,33 @@ export function Movies() {
   const popular = useMemo(() => resolvePopular(), [])
 
   const results = useMemo(() => {
-    if (!activeSearch) return popular
+    if (!activeSearch) return []
     return mergeMovieSeedAndLive(seeds, liveResults, activeSearch)
-  }, [activeSearch, liveResults, popular])
+  }, [activeSearch, liveResults])
 
   const resultIds = useMemo(() => results.map((r) => r.id).join('|'), [results])
 
   useEffect(() => {
+    if (!activeSearch) {
+      setExpandedId(null)
+      return
+    }
+    setSelectedPopular(null)
     const ids = resultIds.split('|').filter(Boolean)
     if (ids.length === 1) {
       setExpandedId(ids[0])
       return
     }
     setExpandedId((current) => (current && ids.includes(current) ? current : null))
-  }, [resultIds])
+  }, [resultIds, activeSearch])
+
+  useEffect(() => {
+    if (!expandedId && !selectedPopular) return
+    const t = window.setTimeout(() => {
+      decisionRef.current?.scrollIntoView({ behavior: 'smooth', block: 'nearest' })
+    }, 50)
+    return () => window.clearTimeout(t)
+  }, [expandedId, selectedPopular])
 
   const browsingEmpty = activeSearch === ''
   const noMatches = !loading && activeSearch !== '' && results.length === 0 && !error
@@ -124,11 +139,18 @@ export function Movies() {
     ? 'TMDB + seeds'
     : 'Wikipedia OpenSearch + seeds (optional VITE_TMDB_API_KEY)'
 
+  const openPopular = (movie: Movie) => {
+    setSelectedPopular(movie)
+    setExpandedId(null)
+    setQuery('')
+    setFlushQuery(null)
+  }
+
   return (
-    <div className="home">
+    <div className="home movies-home">
       <section className="hero hero-compact">
         <h1>Movies</h1>
-        <p className="tagline">Legal paths: Free → Borrow → Stream → Buy</p>
+        <p className="tagline">Find where to watch — stream, cinema, free TV, or buy</p>
       </section>
 
       <div className="region-pill" role="status">
@@ -141,9 +163,11 @@ export function Movies() {
         onChange={(v) => {
           setQuery(v)
           setFlushQuery(null)
+          setSelectedPopular(null)
         }}
         onSubmit={() => {
           setFlushQuery(query.trim())
+          setSelectedPopular(null)
         }}
         suggestions={SUGGESTIONS}
         loading={loading}
@@ -152,7 +176,46 @@ export function Movies() {
         inputId="movie-search"
       />
 
-      {browsingEmpty ? <p className="popular-label">Popular to try</p> : null}
+      <p className="movies-search-hint">Tap a title to see where to watch.</p>
+
+      {browsingEmpty && !selectedPopular ? (
+        <>
+          <p className="popular-label">Popular to try</p>
+          <div className="popular-poster-grid" role="list">
+            {popular.map((movie) => (
+              <button
+                key={movie.id}
+                type="button"
+                className="popular-poster-tile"
+                role="listitem"
+                onClick={() => openPopular(movie)}
+              >
+                {movie.coverUrl ? (
+                  <img src={movie.coverUrl} alt="" loading="lazy" width={120} height={180} />
+                ) : (
+                  <span className="popular-poster-fallback" aria-hidden="true">
+                    🎬
+                  </span>
+                )}
+                <span className="popular-poster-caption">
+                  <span className="popular-poster-title">{movie.title}</span>
+                  {movie.year ? <span className="popular-poster-year">{movie.year}</span> : null}
+                </span>
+              </button>
+            ))}
+          </div>
+        </>
+      ) : null}
+
+      {selectedPopular && browsingEmpty ? (
+        <div className="results" ref={decisionRef}>
+          <MovieResult
+            movie={selectedPopular}
+            expanded
+            onToggle={() => setSelectedPopular(null)}
+          />
+        </div>
+      ) : null}
 
       {loading && (
         <div className="loading-block" role="status" aria-live="polite">
@@ -180,16 +243,18 @@ export function Movies() {
         </div>
       )}
 
-      <div className="results">
-        {results.map((movie) => (
-          <MovieResult
-            key={movie.id}
-            movie={movie}
-            expanded={expandedId === movie.id}
-            onToggle={() => setExpandedId((id) => (id === movie.id ? null : movie.id))}
-          />
-        ))}
-      </div>
+      {!browsingEmpty ? (
+        <div className="results" ref={decisionRef}>
+          {results.map((movie) => (
+            <MovieResult
+              key={movie.id}
+              movie={movie}
+              expanded={expandedId === movie.id}
+              onToggle={() => setExpandedId((id) => (id === movie.id ? null : movie.id))}
+            />
+          ))}
+        </div>
+      ) : null}
 
       {results.length > 0 && !browsingEmpty ? (
         <p className="result-count">

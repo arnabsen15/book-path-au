@@ -5,14 +5,19 @@ interface MovieResultProps {
   movie: Movie
   expanded: boolean
   onToggle: () => void
+  /** Compact list row without path badges — decision screen on expand */
+  mode?: 'list' | 'decision'
 }
 
 export function MovieResult({ movie, expanded, onToggle }: MovieResultProps) {
-  const metaParts = [movie.year ? String(movie.year) : null, movie.director || null].filter(Boolean)
+  const yearLabel = movie.year ? String(movie.year) : null
 
   return (
-    <section className={`result-card ${expanded ? 'expanded' : 'collapsed'}`} id={movie.id}>
-      <button type="button" className="result-summary" onClick={onToggle} aria-expanded={expanded}>
+    <section
+      className={`result-card movie-result-card ${expanded ? 'expanded' : 'collapsed'}`}
+      id={movie.id}
+    >
+      <button type="button" className="result-summary movie-result-summary" onClick={onToggle} aria-expanded={expanded}>
         <div className="cover-wrap" aria-hidden={!movie.coverUrl}>
           {movie.coverUrl ? (
             <img
@@ -33,14 +38,11 @@ export function MovieResult({ movie, expanded, onToggle }: MovieResultProps) {
         <div className="result-summary-text">
           <header className="result-header">
             <h2>{movie.title}</h2>
-            <p className="result-meta">{metaParts.join(' · ') || 'Film'}</p>
-            <div className="path-chip-row" aria-label="Paths">
-              <span className="path-badge path-free">Free</span>
-              <span className="path-badge path-borrow">Borrow</span>
-              <span className="path-badge path-stream">Stream</span>
-              <span className="path-badge path-buy">Buy</span>
-            </div>
+            {yearLabel ? <p className="result-meta">{yearLabel}</p> : <p className="result-meta">Film</p>}
           </header>
+          <span className="where-watch-cta" aria-hidden="true">
+            Where to watch →
+          </span>
         </div>
         <span className={`expand-chevron${expanded ? ' open' : ''}`} aria-hidden="true">
           <svg width="20" height="20" viewBox="0 0 20 20" fill="none">
@@ -56,7 +58,7 @@ export function MovieResult({ movie, expanded, onToggle }: MovieResultProps) {
       </button>
 
       {expanded && (
-        <div className="result-details">
+        <div className="result-details movie-decision-panel">
           <MoviePathCards movie={movie} />
         </div>
       )}

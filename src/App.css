@@ -1340,3 +1340,320 @@ main {
 .movie-paths .store-btn {
   margin-top: 0.35rem;
 }
+
+/* ——— Movie decision screen (radical simplicity) ——— */
+.movies-search-hint {
+  margin: -0.55rem 0 1rem;
+  font-size: 0.92rem;
+  color: var(--text-secondary);
+  font-weight: 500;
+}
+
+.where-watch-cta {
+  display: inline-flex;
+  align-items: center;
+  margin-top: 0.45rem;
+  padding: 0.45rem 0.85rem;
+  min-height: 40px;
+  border-radius: var(--radius-pill);
+  background: linear-gradient(135deg, #1d4ed8 0%, #2563eb 100%);
+  color: #fff;
+  font-size: 0.88rem;
+  font-weight: 700;
+  letter-spacing: -0.01em;
+  box-shadow: 0 4px 12px rgb(37 99 235 / 28%);
+}
+
+.movie-result-summary:hover .where-watch-cta {
+  background: linear-gradient(135deg, #1e40af 0%, #1d4ed8 100%);
+}
+
+.movie-result-card.expanded .where-watch-cta {
+  background: var(--bg-muted);
+  color: var(--accent-hover);
+  box-shadow: none;
+}
+
+.movie-result-card .path-chip-row {
+  display: none;
+}
+
+.popular-poster-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 0.75rem;
+  margin-bottom: 1.25rem;
+}
+
+@media (min-width: 560px) {
+  .popular-poster-grid {
+    grid-template-columns: repeat(6, 1fr);
+  }
+}
+
+.popular-poster-tile {
+  appearance: none;
+  border: 1px solid var(--border);
+  background: var(--bg-elevated);
+  border-radius: var(--radius);
+  padding: 0;
+  overflow: hidden;
+  cursor: pointer;
+  text-align: left;
+  color: inherit;
+  display: flex;
+  flex-direction: column;
+  min-height: 44px;
+  box-shadow: var(--shadow-sm);
+  transition: transform 0.15s ease, box-shadow 0.15s ease, border-color 0.15s ease;
+}
+
+.popular-poster-tile:hover,
+.popular-poster-tile:focus-visible {
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-md);
+  border-color: color-mix(in srgb, var(--accent) 35%, var(--border));
+  outline: none;
+}
+
+.popular-poster-tile img {
+  width: 100%;
+  aspect-ratio: 2 / 3;
+  object-fit: cover;
+  display: block;
+  background: var(--bg-muted);
+}
+
+.popular-poster-fallback {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  aspect-ratio: 2 / 3;
+  font-size: 1.75rem;
+  background: var(--bg-muted);
+}
+
+.popular-poster-caption {
+  display: flex;
+  flex-direction: column;
+  gap: 0.1rem;
+  padding: 0.45rem 0.5rem 0.55rem;
+  min-height: 3.1rem;
+}
+
+.popular-poster-title {
+  font-size: 0.75rem;
+  font-weight: 600;
+  line-height: 1.25;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+.popular-poster-year {
+  font-size: 0.7rem;
+  color: var(--text-muted);
+}
+
+.movie-decision {
+  display: flex;
+  flex-direction: column;
+  gap: 1.15rem;
+}
+
+.decision-header {
+  display: flex;
+  gap: 0.9rem;
+  align-items: center;
+}
+
+.decision-poster-img {
+  width: 72px;
+  height: 108px;
+  object-fit: cover;
+  border-radius: 0.65rem;
+  border: 1px solid var(--border);
+  background: var(--bg-muted);
+  display: block;
+}
+
+.decision-poster-img.placeholder {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.5rem;
+}
+
+.decision-title {
+  margin: 0 0 0.2rem;
+  font-size: 1.25rem;
+  font-family: var(--font-serif);
+  font-weight: 600;
+}
+
+.decision-year {
+  margin: 0;
+  color: var(--text-muted);
+  font-size: 0.95rem;
+}
+
+.decision-step-label {
+  margin: 0 0 0.55rem;
+  font-size: 0.78rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  color: var(--text-muted);
+}
+
+.decision-jw-hero {
+  min-height: 88px;
+  padding: 1.25rem 1.3rem;
+}
+
+.decision-jw-hero .hero-cta-title {
+  font-size: 1.35rem;
+}
+
+.decision-jw-helper {
+  margin: 0.55rem 0 0;
+  font-size: 0.85rem;
+  color: var(--text-muted);
+}
+
+.decision-card-row {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 0.75rem;
+}
+
+@media (min-width: 640px) {
+  .decision-card-row {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+.decision-card {
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 0.95rem;
+  background: var(--bg-soft);
+  display: flex;
+  flex-direction: column;
+  gap: 0.45rem;
+  min-height: 140px;
+}
+
+.decision-card-cinema {
+  background: linear-gradient(180deg, #fdf4ff 0%, var(--bg-soft) 55%);
+  border-color: color-mix(in srgb, #c026d3 22%, var(--border));
+}
+
+.decision-card-fta {
+  border-top: 3px solid #10b981;
+}
+
+.decision-card-buy {
+  border-top: 3px solid #f59e0b;
+}
+
+.decision-card-icon {
+  font-size: 1.35rem;
+  line-height: 1;
+}
+
+.decision-card-title {
+  margin: 0;
+  font-size: 1rem;
+  font-weight: 700;
+}
+
+.decision-card-note {
+  margin: 0;
+  font-size: 0.82rem;
+  color: var(--text-muted);
+}
+
+.decision-card-cta {
+  margin-top: auto;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0.65rem 0.85rem;
+  min-height: 44px;
+  border-radius: 0.75rem;
+  background: #a21caf;
+  color: #fff !important;
+  text-decoration: none !important;
+  font-weight: 700;
+  font-size: 0.9rem;
+  text-align: center;
+}
+
+.decision-card-cta:hover {
+  background: #86198f;
+  color: #fff !important;
+}
+
+.suburb-field-compact {
+  margin-bottom: 0.25rem;
+}
+
+.suburb-field-compact input {
+  width: 100%;
+  box-sizing: border-box;
+  padding: 0.5rem 0.65rem;
+  min-height: 40px;
+  font-size: 0.9rem;
+}
+
+.store-btn-grid-stack {
+  grid-template-columns: 1fr !important;
+}
+
+.decision-card .more-stores {
+  margin-top: 0.15rem;
+}
+
+.decision-card .fta-panel > summary {
+  display: inline-flex;
+  align-items: center;
+  padding: 0.55rem 0.75rem;
+  min-height: 44px;
+  border-radius: 0.75rem;
+  background: var(--bg-elevated);
+  border: 1px solid var(--border);
+  color: var(--text);
+  font-weight: 600;
+}
+
+.decision-more {
+  margin-top: 0.25rem;
+  border-top: 1px solid var(--border);
+  padding-top: 0.35rem;
+}
+
+.decision-more > summary {
+  color: var(--accent-hover);
+  font-size: 0.95rem;
+}
+
+.decision-more-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 0.5rem;
+}
+
+@media (min-width: 480px) {
+  .decision-more-grid {
+    grid-template-columns: 1fr 1fr;
+  }
+}
+
+.decision-trust {
+  margin: 0.75rem 0 0;
+  font-size: 0.8rem;
+  color: var(--text-muted);
+}
+
